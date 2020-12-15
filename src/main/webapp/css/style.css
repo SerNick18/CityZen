@@ -5,6 +5,10 @@
     opacity: 1;
 }
 
+#loginRow{
+    display: flex;
+}
+
 #logoContainer{
     margin: 50px;
     border-right: solid 1px;

@@ -14,7 +14,7 @@
 <body bgcolor="#008b8b">
 
 <div id="loginContainer" class="container">
-    <div class="row">
+    <div id="loginRow" class="row">
         <div id="logoContainer" class="col">
             <img src="res/images/logo_md.png">
         </div>
