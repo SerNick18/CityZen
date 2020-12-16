@@ -18,13 +18,15 @@
         <div id="logoContainer" class="col">
             <img src="res/images/logo_md.png">
         </div>
-        <div class="col">
+        <div class="col align-items-center">
             <h1 class="appTitle">Accedi</h1>
-            <input class="appInput" id="email" name="email" type="text" placeholder="E-mail">
-            <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password">
-            <p class="appParagraph">Password dimenticata?</p>
-            <button class="appButtonBlack">Login</button>
-            <p class="appParagraph">Non hai un account? Registrati</p>
+            <form action="" method="post">
+                <input class="appInput" id="email" name="email" type="text" placeholder="E-mail">
+                <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password">
+                <p class="appParagraph">Password dimenticata?</p>
+                <button type="submit" class="appButtonBlack">Login</button>
+                <p class="appParagraph">Non hai un account? Registrati</p>
+            </form>
         </div>
     </div>
 </div>
