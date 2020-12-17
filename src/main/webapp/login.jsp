@@ -10,26 +10,43 @@
 <head>
     <title>CityZen - Accedi</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </head>
 <body bgcolor="#008b8b">
 
+
 <div id="loginContainer" class="container">
-    <div id="loginRow" class="row">
-        <div id="logoContainer" class="col">
-            <img src="res/images/logo_md.png">
+    <div id="loginRow" class="row justify-content-center">
+        <div id="logoContainer" class="col-md-3 col-lg-4">
+            <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
         </div>
-        <div class="col align-items-center">
-            <h1 class="appTitle">Accedi</h1>
-            <form action="" method="post">
-                <input class="appInput" id="email" name="email" type="text" placeholder="E-mail">
-                <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password">
-                <p class="appParagraph">Password dimenticata?</p>
-                <button type="submit" class="appButtonBlack">Login</button>
-                <p class="appParagraph">Non hai un account? Registrati</p>
+        <div class="col-md-3 col-lg-4">
+            <form id="loginForm" action="login" method="post" class="form">
+                <div class="row mb-3">
+                    <h1 class="appTitle">Accedi</h1>
+                </div>
+                <div class="row mb-3">
+                    <input class="appInput" id="email" name="email" type="text" placeholder="E-mail">
+                </div>
+                <div class="row mb-3">
+                        <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password">
+                </div>
+                <div class="row mb-3">
+                        <a href="" class="appLink">Password dimenticata?</a>
+                </div>
+                <div class="row mb-3">
+                        <button type="submit" class="appButtonBlack">Login</button>
+                </div>
+                <div class="row mb-3">
+                    <a href="register.jsp" class="appLink">Non hai un account? Registrati</a>
+                </div>
             </form>
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>
