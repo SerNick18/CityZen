@@ -1,4 +1,4 @@
-package Model.GestioneDati.ModelObjects;
+package model.gestioneDati.modelObjects;
 
 /**
  *

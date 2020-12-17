@@ -1,6 +1,6 @@
-package Model.GestioneDati.ModelDataAccess;
+package model.gestioneDati.modelDataAccess;
 
-import Model.GestioneDati.ModelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Cittadino;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

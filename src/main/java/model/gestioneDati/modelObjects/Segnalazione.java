@@ -1,4 +1,4 @@
-package Model.GestioneDati.ModelObjects;
+package model.gestioneDati.modelObjects;
 
 import java.util.Date;
 
@@ -15,6 +15,7 @@ public class Segnalazione {
     private String foto;
     private Cittadino cittadino;
     private int riaperta;
+
 
     public Segnalazione(int id, String via, int civico, int priorita, int numSolleciti,
                         String stato, Date dataSegnalazione, String oggetto,
