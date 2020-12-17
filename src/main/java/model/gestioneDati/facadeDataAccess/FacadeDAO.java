@@ -1,7 +1,7 @@
-package Model.GestioneDati.facadeDataAccess;
+package model.gestioneDati.facadeDataAccess;
 
-import Model.GestioneDati.modelDataAccess.CittadinoDAO;
-import Model.GestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelDataAccess.CittadinoDAO;
+import model.gestioneDati.modelObjects.Cittadino;
 
 public class FacadeDAO {
     private CittadinoDAO cittadinoDAO;

@@ -1,4 +1,4 @@
-package Model.GestioneDati.modelObjects;
+package model.gestioneDati.modelObjects;
 
 public class Impiegato {
     private String email;

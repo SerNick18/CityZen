@@ -1,6 +1,6 @@
-package Controller.GestioneUtenza;
+package controller.gestioneUtenza;
 
-import Model.GestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Cittadino;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
