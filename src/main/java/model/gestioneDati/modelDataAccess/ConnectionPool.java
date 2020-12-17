@@ -1,4 +1,4 @@
-package model.gestioneDati.modelDataAccess;
+package Model.GestioneDati.modelDataAccess;
 
 import java.sql.Connection;
 import java.sql.SQLException;
