@@ -2,7 +2,7 @@ package model.gestioneDati.modelObjects;
 
 import java.util.Date;
 
-public class Segnalazione {
+public class Segnalazione implements SegnalazioneInterface{
     private int id;
     private String via;
     private int civico;
@@ -14,6 +14,9 @@ public class Segnalazione {
     private String descrizione;
     private String foto;
     private Cittadino cittadino;
+    /**
+     * ID della segnalazione chiusa
+     */
     private int riaperta;
 
 
@@ -33,6 +36,7 @@ public class Segnalazione {
         this.cittadino = cittadino;
         this.riaperta = riaperta;
     }
+
 
     public int getId() {
         return id;
@@ -60,6 +64,11 @@ public class Segnalazione {
 
     public int getPriorita() {
         return priorita;
+    }
+
+    @Override
+    public String getNomeCittadino() {
+        return cittadino.getNome();
     }
 
     public void setPriorita(int priorita) {
