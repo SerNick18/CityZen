@@ -2,6 +2,7 @@ package controller.gestioneUtenza;
 
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Impiegato;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,22 +24,32 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
-        String pwd = req.getParameter("password");
+        String pwd = req.getParameter("pwd");
+
+        FacadeDAO service=new FacadeDAO();
+        HttpSession sn=req.getSession();
 
         if(email.compareTo("")==0 || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email) || pwd.compareTo("")==0){
-            //errore
-        }else{
-            FacadeDAO service=new FacadeDAO();
-            Cittadino cittadino = service.login(email, pwd);
+            throw new MyServletException("Controlla di aver inserito correttamente i campi");
+        }else if(email.contains("scafati.it")){ //login impiegato
+            Impiegato impiegato = service.loginImpiegato(email, pwd);
 
-            HttpSession sn=req.getSession();
+            if(impiegato!=null){
+                sn.setAttribute("Impiegato", impiegato);
+                RequestDispatcher dispatcher=req.getRequestDispatcher("WEB-INF/view/gui-impiegato.jsp");
+                dispatcher.forward(req, resp);
+            }else{
+                throw new MyServletException("Email o password errati");
+            }
+        }else{ //login cittadino
+            Cittadino cittadino = service.loginCittadino(email, pwd);
 
             if(cittadino!=null){
                 sn.setAttribute("Cittadino", cittadino);
                 RequestDispatcher dispatcher=req.getRequestDispatcher("/index.jsp");
                 dispatcher.forward(req, resp);
             }else{
-                //email o password sbagliate
+                throw new MyServletException("Email o password errati");
             }
         }
 
