@@ -11,7 +11,7 @@ class FacadeDAOTest extends FacadeDAO {
     public void controlLogin()
     {
         FacadeDAO f = new FacadeDAO();
-        Cittadino c = f.login("pippo@alice.it", "1111111");
+        Cittadino c = f.loginCittadino("pippo@alice.it", "1111111");
         assertEquals(new Cittadino(),c);
     }
 

@@ -22,7 +22,7 @@
             <img id="logoImg" class="img-fluid" src="resources/images/logo_sm.png">
         </div>
         <div class="col-lg-8 col-md-5">
-            <form id="loginForm" action="login" method="post" class="form-group">
+            <form id="loginForm" action="register" method="post" class="form-group">
                 <div class="row mb-3">
                     <h1 class="appTitle">Registrati</h1>
                 </div>
@@ -44,13 +44,13 @@
                 </div>
                 <div class="row row-cols-3 mb-3">
                     <div class="col-6">
-                        <input class="appInput form-control" id="indirizzo" name="indirizzo" type="text" placeholder="Indirizzo">
+                        <input class="appInput form-control" id="via" name="via" type="text" placeholder="via">
                     </div>
                     <div class="col-1">
                         <input class="appInput form-control" id="civico" name="civico" type="text" placeholder="N.">
                     </div>
                     <div class="col-5">
-                        <input class="appInput form-control" id="città" name="città" type="text" placeholder="Città">
+                        <input class="appInput form-control" id="citta" name="citta" type="text" placeholder="Città">
                     </div>
                 </div>
                 <div class="row row-cols-2 mb-3">

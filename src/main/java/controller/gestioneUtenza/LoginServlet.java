@@ -19,7 +19,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
-
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
         if(email.compareTo("")==0 || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email) || pwd.compareTo("")==0){
             throw new MyServletException("Controlla di aver inserito correttamente i campi");
-        }else if(email.contains("scafati.it")){ //login impiegato
+        }else if(email.contains("@scafati.it")){ //login impiegato
             Impiegato impiegato = service.loginImpiegato(email, pwd);
 
             if(impiegato!=null){

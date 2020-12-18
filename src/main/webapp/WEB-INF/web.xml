@@ -10,4 +10,8 @@
         <exception-type>controller.gestioneUtenza.MyServletException</exception-type>
         <location>/WEB-INF/view/error/myException.jsp</location>
     </error-page>
+    <error-page>
+        <exception-type>controller.gestioneUtenza.MyRuntimeException</exception-type>
+        <location>/WEB-INF/view/error/myException.jsp</location>
+    </error-page>
 </web-app>

@@ -26,5 +26,8 @@ public class FacadeDAO {
     public Impiegato loginImpiegato(String email, String pwd){
         return impiegatoDAO.doLogin(email, pwd);
     }
+    public void registraCittadino(Cittadino c){
+        cittadinoDAO.doRegister(c);
+    }
 
 }

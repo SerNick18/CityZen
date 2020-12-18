@@ -1,5 +1,7 @@
 package model.gestioneDati.modelObjects;
 
+import java.util.Objects;
+
 /**
  *
  */
@@ -145,5 +147,16 @@ public class Cittadino {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cittadino cittadino = (Cittadino) o;
+        return civico == cittadino.civico && numSegnalazioni == cittadino.numSegnalazioni && numSegnApp == cittadino.numSegnApp && Objects.equals(CF, cittadino.CF) && Objects.equals(nome, cittadino.nome) && Objects.equals(cognome, cittadino.cognome) && Objects.equals(pwd, cittadino.pwd) && Objects.equals(via, cittadino.via) && Objects.equals(citta, cittadino.citta) && Objects.equals(email, cittadino.email);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(CF, nome, cognome, pwd, via, civico, citta, email, numSegnalazioni, numSegnApp);
+    }
 }
