@@ -29,12 +29,12 @@ public class LoginServlet extends HttpServlet {
             //errore
         }else{
             FacadeDAO service=new FacadeDAO();
-            Cittadino c = service.login(email, pwd);
+            Cittadino cittadino = service.login(email, pwd);
 
             HttpSession sn=req.getSession();
 
-            if(c!=null){
-                sn.setAttribute("Utente", c);
+            if(cittadino!=null){
+                sn.setAttribute("Cittadino", cittadino);
                 RequestDispatcher dispatcher=req.getRequestDispatcher("/index.jsp");
                 dispatcher.forward(req, resp);
             }else{
