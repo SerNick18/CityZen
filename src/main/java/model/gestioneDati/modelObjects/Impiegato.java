@@ -13,6 +13,9 @@ public class Impiegato implements Observer {
     private int numSegnalazioniApp;
     private int numSegnalazioniChiuse;
 
+    public Impiegato() {
+    }
+
     public Impiegato(String email, String matricola, String pwd, String CF,
                      String nome, String cognome, String via,
                      int civico, String citta, int numSegnalazioniApp, int numSegnalazioniChiuse) {

@@ -2,6 +2,7 @@ package model.gestioneDati.facadeDataAccess;
 
 import model.gestioneDati.modelDataAccess.*;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Impiegato;
 
 public class FacadeDAO {
     private CittadinoDAO cittadinoDAO;
@@ -19,8 +20,11 @@ public class FacadeDAO {
         impiegatoDAO = new ImpiegatoDAO();
     }
 
-    public Cittadino login(String email, String pwd){
+    public Cittadino loginCittadino(String email, String pwd){
         return cittadinoDAO.doLogin(email, pwd);
+    }
+    public Impiegato loginImpiegato(String email, String pwd){
+        return impiegatoDAO.doLogin(email, pwd);
     }
 
 }
