@@ -1,6 +1,6 @@
 package model.gestioneDati.modelObjects;
 
-public class Impiegato {
+public class Impiegato implements Observer {
     private String email;
     private String matricola;
     private String pwd;
@@ -132,5 +132,13 @@ public class Impiegato {
                 ", numSegnalazioniApp=" + numSegnalazioniApp +
                 ", numSegnalazioniChiuse=" + numSegnalazioniChiuse +
                 '}';
+    }
+
+    @Override
+    public void update(AbstractSegnalazione s) {
+        //mail
+        Segnalazione segnalazione = (Segnalazione) s;
+        System.out.println("è stata modificata la segnalazione "+segnalazione.getOggetto()
+                +" con lo stato "+segnalazione.getStato());
     }
 }

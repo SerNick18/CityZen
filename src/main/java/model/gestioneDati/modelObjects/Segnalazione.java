@@ -2,7 +2,7 @@ package model.gestioneDati.modelObjects;
 
 import java.util.Date;
 
-public class Segnalazione implements SegnalazioneInterface{
+public class Segnalazione extends AbstractSegnalazione implements SegnalazioneInterface{
     private int id;
     private String via;
     private int civico;
