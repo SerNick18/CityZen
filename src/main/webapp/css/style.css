@@ -20,6 +20,16 @@
     border-right: solid 1px;
 }
 
+body{
+    background-image: url('../resources/images/background.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+}
 
 .appButtonBlack{
     background: #23233C 0% 0% no-repeat padding-box;
@@ -59,3 +69,4 @@
     opacity: 1;
     margin: 0px;
 }
+
