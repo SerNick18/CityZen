@@ -22,21 +22,22 @@
             <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
         </div>
         <div class="col-md-3 col-lg-4">
-            <form id="loginForm" action="login" method="post" class="form">
+            <form id="loginFor" action="login" method="post" class="form">
                 <div class="row mb-3">
                     <h1 class="appTitle">Accedi</h1>
                 </div>
                 <div class="row mb-3">
-                    <input class="appInput" id="email" name="email" type="text" placeholder="E-mail">
+                    <input class="appInput" id="email" name="email" type="text" placeholder="E-mail" oninput="validaEmail()">
                 </div>
                 <div class="row mb-3">
-                        <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password">
+                        <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password" oninput="validaPassword()">
                 </div>
                 <div class="row mb-3">
                         <a href="" class="appLink">Password dimenticata?</a>
                 </div>
                 <div class="row mb-3">
-                        <button type="submit" class="appButtonBlack">Login</button>
+                    <button type="submit" class="appButtonBlack" id="loginId" disabled>Login</button>
+                    <span id="loginmessaggio">${notifica}</span><br>
                 </div>
                 <div class="row mb-3">
                     <a href="register.jsp" class="appLink">Non hai un account? Registrati</a>
@@ -46,7 +47,7 @@
     </div>
 </div>
 
-
+<script src="./javascript/validazione_login.js"></script>
 
 </body>
 </html>

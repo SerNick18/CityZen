@@ -28,29 +28,35 @@ public class LoginServlet extends HttpServlet {
         FacadeDAO service=new FacadeDAO();
         HttpSession sn=req.getSession();
 
-        if(email.compareTo("")==0 || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email) || pwd.compareTo("")==0){
-            throw new MyServletException("Controlla di aver inserito correttamente i campi");
-        }else if(email.contains("@scafati.it")){ //login impiegato
-            Impiegato impiegato = service.loginImpiegato(email, pwd);
+        if (req.getSession().getAttribute("Cittadino") == null) {
 
-            if(impiegato!=null){
-                sn.setAttribute("Impiegato", impiegato);
-                RequestDispatcher dispatcher=req.getRequestDispatcher("WEB-INF/view/gui-impiegato.jsp");
-                dispatcher.forward(req, resp);
-            }else{
-                throw new MyServletException("Email o password errati");
-            }
-        }else{ //login cittadino
-            Cittadino cittadino = service.loginCittadino(email, pwd);
 
-            if(cittadino!=null){
-                sn.setAttribute("Cittadino", cittadino);
-                RequestDispatcher dispatcher=req.getRequestDispatcher("/index.jsp");
-                dispatcher.forward(req, resp);
-            }else{
-                throw new MyServletException("Email o password errati");
+            if (email.compareTo("") == 0 || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email) || pwd.compareTo("") == 0 || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
+                throw new MyServletException("Controlla di aver inserito correttamente i campi");
+            } else if (email.contains("@scafati.it")) { //login impiegato
+                Impiegato impiegato = service.loginImpiegato(email, pwd);
+
+                if (impiegato != null) {
+                    sn.setAttribute("Impiegato", impiegato);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/gui-impiegato.jsp");
+                    dispatcher.forward(req, resp);
+                } else {
+                    throw new MyServletException("Email o password errati");
+                }
+            } else { //login cittadino
+                Cittadino cittadino = service.loginCittadino(email, pwd);
+
+                if (cittadino != null) {
+                    sn.setAttribute("Cittadino", cittadino);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
+                    dispatcher.forward(req, resp);
+                } else {
+                    throw new MyServletException("Email o password errati");
+                }
             }
         }
-
+        else{
+            throw new MyServletException(("Utente già loggato"));
+        }
     }
 }
