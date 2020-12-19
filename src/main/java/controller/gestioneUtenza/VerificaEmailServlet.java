@@ -18,6 +18,12 @@ public class VerificaEmailServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /**
+         *
+         * controllo se nel database esiste un utente
+         * che ha la stessa email.
+         *
+         * */
         FacadeDAO service = new FacadeDAO();
         String email = request.getParameter("email");
         response.setContentType("text/xml");

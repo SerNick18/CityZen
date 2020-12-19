@@ -18,6 +18,12 @@ public class VerificaCodiceFiscaleServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /**
+         *
+         * controllo se il codice fiscale
+         * è già presente nel database.
+         *
+         * */
         FacadeDAO service = new FacadeDAO();
         String cf = request.getParameter("cf");
         response.setContentType("text/xml");
