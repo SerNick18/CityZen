@@ -29,6 +29,7 @@ function validaPassword() {
     if (password.length >= 8 && password.toUpperCase() != password
         && password.toLowerCase() != password && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)){
         inputpw.style.border = borderOk;
+        passwordOk = true;
     } else {
         inputpw.style.border = borderNo;
         passwordOk = false;
