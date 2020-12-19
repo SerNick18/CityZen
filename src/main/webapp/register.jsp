@@ -61,7 +61,8 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <button type="submit" class="appButtonBlack">Registrati</button>
+                   <!-- <button type="submit" class="appButtonBlack">Registrati</button> -->
+                    <input id="registrami" type="submit" value="Registrami" disabled><span id="registramimessaggio"></span><br>
                 </div>
                 <div class="row mb-3">
                     <a href="login.jsp" class="appLink">Hai già un account? Accedi</a>
@@ -70,7 +71,87 @@
         </div>
     </div>
 </div>
+<script>
+    var borderOk = '2px solid #080';
+    var borderNo = '2px solid #f00';
+    var passwordOk = false;
+    var nomeOk = false;
+    var emailOk = false;
 
+
+    function cambiaStatoRegistrami() {
+        if (usernameOk && passwordOk && nomeOk && emailOk){
+            document.getElementById('registrami').disabled = false;
+            document.getElementById('registramimessaggio').innerHTML = '';
+        } else {
+            document.getElementById('registrami').disabled = true;
+            document.getElementById('registramimessaggio').innerHTML = 'Verifica che tutti i campi siano in verde.';
+        }
+    }
+
+    function validaPassword() {
+        var inputpw = document.forms['register']['pwd1']
+        var inputpwconf = document.forms['register']['pwd2'];
+        var password = inputpw.value;
+        if (password.length >= 8 && password.toUpperCase() != password
+            && password.toLowerCase() != password && /[0-9]/.test(password)){
+            inputpw.style.border = borderOk;
+
+            if (password == inputpwconf.value){
+                inputpwconf.style.border = borderOk;
+                passwordOk = true;
+            } else {
+                inputpwconf.style.border = borderNo;
+                passwordOk = false;
+            }
+        } else {
+            inputpw.style.border = borderNo;
+            inputpwconf.style.border = borderNo;
+            passwordOk = false;
+        }
+        cambiaStatoRegistrami();
+    }
+
+    function validaNome() {
+        var input = document.forms['register']['nome'];
+        if (input.value.trim().length > 0
+            && input.value.match(/^[ a-zA-Z\u00C0-\u00ff]+$/)){
+            input.style.border = borderOk;
+            nomeOk = true;
+        }else {
+            input.style.border = borderNo;
+            nomeOk = false;
+        }
+        cambiaStatoRegistrami();
+    }
+
+    function validaEmail() {
+        var input = document.forms['register']['email'];
+        if (input.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)+$/)){
+            //verifica se esiste un utente con la stessa email
+            var xmlHttpReq = new XMLHttpRequest();   //permette a javascript di interagire direttamente con il  server
+            xmlHttpReq.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200
+                    && this.responseText == '<ok/>'){
+                    emailOk = true;
+                    input.style.border = borderOk;
+                } else {
+                    input.style.border = borderNo;
+                    emailOk = false;
+                }
+                cambiaStatoRegistrami();
+            }
+            xmlHttpReq.open("GET", "VerificaEmail?email="
+                + encodeURIComponent(input.value), true);
+            xmlHttpReq.send(); //invia la richiesta al server
+        } else {
+            input.style.border = borderNo;
+            emailOk = false;
+        }
+        cambiaStatoRegistrami();
+    }
+
+</script>
 
 
 </body>
