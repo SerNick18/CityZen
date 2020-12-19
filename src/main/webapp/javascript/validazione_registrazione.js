@@ -27,6 +27,7 @@ function validaNome() {
         && input.value.match(/^[A-Za-z]+$/)){
         input.style.border = borderOk;
         nomeOk = true;
+        document.getElementById('registramimessaggio').innerHTML = '';
     }else {
         input.style.border = borderNo;
         nomeOk = false;
@@ -42,6 +43,7 @@ function validaCognome() {
         && input.value.match(/^[A-Za-z]+$/)){
         input.style.border = borderOk;
         cognomeOk = true;
+        document.getElementById('registramimessaggio').innerHTML = '';
     }else {
         input.style.border = borderNo;
         cognomeOk = false;
@@ -61,6 +63,7 @@ function validaEmail() {
                 && this.responseText == '<ok/>'){
                 emailOk = true;
                 input.style.border = borderOk;
+                document.getElementById('registramimessaggio').innerHTML = '';
             } else {
                 input.style.border = borderNo;
                 emailOk = false;
@@ -91,6 +94,7 @@ function validaCodiceFiscale() {
                 && this.responseText == '<ok/>') {
                 cfOk = true;
                 input.style.border = borderOk;
+                document.getElementById('registramimessaggio').innerHTML = '';
             } else {
                 input.style.border = borderNo;
                 cfOk = false;
@@ -116,6 +120,7 @@ function validaCivico() {
         && input.value.match(/^[0-9]{1,3}$/)){
         input.style.border = borderOk;
         civicoOk = true;
+        document.getElementById('registramimessaggio').innerHTML = '';
     }else {
         input.style.border = borderNo;
         civicoOk = false;
@@ -131,6 +136,7 @@ function validaVia() {
         && input.value.match(/^([A-Za-z]\s?)*$/)){
         input.style.border = borderOk;
         viaOk = true;
+        document.getElementById('registramimessaggio').innerHTML = '';
     }else {
         input.style.border = borderNo;
         viaOk = false;
@@ -147,6 +153,7 @@ function validaCitta() {
         && input.value.match(/^[A-Za-z]+$/)){
         input.style.border = borderOk;
         cittaOk = true;
+        document.getElementById('registramimessaggio').innerHTML = '';
     }else {
         input.style.border = borderNo;
         cittaOk = false;
@@ -167,6 +174,7 @@ function validaPassword() {
         if (password == inputpwconf.value){
             inputpwconf.style.border = borderOk;
             passwordOk = true;
+            document.getElementById('registramimessaggio').innerHTML = '';
         } else {
             inputpwconf.style.border = borderNo;
             passwordOk = false;

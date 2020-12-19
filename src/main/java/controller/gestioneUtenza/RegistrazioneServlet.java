@@ -75,7 +75,7 @@ public class RegistrazioneServlet extends HttpServlet {
                     Integer.parseInt(civico), citta, email, 0, 0);
             service.registraCittadino(cittadino);
             req.getSession().setAttribute("Cittadino", cittadino);
-            resp.sendRedirect(req.getContextPath()+"/login.jsp");
+            resp.sendRedirect(req.getContextPath()+"/index.jsp");
         }else{
             /**
              * redirigere il cittadino al profilo ed indicargli che deve fare logout per potersi

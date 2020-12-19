@@ -18,10 +18,8 @@ public class VerificaEmailServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         FacadeDAO service = new FacadeDAO();
         String email = request.getParameter("email");
-
         response.setContentType("text/xml");
         if (email != null && email.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+")
                 && service.verificaEmail(email) == null) {

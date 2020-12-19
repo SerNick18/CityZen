@@ -15,4 +15,5 @@ class FacadeDAOTest extends FacadeDAO {
         assertEquals(new Cittadino(),c);
     }
 
+
 }
