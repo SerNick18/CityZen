@@ -29,5 +29,7 @@ public class FacadeDAO {
     public void registraCittadino(Cittadino c){
         cittadinoDAO.doRegister(c);
     }
+    public Cittadino verificaEmail(String email) { return cittadinoDAO.doRetrieveByEmail(email); }
+    public Cittadino verificaCodiceFiscale(String cf) { return cittadinoDAO.doRetrieveByCF(cf); }
 
 }

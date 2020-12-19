@@ -50,4 +50,41 @@ public class CittadinoDAO {
     }
 
 
+    public Cittadino doRetrieveByEmail(String email) {
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM cittadino WHERE email=?");
+            statement.setString(1, email);
+            ResultSet r = statement.executeQuery();
+            if (r.next()) {
+                Cittadino c = new Cittadino(r.getString(1),r.getString(2),r.getString(3),
+                        r.getString(4), r.getString(5),r.getInt(6), r.getString(7),
+                        r.getString(8), r.getInt(9), r.getInt(10));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Cittadino doRetrieveByCF(String cf) {
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM cittadino WHERE cf=?");
+            statement.setString(1, cf);
+            ResultSet r = statement.executeQuery();
+            if (r.next()) {
+                Cittadino c = new Cittadino(r.getString(1),r.getString(2),r.getString(3),
+                        r.getString(4), r.getString(5),r.getInt(6), r.getString(7),
+                        r.getString(8), r.getInt(9), r.getInt(10));
+                return c;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

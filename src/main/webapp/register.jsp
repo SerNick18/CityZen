@@ -61,8 +61,8 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                   <!-- <button type="submit" class="appButtonBlack">Registrati</button> -->
-                    <input id="registrami"  class="appButtonBlack" type="submit" value="Registrami" disabled>
+                    <button type="submit" class="appButtonBlack" id="registrami" disabled>Registrati</button>
+                   <!-- <input id="registrami"  class="appButtonBlack" type="submit" value="Registrami" disabled> -->
                     <span id="registramimessaggio">${notifica}</span><br>
                 </div>
                 <div class="row mb-3">
