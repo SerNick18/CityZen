@@ -11,26 +11,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 
+/**
+ * Servlet per la visualizzazione del profilo utente.
+ * Controlla se nella sessione è presente un cittadino oppure un impiegato.
+ * A seconda dei casi richiama la jsp giusta.
+ */
 @WebServlet("/profilo")
 public class VisualizzaProfilo extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+    /**
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doPost(req, resp);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String address ="";
-        HttpSession session = request.getSession();
-        Impiegato impiegato =(Impiegato)session.getAttribute("Impiegato");
-        Cittadino cittadino = (Cittadino)session.getAttribute("Cittadino");
-        if(cittadino!= null) {
+    /**
+     *
+     * @param req request
+     * @param resp response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String address = "";
+        HttpSession session = req.getSession();
+        Impiegato impiegato = (Impiegato) session.getAttribute("Impiegato");
+        Cittadino cittadino = (Cittadino) session.getAttribute("Cittadino");
+        if (cittadino != null) {
             address = "WEB-INF/view/GuiCittadino/profilo.jsp";
         } else
-            if(impiegato!=null) {
+            if (impiegato != null) {
                 address = "WEB-INF/view/GuiImpiegato/profilo.jsp";
             }
-        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(address);
+        dispatcher.forward(req, resp);
     }
 }
