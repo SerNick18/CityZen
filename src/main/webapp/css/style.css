@@ -17,7 +17,7 @@
 
 #logoContainer{
     margin: 50px;
-    border-right: solid 1px;
+    /* border-right: solid 1px; */
 }
 
 body{
@@ -48,6 +48,7 @@ body{
     color: #23233C;
     opacity: 1;
     text-align: center;
+    margin-top: 0.5em !important;
 }
 
 .appInput{
