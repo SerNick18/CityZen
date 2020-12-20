@@ -1,26 +1,20 @@
 package controller.gestioneProfilo;
 
 import controller.gestioneUtenza.MyServletException;
+import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
-import model.gestioneDati.modelObjects.Impiegato;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Servlet per la visualizzazione del profilo utente.
- */
-@WebServlet("/profilo")
-public class VisualizzaProfilo extends HttpServlet {
+@WebServlet("/elimina-profilo-servlet")
+public class EliminaProfilo extends HttpServlet {
     /**
-     * Si forza il flusso di esecuzione sul metodo doPost:
-     * anche se si riceve una richiesta di tipo GET, si richiama il
+     * Si forza il flusso di esecuzione sul metodo doPost.
+     * Anche se si riceve una richiesta di tipo GET, si richiama il
      * metodo che gestisce le richieste di tipo POST
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
@@ -29,36 +23,37 @@ public class VisualizzaProfilo extends HttpServlet {
      * @throws IOException se viene rilevato un errore di input o output
      * quando la servlet gestisce la richiesta
      */
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         doPost(req, resp);
     }
-
     /**
-     * Controlla se nella sessione è presente un cittadino oppure un impiegato.
-     * A seconda dei casi richiama la jsp giusta.
-     * @param req oggetto che contiene la
-     * richiesta da parte di un client
+     * Il metodo richiama la funzione di eliminazione
+     * del cittadino attualmente loggato(in sessione). Se non
+     * è presente alcun cittadino nella sessione allora
+     * l'utente che ha richiesto la funzione non è autorizzato ad
+     * usufruire di questo servizio.
+     * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
      * deve ritornare al cliente
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      * quando la servlet gestisce la richiesta
      */
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String address = "";
-        HttpSession session = req.getSession();
-        Impiegato impiegato = (Impiegato) session.getAttribute("Impiegato");
-        Cittadino cittadino = (Cittadino) session.getAttribute("Cittadino");
+        Cittadino cittadino =
+                (Cittadino) req.getSession().getAttribute("Cittadino");
         if (cittadino != null) {
-            address = "WEB-INF/view/GuiCittadino/profilo.jsp";
-        } else if (impiegato != null) {
-            address = "WEB-INF/view/GuiImpiegato/profilo.jsp";
-        }else if(cittadino==null && impiegato==null){
-             throw new MyServletException("Effettua il Login per visualizzare questa pagina!");
+            FacadeDAO facadeDAO = new FacadeDAO();
+            facadeDAO.eliminaCittadino(cittadino.getCF());
+            req.getSession().invalidate();
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+        } else {
+            throw new MyServletException("Effettua il Login per "
+                    + "visualizzare questa pagina!");
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(address);
-        dispatcher.forward(req, resp);
     }
 }

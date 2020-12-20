@@ -2,7 +2,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.gestioneDati.modelObjects.Segnalazione" %>
 <%@ page import="model.gestioneDati.facadeDataAccess.FacadeDAO" %>
-<%@ page import="model.gestioneDati.modelObjects.SegnalazioneInterface" %><%--
+<%@ page import="model.gestioneDati.modelObjects.SegnalazioneInterface" %>
+<%@ page import="controller.gestioneUtenza.MyServletException" %><%--
   Created by IntelliJ IDEA.
   User: leoca
   Date: 19/12/2020
@@ -22,8 +23,10 @@
 </head>
 <body>
 <%
+    Cittadino cittadino = (Cittadino) session.getAttribute("Cittadino");
+    if (cittadino==null)
+        throw new MyServletException("Non sei autorizzato a visualizzare questa pagina");
     FacadeDAO facadeDAO = new FacadeDAO();
-    Cittadino cittadino = (Cittadino) request.getSession().getAttribute("Cittadino");
     ArrayList<SegnalazioneInterface> segnalazioni = (ArrayList<SegnalazioneInterface>) facadeDAO.getSegnalazioniInoltrate(0);
 %>
 <h1>Benvenuto <%=cittadino.getEmail()%></h1>
@@ -37,10 +40,10 @@
                 <h1>SEGNALAZIONI</h1>
             </div>
             <div class="row align-items-start">
-                <div class="col"><a href="/profilo">Popolari</a></div>
-                <div class="col"><a href="/profilo">Chiuse</a></div>
-                <div class="col"><a href="/profilo">Recenti</a></div>
-                <div class="col"><a href="/profilo">Approvate</a></div>
+                <div class="col"><a href="#">Popolari</a></div>
+                <div class="col"><a href="#">Chiuse</a></div>
+                <div class="col"><a href="#">Recenti</a></div>
+                <div class="col"><a href="#">Approvate</a></div>
             </div>
             <div class="row align-items-center mt-3">
                 <c:forEach items="<%=segnalazioni%>" var="s">
