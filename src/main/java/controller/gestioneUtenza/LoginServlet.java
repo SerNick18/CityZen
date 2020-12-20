@@ -46,17 +46,30 @@ public class LoginServlet extends HttpServlet {
         String pwd = req.getParameter("pwd");
         FacadeDAO service = new FacadeDAO();
         HttpSession sn = req.getSession();
-
+        /**
+         * controllo se il cittadino è già loggato
+         */
         if (req.getSession().getAttribute("Cittadino") == null) {
+            /**
+             * controlli sull'email e password
+             * La password deve contenere almeno 8 caratteri, almeno una lettera maiuscola, almeno una lettera minuscola
+             * ed almeno un numero
+             */
             if (email.compareTo("") == 0
                     || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)
                     || pwd.compareTo("") == 0
                     || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                    + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
                 throw new MyServletException("Controlla correttezza campi");
+                /**
+                 * controllo sull'email se contiene @scafati.it
+                 * se lo contiene ha effettuato il login l'impiegato
+                 */
             } else if (email.contains("@scafati.it")) { //login impiegato
                 Impiegato impiegato = service.loginImpiegato(email, pwd);
-
+                /**
+                 * reidirigere l'impiegato alla sua pagina iniziale se ha effettuato l'accesso
+                 */
                 if (impiegato != null) {
                     sn.setAttribute("Impiegato", impiegato);
                     RequestDispatcher dispatcher =
@@ -67,6 +80,9 @@ public class LoginServlet extends HttpServlet {
                     throw new MyServletException("Email o password errati");
                 }
             } else { //login cittadino
+                /**
+                 * reidirigere il cittadino alla sua pagina iniziale se ha effettuato l'accesso
+                 */
                 Cittadino cittadino = service.loginCittadino(email, pwd);
 
                 if (cittadino != null) {

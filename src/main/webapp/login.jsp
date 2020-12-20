@@ -18,14 +18,14 @@
 
 <div id="loginContainer" class="container">
     <div id="loginRow" class="row justify-content-center">
-        <div id="logoContainer" class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
+        <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-8">
             <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
         </div>
         <div class="col-sm-8 d-lg-none d-md-none">
             <hr class="solid">
         </div>
         <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
-            <form id="loginFor" action="login" method="post" class="form">
+            <form id="loginAccesso" action="login" method="post" class="form">
                 <div class="row md-3">
                     <h1 class="appTitle">Accedi</h1>
                 </div>
