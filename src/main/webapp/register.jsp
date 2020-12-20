@@ -16,24 +16,27 @@
 </head>
 <body>
 <div id="loginContainer" class="container">
-    <div id="loginRow" class="row">
-        <div id="logoContainer" class="col-md-3 col-lg-2">
+    <div id="loginRow" class="row justify-content-center">
+        <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-4 align-self-center">
             <img id="logoImg" class="img-fluid" src="resources/images/logo_sm.png">
         </div>
-        <div class="col-lg-8 col-md-5">
+        <div clas="col-sm-8 d-lg-none d-md-none">
+            <hr class="solid ">
+        </div>
+        <div class="col-md-5 col-lg-4 col-sm-8 col-xl-4 col-8">
             <form id="loginForm" action="register" method="post" class="form-group">
-                <div class="row mb-3">
+                <div class="row md-3">
                     <h1 class="appTitle">Registrati</h1>
                 </div>
-                <div class="row mb-3">
-                    <div class="col m-auto w-50">
+                <div class="row md-3">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                         <input class="appInput form-control" id="nome" name="nome" type="text" placeholder="Nome" oninput="validaNome()">
                     </div>
-                    <div class="col m-auto w-50">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                         <input class="appInput form-control" id="cognome" name="cognome" type="text" placeholder="Cognome" oninput="validaCognome()">
                     </div>
                 </div>
-                <div class="row mb-3">
+                <div class="row md-3">
                     <div class="col m-auto w-50">
                         <input class="appInput form-control" id="email" name="email" type="text" placeholder="Email" oninput="validaEmail()">
                     </div>
@@ -41,14 +44,14 @@
                         <input class="appInput form-control" id="cf" name="cf" type="text" placeholder="Codice Fiscale" oninput="validaCodiceFiscale()">
                     </div>
                 </div>
-                <div class="row row-cols-3 mb-3">
+                <div class="row row-cols-3 md-3">
                     <div class="col-6">
                         <input class="appInput form-control" id="via" name="via" type="text" placeholder="via" oninput="validaVia()">
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <input class="appInput form-control" id="civico" name="civico" type="text" placeholder="N." oninput="validaCivico()">
                     </div>
-                    <div class="col-5">
+                    <div class="col-4">
                         <input class="appInput form-control" id="citta" name="citta" type="text" placeholder="Città" oninput="validaCitta()">
                     </div>
                 </div>
@@ -60,12 +63,12 @@
                         <input class="appInput form-control" id="pwd2" name="pwd2" type="password" placeholder="Conferma Password" oninput="validaPassword()">
                     </div>
                 </div>
-                <div class="row mb-3">
+                <div class="row md-3">
                     <button type="submit" class="appButtonBlack" id="registrami" disabled>Registrati</button>
                    <!-- <input id="registrami"  class="appButtonBlack" type="submit" value="Registrami" disabled> -->
                     <span id="registramimessaggio">${notifica}</span><br>
                 </div>
-                <div class="row mb-3">
+                <div class="row md-3">
                     <a href="login.jsp" class="appLink">Hai già un account? Accedi</a>
                 </div>
             </form>
