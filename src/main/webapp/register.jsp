@@ -17,13 +17,14 @@
 <body>
 <div id="loginContainer" class="container">
     <div id="loginRow" class="row justify-content-center">
-        <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-4 align-self-center">
+        <div id="logoContainer" class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-4 align-self-center">
             <img id="logoImg" class="img-fluid" src="resources/images/logo_sm.png">
         </div>
-        <div clas="col-sm-8 d-lg-none d-md-none">
-            <hr class="solid ">
+        <div class="col-sm-8 col-lg-1 col-md-1 my-auto">
+            <hr class="solid d-md-none">
+            <div class="verticalLine"></div>
         </div>
-        <div class="col-md-5 col-lg-4 col-sm-8 col-xl-4 col-8">
+        <div class="col-md-5 col-lg-5 col-sm-8 col-xl-4 col-8">
             <form id="loginForm" action="register" method="post" class="form-group">
                 <div class="row md-3">
                     <h1 class="appTitle">Registrati</h1>
