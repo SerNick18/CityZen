@@ -18,7 +18,7 @@
 
 <div id="loginContainer" class="container">
     <div id="loginRow" class="row justify-content-center">
-        <div id="logoContainer" class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
+        <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-8">
             <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
         </div>
         <div class="col-sm-8 d-lg-none d-md-none">
