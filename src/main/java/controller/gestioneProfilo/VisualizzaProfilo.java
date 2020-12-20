@@ -14,16 +14,16 @@ import java.io.IOException;
 
 /**
  * Servlet per la visualizzazione del profilo utente.
- * Controlla se nella sessione è presente un cittadino oppure un impiegato.
- * A seconda dei casi richiama la jsp giusta.
  */
 @WebServlet("/profilo")
 public class VisualizzaProfilo extends HttpServlet {
     /**
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * 
+     * @param req oggetto che contiene la richiesta da parte di un client
+     * @param resp oggetto che contiene la risposta che la servlet deve ritornare al cliente
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     * quando la servlet gestisce la richiesta
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -31,11 +31,13 @@ public class VisualizzaProfilo extends HttpServlet {
     }
 
     /**
-     *
-     * @param req request
-     * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * Controlla se nella sessione è presente un cittadino oppure un impiegato.
+     * A seconda dei casi richiama la jsp giusta.
+     * @param req oggetto che contiene la richiesta da parte di un client
+     * @param resp oggetto che contiene la risposta che la servlet deve ritornare al cliente
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     * quando la servlet gestisce la richiesta
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

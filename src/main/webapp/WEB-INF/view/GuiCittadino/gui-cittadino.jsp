@@ -31,16 +31,7 @@
 
 <div class="container-fluid">
     <div class="row h-100">
-        <div class="col-2 align-self-center">
-            <div class="row ml-3"><a href="profilo">Inoltrate</a></div>
-            <div class="row ml-3"><a href="profilo">Calendario Raccolta Rifiuti</a></div>
-            <div class="row ml-3"><a href="profilo">Visualizza Classifica</a></div>
-            <div class="row ml-3"><a href="profilo">Sito del comune</a></div>
-
-            <div class="row"><div>Totali</div><div></div></div>
-            <hr>
-            <a href="logout">Logout</a>
-        </div>
+        <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
             <div class="row align-items-start">
                 <h1>SEGNALAZIONI</h1>
