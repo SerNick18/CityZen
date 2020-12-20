@@ -21,8 +21,9 @@
         <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-8">
             <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
         </div>
-        <div class="col-sm-8 d-lg-none d-md-none">
-            <hr class="solid">
+        <div class="col-lg-1 col-md-1">
+            <hr class="solid d-lg-none d-md-none">
+            <div class="separator"></div>
         </div>
         <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
             <form id="loginAccesso" action="login" method="post" class="form">

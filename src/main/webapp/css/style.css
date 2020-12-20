@@ -11,6 +11,7 @@
     margin: auto;
 }
 
+
 #loginForm{
     margin-top: 60px;
 }
@@ -76,12 +77,21 @@ body{
     border-right: 1px solid black;
 }
 
+.separator{
+    height: 95%;
+    border-right: 1px solid black;
+    margin: 10%;
+}
+
 @media screen and (max-width: 767px) {
 
     .verticalLine{
         display: none;
     }
-    
+
+    .separator{
+        display: none;
+    }
 }
 
 
