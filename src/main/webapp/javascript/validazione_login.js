@@ -12,7 +12,7 @@ function cambiaStatoRegistrami() {
     }
 }
 function validaEmail() {
-    var input = document.forms['loginFor']['email'];
+    var input = document.forms['loginAccesso']['email'];
     if (input.value.match(/[A-Za-z.]+[0-9]*@[A-Za-z.]+/)){
         input.style.border = borderOk;
         emailOk = true;
@@ -24,7 +24,7 @@ function validaEmail() {
     cambiaStatoRegistrami();
 }
 function validaPassword() {
-    var inputpw = document.forms['loginFor']['pwd']
+    var inputpw = document.forms['loginAccesso']['pwd']
     var password = inputpw.value;
     if (password.length >= 8 && password.toUpperCase() != password
         && password.toLowerCase() != password && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)){

@@ -25,7 +25,7 @@
             <hr class="solid">
         </div>
         <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
-            <form id="loginFor" action="login" method="post" class="form">
+            <form id="loginAccesso" action="login" method="post" class="form">
                 <div class="row md-3">
                     <h1 class="appTitle">Accedi</h1>
                 </div>
