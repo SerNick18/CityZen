@@ -1,5 +1,6 @@
 package controller.gestioneProfilo;
 
+import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 
@@ -47,10 +48,11 @@ public class VisualizzaProfilo extends HttpServlet {
         Cittadino cittadino = (Cittadino) session.getAttribute("Cittadino");
         if (cittadino != null) {
             address = "WEB-INF/view/GuiCittadino/profilo.jsp";
-        } else
-            if (impiegato != null) {
-                address = "WEB-INF/view/GuiImpiegato/profilo.jsp";
-            }
+        } else if (impiegato != null) {
+            address = "WEB-INF/view/GuiImpiegato/profilo.jsp";
+        }else if(cittadino==null && impiegato==null){
+             throw new MyServletException("Effettua il Login per visualizzare questa pagina");
+        }
         RequestDispatcher dispatcher = req.getRequestDispatcher(address);
         dispatcher.forward(req, resp);
     }
