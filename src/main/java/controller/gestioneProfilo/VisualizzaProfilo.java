@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 @WebServlet("/profilo")
 public class VisualizzaProfilo extends HttpServlet {
-    /**
+    /**.
      * Si forza il flusso di esecuzione sul metodo doPost:
      * anche se si riceve una richiesta di tipo GET, si richiama il
      * metodo che gestisce le richieste di tipo POST
@@ -34,11 +34,10 @@ public class VisualizzaProfilo extends HttpServlet {
         doPost(req, resp);
     }
 
-    /**
+    /**.
      * Controlla se nella sessione è presente un cittadino oppure un impiegato.
      * A seconda dei casi richiama la jsp giusta.
-     * @param req oggetto che contiene la
-     * richiesta da parte di un client
+     * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
      * deve ritornare al cliente
      * @throws ServletException se la richiesta non può essere gestita
@@ -55,8 +54,9 @@ public class VisualizzaProfilo extends HttpServlet {
             address = "WEB-INF/view/GuiCittadino/profilo.jsp";
         } else if (impiegato != null) {
             address = "WEB-INF/view/GuiImpiegato/profilo.jsp";
-        }else if(cittadino==null && impiegato==null){
-             throw new MyServletException("Effettua il Login per visualizzare questa pagina!");
+        } else if (cittadino == null && impiegato == null) {
+             throw new MyServletException("Effettua il Login per"
+                    + "visualizzare questa pagina!");
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher(address);
         dispatcher.forward(req, resp);
