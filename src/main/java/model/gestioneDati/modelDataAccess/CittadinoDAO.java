@@ -8,8 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Questa classe effettua il recupero, il salvataggio e le modifiche,
+ * di un Cittadino, nel database.
+ * */
 public class CittadinoDAO {
+    /**
+     * Metodo che effettua, dati email e password,
+     * l'accesso al sistema.
+     * */
     public Cittadino doLogin(String email, String pwd){
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -28,7 +35,10 @@ public class CittadinoDAO {
         }
         return null;
     }
-
+    /**
+     * Metodo che effettua la registrazione del Cittadino
+     * nel sistema.
+     * */
     public void doRegister(Cittadino cittadino){
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -48,8 +58,11 @@ public class CittadinoDAO {
             e.printStackTrace();
         }
     }
-
-
+    /**
+     * Metodo che verifica la presenza di un Cittadino
+     * con una determinata email.
+     * nel database
+     * */
     public Cittadino doRetrieveByEmail(String email) {
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -68,7 +81,10 @@ public class CittadinoDAO {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Metodo che verifica la presenza di un Cittadino
+     * con un determinato codice fiscale.
+     * */
     public Cittadino doRetrieveByCF(String cf) {
         try {
             Connection connection = ConnectionPool.getConnection();

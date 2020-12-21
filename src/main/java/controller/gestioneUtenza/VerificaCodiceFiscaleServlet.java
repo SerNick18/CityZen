@@ -9,29 +9,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Questa servlet viene chiamata in fase di registrazione
+ * tramite una chiamata AJAX che controlla se esiste nel databse
+ * un Cittadino con lo stesso codice fiscale.
+ *
+ */
 @WebServlet("/VerificaCodiceFiscale")
 public class VerificaCodiceFiscaleServlet extends HttpServlet {
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        doGet(request, response);
+    /**
+     * @param req request
+     * @param resp response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /**
-         *
-         * controllo se il codice fiscale
-         * è già presente nel database.
-         *
-         * */
+    /**
+     * In questo metodo avviene il controllo nel database.
+     *
+     * @param req request
+     * @param resp response
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     */
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FacadeDAO service = new FacadeDAO();
-        String cf = request.getParameter("cf");
-        response.setContentType("text/xml");
+        String cf = req.getParameter("cf");
+        resp.setContentType("text/xml");
         if (cf != null && cf.matches("^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$")
                 && service.verificaCodiceFiscale(cf) == null) {
-            response.getWriter().append("<ok/>");
+            resp.getWriter().append("<ok/>");
         } else {
-            response.getWriter().append("<no/>");
+            resp.getWriter().append("<no/>");
         }
     }
 }
