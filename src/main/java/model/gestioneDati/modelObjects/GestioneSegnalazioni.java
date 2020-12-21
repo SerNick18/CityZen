@@ -15,7 +15,6 @@ public class GestioneSegnalazioni {
         this.dataFeedback = dataFeedback;
     }
 
-
     public Impiegato getImpiegato() {
         return impiegato;
     }

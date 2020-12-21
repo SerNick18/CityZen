@@ -1,5 +1,8 @@
 package model.gestioneDati.modelObjects;
 
+/**
+ * Questa classe rappresenta un impiegato comunale
+ */
 public class Impiegato implements Observer {
     private String email;
     private String matricola;
@@ -12,10 +15,24 @@ public class Impiegato implements Observer {
     private String citta;
     private int numSegnalazioniApp;
     private int numSegnalazioniChiuse;
-
-    public Impiegato() {
-    }
-
+    /**
+     * Costruttore vuoto
+     */
+    public Impiegato() { }
+    /**
+     * Costruttore con parametri
+     * @param email email dell'impiegato comunale
+     * @param matricola numero di matricola dell'impiegato comunale
+     * @param pwd password dell'impiegato comunale
+     * @param CF codice fiscale dell'impiegato comunale
+     * @param nome nome dell'impiegato comunale
+     * @param cognome cognome dell'impiegato comunale
+     * @param via via
+     * @param civico numero civico
+     * @param citta città
+     * @param numSegnalazioniApp numero di segnalazioni approvate
+     * @param numSegnalazioniChiuse numero di segnalazioni chiuse
+     */
     public Impiegato(String email, String matricola, String pwd, String CF,
                      String nome, String cognome, String via,
                      int civico, String citta, int numSegnalazioniApp, int numSegnalazioniChiuse) {
@@ -31,95 +48,135 @@ public class Impiegato implements Observer {
         this.numSegnalazioniApp = numSegnalazioniApp;
         this.numSegnalazioniChiuse = numSegnalazioniChiuse;
     }
-
+    /**
+     * Questo metodo restituisce l'email dell'impiegato comunale
+     * @return email dell'impiegato comunale
+     */
     public String getEmail() {
         return email;
     }
-
+    /**
+     * Questo metodo sostituisce l'attuale email dell'impiegato comunale
+     * con l'email passata come parametro esplicito
+     * @param email nuova email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getMatricola() {
-        return matricola;
-    }
-
-    public void setMatricola(String matricola) {
-        this.matricola = matricola;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getCF() {
-        return CF;
-    }
-
-    public void setCF(String CF) {
-        this.CF = CF;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public String getVia() {
-        return via;
-    }
-
-    public void setVia(String via) {
-        this.via = via;
-    }
-
-    public int getCivico() {
-        return civico;
-    }
-
-    public void setCivico(int civico) {
-        this.civico = civico;
-    }
-
-    public String getCitta() {
-        return citta;
-    }
-
-    public void setCitta(String citta) {
-        this.citta = citta;
-    }
-
-    public int getNumSegnalazioniApp() {
-        return numSegnalazioniApp;
-    }
-
-    public void setNumSegnalazioniApp(int numSegnalazioniApp) {
-        this.numSegnalazioniApp = numSegnalazioniApp;
-    }
-
-    public int getNumSegnalazioniChiuse() {
-        return numSegnalazioniChiuse;
-    }
-
-    public void setNumSegnalazioniChiuse(int numSegnalazioniChiuse) {
-        this.numSegnalazioniChiuse = numSegnalazioniChiuse;
-    }
-
+    /**
+     * Questo metodo restituisce il numero di matricola dell'impiegato comunale
+     * @return numero di matricola dell'impiegato comunale
+     */
+    public String getMatricola() { return matricola; }
+    /**
+     * Questo metodo sostituisce l'attuale numero di matricola dell'impiegato comunale
+     * con il numero di matricola passato come parametro esplicito
+     * @param matricola nuovo numero di matricola
+     */
+    public void setMatricola(String matricola) { this.matricola = matricola; }
+    /**
+     * Questo metodo restituisce la password dell'impiegato comunale
+     * @return password dell'impiegato comunale
+     */
+    public String getPwd() { return pwd; }
+    /**
+     * Questo metodo sostituisce l'attuale password dell'impiegato comunale
+     * con la password passata come parametro esplicito
+     * @param pwd nuova password
+     */
+    public void setPwd(String pwd) { this.pwd = pwd; }
+    /**
+     * Questo metodo restituisce il codice fiscale dell'impiegato comunale
+     * @return codice fiscale dell'impiegato comunale
+     */
+    public String getCF() { return CF; }
+    /**
+     * Questo metodo sostituisce l'attuale codice fiscale dell'impiegato comunale
+     * con il codice fiscale passato come parametro esplicito
+     * @param CF nuovo codice fiscale
+     */
+    public void setCF(String CF) { this.CF = CF; }
+    /**
+     * Questo metodo restituisce il nome dell'impiegato comunale
+     * @return nome dell'impiegato comunale
+     */
+    public String getNome() { return nome; }
+    /**
+     * Questo metodo sostituisce l'attuale nome dell'impiegato comunale
+     * con il nome passato come parametro esplicito
+     * @param nome nuovo nome
+     */
+    public void setNome(String nome) { this.nome = nome; }
+    /**
+     * Questo metodo restituisce il cognome dell'impiegato comunale
+     * @return cognome dell'impiegato comunale
+     */
+    public String getCognome() { return cognome; }
+    /**
+     * Questo metodo sostituisce l'attuale cognome dell'impiegato comunale
+     * con il cognome passato come parametro esplicito
+     * @param cognome nuovo cognome
+     */
+    public void setCognome(String cognome) { this.cognome = cognome; }
+    /**
+     * Questo metodo restituisce la via
+     * @return via
+     */
+    public String getVia() { return via; }
+    /**
+     * Questo metodo sostituisce l'attuale via con la via passata
+     * come parametro esplicito
+     * @param via nuova via
+     */
+    public void setVia(String via) { this.via = via; }
+    /**
+     * Questo metodo restituisce il numero civico
+     * @return numero civico
+     */
+    public int getCivico() { return civico; }
+    /**
+     * Questo metodo sostituisce l'attuale numero civico con il numero
+     * civico passato come parametro esplicito
+     * @param civico nuovo numero civico
+     */
+    public void setCivico(int civico) { this.civico = civico; }
+    /**
+     * Questo metodo restituisce la città
+     * @return città
+     */
+    public String getCitta() { return citta; }
+    /**
+     * Questo metodo sostituisce l'attuale città con la città passata
+     * come parametro esplicito
+     * @param citta nuova città
+     */
+    public void setCitta(String citta) { this.citta = citta; }
+    /**
+     * Questo metodo restituisce il numero di segnalazioni approvate
+     * @return numero di segnalazioni approvate
+     */
+    public int getNumSegnalazioniApp() { return numSegnalazioniApp; }
+    /**
+     * Questo metodo sostituisce l'attuale numero di segnalazioni approvate
+     * con il numero passato come parametro esplicito
+     * @param numSegnalazioniApp nuovo numero segnalazioni approvate
+     */
+    public void setNumSegnalazioniApp(int numSegnalazioniApp) { this.numSegnalazioniApp = numSegnalazioniApp; }
+    /**
+     * Questo metodo restituisce il numero di segnalazioni chiuse
+     * @return numero di segnalazioni chiuse
+     */
+    public int getNumSegnalazioniChiuse() { return numSegnalazioniChiuse; }
+    /**
+     * Questo metodo sostituisce l'attuale numero di segnalazioni chiuse
+     * con il numero passato come parametro esplicito
+     * @param numSegnalazioniChiuse nuovo numero segnalazioni chiuse
+     */
+    public void setNumSegnalazioniChiuse(int numSegnalazioniChiuse) { this.numSegnalazioniChiuse = numSegnalazioniChiuse; }
+    /**
+     * Sovrascrittura metodo toString di Object
+     * @return dati dell'impiegato formato stringa
+     */
     @Override
     public String toString() {
         return "Impiegato{" +
@@ -136,7 +193,10 @@ public class Impiegato implements Observer {
                 ", numSegnalazioniChiuse=" + numSegnalazioniChiuse +
                 '}';
     }
-
+    /**
+     *
+     * @param s
+     */
     @Override
     public void update(AbstractSegnalazione s) {
         //mail
