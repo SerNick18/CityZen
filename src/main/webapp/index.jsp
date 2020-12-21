@@ -31,6 +31,14 @@
 
                 <input type="submit" value="Crea profilo paziente" />
             </form>
+
+            <div class="row mb-3">
+                <a href="login.jsp" class="appLink">Effettua il login</a>
+            </div>
+
+            <div class="row mb-3">
+                <a href="register.jsp" class="appLink">Non hai un account? Registrati</a>
+            </div>
         </div>
         <br/>
     </body>
