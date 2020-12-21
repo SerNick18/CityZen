@@ -39,7 +39,8 @@
                     </div>
                     <div class="col-6">
                         <b>Password: </b>
-                        <form action="modifica-password" class="form-inline">
+                        <form action="modificaPassword" class="form-inline">
+                            <input type="hidden" name="provenienza" value="profilo">
                             <input type="submit" class="btn btn-success btn-sm" value="Modifica Password">
                         </form>
                     </div>

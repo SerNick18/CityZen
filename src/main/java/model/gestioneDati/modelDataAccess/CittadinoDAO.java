@@ -104,4 +104,17 @@ public class CittadinoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public void doUpdatePasswordByEmail(String email, String password){
+        try (Connection con = ConnectionPool.getConnection()){
+            PreparedStatement ps = con.prepareStatement("UPDATE cittadino SET pwd= SHA1(?) WHERE email=?");
+            ps.setString(1, password);
+            ps.setString(2, email);
+            if(ps.executeUpdate() != 1) {
+                throw new RuntimeException("Errore durante update password cittadino");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

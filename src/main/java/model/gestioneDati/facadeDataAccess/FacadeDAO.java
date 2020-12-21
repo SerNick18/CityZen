@@ -36,6 +36,14 @@ public class FacadeDAO {
         cittadinoDAO.doRegister(c);
     }
     public Cittadino verificaCodiceFiscale(String cf) { return cittadinoDAO.doRetrieveByCF(cf); }
+
+    /**
+     * Aggiorna la password del
+     * cittadino nel database
+     * @param email email del cittadino
+     * @param password nuova password del cittadino
+     */
+    public void doUpdatePasswordByEmail(String email, String password){ cittadinoDAO.doUpdatePasswordByEmail(email,password);}
     public Cittadino verificaEmail(String email) { return cittadinoDAO.doRetrieveByEmail(email); }
 
     /**
