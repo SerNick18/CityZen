@@ -20,24 +20,58 @@ class LoginServletTest extends LoginServlet {
 
     @Test
     void testParamNull() {
-        request.setAttribute("email", null);
-        request.setAttribute("pwd", null);
+        request.addParameter("email", "");
+        request.addParameter("pwd", "");
         MyServletException exception = assertThrows(MyServletException.class, () -> {loginServlet.doPost(request, response);});
-        assertEquals("Si è verificato un errore", exception.getMessage());
+        assertEquals("Controlla correttezza campi", exception.getMessage());
     }
 
     @Test
     void testEmailNull(){
-        request.setAttribute("email", null);
+        request.addParameter("email", "");
+        request.addParameter("pwd", "Prova123");
         MyServletException exception = assertThrows(MyServletException.class, () -> {loginServlet.doPost(request, response);});
-        assertEquals("Si è verificato un errore", exception.getMessage());
+        assertEquals("Controlla correttezza campi", exception.getMessage());
     }
 
     @Test
     void testPwdNull(){
-        request.setAttribute("pwd", null);
+        request.addParameter("email", "prova@gmail.com");
+        request.addParameter("pwd", "");
         MyServletException exception = assertThrows(MyServletException.class, () -> {loginServlet.doPost(request, response);});
-        assertEquals("Si è verificato un errore", exception.getMessage());
+        assertEquals("Controlla correttezza campi", exception.getMessage());
+    }
+
+    @Test
+    void testImpiegatoNull(){
+        request.addParameter("email", "prova@scafati.com");
+        request.addParameter("pwd", "Prova123");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {loginServlet.doPost(request, response);});
+        assertEquals("Email o password errati", exception.getMessage());
+    }
+
+    @Test
+    void testCittadinoNull(){
+        request.addParameter("email", "prova@gmail.com");
+        request.addParameter("pwd", "Prova123");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {loginServlet.doPost(request, response);});
+        assertEquals("Email o password errati", exception.getMessage());
+    }
+
+    @Test
+    void testConImpiegato(){
+        //per passare il test ci deve stare questo record nel db
+        request.addParameter("email", "ugo@scafati.it");
+        request.addParameter("pwd", "Prova123");
+        assertDoesNotThrow(() -> {loginServlet.doPost(request, response);});
+    }
+
+    @Test
+    void testConCittadino(){
+        //per passare il test ci deve stare questo record nel db
+        request.addParameter("email", "giuseppe@gmail.com");
+        request.addParameter("pwd", "Prova123");
+        assertDoesNotThrow(() -> {loginServlet.doPost(request, response);});
     }
 
 }
