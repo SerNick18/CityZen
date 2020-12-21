@@ -59,6 +59,7 @@ public class ModificaPassword extends HttpServlet {
                 if (cittadino != null) {
                     String oldPass = req.getParameter("oldPass");
                     String newPass = req.getParameter("newPass");
+                    String newPass2 = req.getParameter("newPass2");
                     String passwordHash;
                     try {
                         MessageDigest digest =
@@ -75,7 +76,8 @@ public class ModificaPassword extends HttpServlet {
                         if (passwordAttuale.equals(passwordHash)
                                 && Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                                        + "(?=.*[A-Z])"
-                                + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
+                                + "(?=.*[a-zA-Z]).{8,}$", newPass)
+                                && newPass.equals(newPass2)) {
                             service.doUpdatePasswordByEmail(cittadino.getEmail(), newPass);
                         } else {
                             throw new MyServletException("Controlla di aver"
