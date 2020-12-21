@@ -10,6 +10,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CittadinoDAO {
+    /**
+     * Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione di eliminazione del cittadino dal database.
+     * Se si rileva un errore si lancia un'eccezione
+     * con il relativo messaggio informativo.
+     * @param cf del cittadino da eliminare
+     * @throws MyServletException se si verifica un errore
+     * nell'eliminazione del cittadino
+     */
+    public void doDelete(String cf) throws MyServletException{
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("delete from cittadino where CF=?");
+            statement.setString(1,cf);
+            if(statement.executeUpdate()!=1)
+                throw new MyServletException("C'è stato un errore nell'eliminazione del profilo");
+        } catch (SQLException e) {
+            throw new MyServletException("C'è stato un errore nell'eliminazione del profilo");
+        }
+    }
     public Cittadino doLogin(String email, String pwd){
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -28,7 +49,6 @@ public class CittadinoDAO {
         }
         return null;
     }
-
     public void doRegister(Cittadino cittadino){
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -48,8 +68,6 @@ public class CittadinoDAO {
             e.printStackTrace();
         }
     }
-
-
     public Cittadino doRetrieveByEmail(String email) {
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -68,7 +86,6 @@ public class CittadinoDAO {
             throw new RuntimeException(e);
         }
     }
-
     public Cittadino doRetrieveByCF(String cf) {
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -83,6 +100,19 @@ public class CittadinoDAO {
                 return c;
             }
             return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doUpdatePasswordByEmail(String email, String password){
+        try (Connection con = ConnectionPool.getConnection()){
+            PreparedStatement ps = con.prepareStatement("UPDATE cittadino SET pwd= SHA1(?) WHERE email=?");
+            ps.setString(1, password);
+            ps.setString(2, email);
+            if(ps.executeUpdate() != 1) {
+                throw new RuntimeException("Errore durante update password cittadino");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

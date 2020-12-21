@@ -1,29 +1,22 @@
 package model.gestioneDati.facadeDataAccess;
 
+import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelDataAccess.*;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
-/**
- *
- * classe per accedere agli oggetti di un sottosistema.
- *
- * */
+import model.gestioneDati.modelObjects.Segnalazione;
+import model.gestioneDati.modelObjects.SegnalazioneInterface;
+
+import java.util.List;
+
 public class FacadeDAO {
-    /**
-     * cittadinoDAO, segnalazioneDAO, feedbackDAO, gestioneSegnalazioneDAO, impiegatoDAO
-     * effettuano le chiamate al database.
-     *
-     * */
     private CittadinoDAO cittadinoDAO;
     private SegnalazioneDAO segnalazioneDAO;
     private FeedbackDAO feedbackDAO;
     private GestioneSegnalazioniDAO gestioneSegnalazioneDAO;
     private ImpiegatoDAO impiegatoDAO;
-    /**
-     *
-     * costruttore vuoto.
-     *
-     * */
+
+
     public FacadeDAO() {
         cittadinoDAO = new CittadinoDAO();
         segnalazioneDAO = new SegnalazioneDAO();
@@ -31,55 +24,46 @@ public class FacadeDAO {
         gestioneSegnalazioneDAO = new GestioneSegnalazioniDAO();
         impiegatoDAO = new ImpiegatoDAO();
     }
-    /**
-     * metodo per effettuare il login per il cittadino.
-     *
-     * @param email
-     * @param pwd: password.
-     * @return Cittadino.
-     *
-     * */
+
+    //Facade per model cittadino
     public Cittadino loginCittadino(String email, String pwd){
         return cittadinoDAO.doLogin(email, pwd);
     }
-    /**
-     * metodo che effettua il login per l'impiegato.
-     *
-     * @param email
-     * @param pwd: password.
-     * @return Impiegato.
-     *
-     * */
-    public Impiegato loginImpiegato(String email, String pwd){
-        return impiegatoDAO.doLogin(email, pwd);
+    public Cittadino getCittadinoByCf(String cf){
+        return cittadinoDAO.doRetrieveByCF(cf);
     }
-    /**
-     * metodo per la registrazione di un cittadino.
-     *
-     * @param c: Cittadino.
-     *
-     * */
     public void registraCittadino(Cittadino c){
         cittadinoDAO.doRegister(c);
     }
+    public Cittadino verificaCodiceFiscale(String cf) { return cittadinoDAO.doRetrieveByCF(cf); }
+
     /**
-     * metodo per effettura la verifica di un email già esistente.
-     *
-     * @param email
-     * @return Cittadino.
-     *
-     * */
-    public Cittadino verificaEmail(String email) {
-        return cittadinoDAO.doRetrieveByEmail(email);
-    }
+     * Aggiorna la password del
+     * cittadino nel database
+     * @param email email del cittadino
+     * @param password nuova password del cittadino
+     */
+    public void doUpdatePasswordByEmail(String email, String password){ cittadinoDAO.doUpdatePasswordByEmail(email,password);}
+    public Cittadino verificaEmail(String email) { return cittadinoDAO.doRetrieveByEmail(email); }
+
     /**
-     * metodo per effetturare la verifica di un codice fiscale già esistente.
-     *
-     * @param cf: codice fiscale.
-     * @return Cittadino.
-     *
-     * */
-    public Cittadino verificaCodiceFiscale(String cf) {
-        return cittadinoDAO.doRetrieveByCF(cf);
+     * Il metodo richiama la funzione di
+     * eliminazione del cittadino con codice
+     * fiscale 'cf' dal database.
+     * @param cf del cittadino da eliminare
+     * @throws MyServletException se si verifica un errore
+     * nell'eliminazione del cittadino
+     */
+    public void eliminaCittadino(String cf)
+            throws MyServletException {cittadinoDAO.doDelete(cf);}
+
+    //Facade per model impiegato
+    public Impiegato loginImpiegato(String email, String pwd){
+        return impiegatoDAO.doLogin(email, pwd);
     }
+
+    //Facade per model segnalazione
+    public List<SegnalazioneInterface> getSegnalazioniInoltrate(int offset){return segnalazioneDAO.doRetrieveInoltrateProxy(offset);}
+    public Segnalazione getSegnalazioneById(int id){return segnalazioneDAO.doRetrieveById(id);}
+
 }

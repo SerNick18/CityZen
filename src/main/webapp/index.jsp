@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>JSP - Hello World- Ciaoo</title>
+        <title>JSP - Hello World</title>
     </head>
     <body>
         <div class="page-content">

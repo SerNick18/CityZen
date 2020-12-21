@@ -3,6 +3,7 @@ package controller.gestioneUtenza;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -124,8 +125,10 @@ public class RegistrazioneServlet extends HttpServlet {
              * registrare con un altro account
              */
             Cittadino cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
-            //throw new MyServletException("Sei già loggato come "+cittadino.getEmail());
-            resp.sendRedirect(req.getContextPath()+"/WEB-INF/pagina_profilo.jsp");
+            req.setAttribute("Message","Sei già loggato, devi effettuare il logout");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/GuiCittadino/profilo.jsp");
+            dispatcher.forward(req,resp);
+
         }
 
     }
