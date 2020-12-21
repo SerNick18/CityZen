@@ -33,43 +33,38 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     *
+     * Metodo usato per effettuare il login
+     * Controlla se l'utente ha già effettuato il login e se è loggato lancia un'eccezione.
+     * Riceve in input una email e una password ed effettua controlli sulla correttezza dei campi.
+     * L'email può contenere lettere e numeri e una @ seguita dal dominio,
+     * la password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.
+     * Inoltre se la mail contiene come dominio @scafati.it vuol dire che a loggarsi è stato un Impiegato
+     * che viene reindirizzato alla sua pagina principale, altrimenti è un Cittadino che verrà reindirizzato alla propria
+     * home page.
      * @param req request
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String email = req.getParameter("email");
         String pwd = req.getParameter("pwd");
+        if (email == null || pwd == null){
+            throw new MyServletException("Si è verificato un errore");
+        }
         FacadeDAO service = new FacadeDAO();
         HttpSession sn = req.getSession();
-        /**
-         * controllo se il cittadino è già loggato
-         */
         if (req.getSession().getAttribute("Cittadino") == null) {
-            /**
-             * controlli sull'email e password
-             * La password deve contenere almeno 8 caratteri, almeno una lettera maiuscola, almeno una lettera minuscola
-             * ed almeno un numero
-             */
             if (email.compareTo("") == 0
                     || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)
                     || pwd.compareTo("") == 0
                     || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                    + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
                 throw new MyServletException("Controlla correttezza campi");
-                /**
-                 * controllo sull'email se contiene @scafati.it
-                 * se lo contiene ha effettuato il login l'impiegato
-                 */
             } else if (email.contains("@scafati.it")) { //login impiegato
                 Impiegato impiegato = service.loginImpiegato(email, pwd);
-                /**
-                 * reidirigere l'impiegato alla sua pagina iniziale se ha effettuato l'accesso
-                 */
                 if (impiegato != null) {
                     sn.setAttribute("Impiegato", impiegato);
                     RequestDispatcher dispatcher =
@@ -80,11 +75,7 @@ public class LoginServlet extends HttpServlet {
                     throw new MyServletException("Email o password errati");
                 }
             } else { //login cittadino
-                /**
-                 * reidirigere il cittadino alla sua pagina iniziale se ha effettuato l'accesso
-                 */
                 Cittadino cittadino = service.loginCittadino(email, pwd);
-
                 if (cittadino != null) {
                     sn.setAttribute("Cittadino", cittadino);
                     RequestDispatcher dispatcher =
