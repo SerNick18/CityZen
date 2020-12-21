@@ -13,10 +13,23 @@ import java.util.regex.Pattern;
 
 @WebServlet("/register")
 public class RegistrazioneServlet extends HttpServlet {
+    /**
+     * @param req request
+     * @param resp response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
+
+    /**
+     * @param req request
+     * @param resp response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cf = req.getParameter("cf");
@@ -29,89 +42,61 @@ public class RegistrazioneServlet extends HttpServlet {
         String citta = req.getParameter("citta");
         String email = req.getParameter("email");
 
-        /**
-         * controlli sui dati di input
-         */
+        //controlli sui dati di input
         if(req.getSession().getAttribute("Cittadino")==null) {
-            /**
-             *
-             * controllo sul valore del nome
-             *
-             * */
+
+             //controllo sul valore del nome
             if (nome.compareTo("") == 0 || !Pattern.matches("^[A-Za-z]+$", nome)) {
                 throw new MyServletException("Il nome inserito non è valido!");
             }
-            /**
-             *
-             * controllo sul valore del cognome
-             *
-             * */
+
+             //controllo sul valore del cognome
             if (cognome.compareTo("") == 0 || !Pattern.matches("^[A-Za-z]+$", cognome)) {
                 throw new MyServletException("Il cognome inserito non è valido");
             }
-            /**
-             *
-             *controllo sul valore dell'email
-             *
-             **/
+
+            //controllo sul valore dell'email
             if (email.compareTo("") == 0 || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email) || email.contains("@scafati.it")) {
                 throw new MyServletException("Email errata!");
             }
-            /**
-             *
-             * controllo sul valore del cf
-             *
-             * */
+
+             //controllo sul valore del cf
             if (cf.compareTo("") == 0 || !Pattern.matches("^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$", cf)) {
                 throw new MyServletException("Codice fiscale errato!");
             }
-            /**
-             *
-             * controllo sul valore del civico
-             *
-             * */
+
+            //controllo sul valore del civico
             if (civico.compareTo("") == 0 || !Pattern.matches("^[0-9]{1,3}$", civico)) {
                 throw new MyServletException("Inserire un numero civico valido!");
             }
-            /**
-             *
-             * controllo sul valore della via
-             *
-             * */
+
+             //controllo sul valore della via
             if (via.compareTo("") == 0 || !Pattern.matches("^([A-Za-z]\\s?)*$", via)) {
                 throw new MyServletException("Inserire una via valida!");
             }
-            /**
-             *
-             * controllo sul valore della citta
-             *
-             * */
+
+             //controllo sul valore della citta
             if (citta.compareTo("") == 0 || !Pattern.matches("^[A-Za-z]+$", citta)) {
                 throw new MyServletException("Inserire il nome di una città valido!");
             }
-            /**
-             * controllo password
-             * la password deve contenere almeno 8 caratteri, almeno una lettera maiuscola, almeno una lettera minuscola,
-             * almeno un numero ed almeno un carattere speciale.
-             */
+
+             /* controllo password
+                la password deve contenere almeno 8 caratteri, almeno una lettera maiuscola, almeno una lettera minuscola,
+                almeno un numero ed almeno un carattere speciale. */
+
             if (pwd1.compareTo("") == 0 || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd1)) {
                 throw new MyServletException("La password deve contenere almeno 8 caratteri, " +
                         "almeno una lettera maiuscola, una lettera minuscola,\n" +
                         "             * un numero ed un carattere speciale.");
             }
-            /**
-             *
-             * controllo confronto password
-             *
-             * */
+
+            //controllo confronto password
             if (!pwd2.equals(pwd1)) {
                 throw new MyServletException("Le due password non corrispondono");
             }
-            /**
-             *
-             * registrazione nel database del cittadino
-             *
-             * */
+
+
+            //registrazione nel database del cittadino
             FacadeDAO service = new FacadeDAO();
             Cittadino cittadino = new Cittadino(cf, nome, cognome, pwd1, via,
                     Integer.parseInt(civico), citta, email, 0, 0);
@@ -119,8 +104,8 @@ public class RegistrazioneServlet extends HttpServlet {
             req.getSession().setAttribute("Cittadino", cittadino);
             resp.sendRedirect(req.getContextPath()+"/index.jsp");
         }else{
-            /**
-             * redirigere il cittadino al profilo ed indicargli che deve fare logout per potersi
+
+             /*redirigere il cittadino al profilo ed indicargli che deve fare logout per potersi
              * registrare con un altro account
              */
             Cittadino cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
