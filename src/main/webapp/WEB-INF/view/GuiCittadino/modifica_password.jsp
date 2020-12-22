@@ -28,15 +28,21 @@
             </div>
             <form class="form-horizontal" action="modificaPassword" method="post">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="pwd2">Vecchia password:</label>
+                    <label class="control-label col-sm-2" for="oldPass">Vecchia password:</label>
                     <div class="col-xs-3">
-                        <input type="password" class="form-control" id="pwd2" name="oldPass" placeholder="Inserisci la vecchia password" >
+                        <input type="password" class="form-control" id="oldPass" name="oldPass" placeholder="Inserisci la vecchia password" >
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="pwd">Nuova password:</label>
+                    <label class="control-label col-sm-2" for="pwd1">Nuova password:</label>
                     <div class="col-xs-3">
-                        <input type="password" class="form-control" id="pwd" name="newPass" placeholder="Inserisci la nuova password" >
+                        <input type="password" class="form-control" id="pwd1" name="newPass" placeholder="Inserisci la nuova password" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pwd2">Conferma password:</label>
+                    <div class="col-xs-3">
+                        <input type="password" class="form-control" id="pwd2" name="newPass2" placeholder="Conferma la nuova password" >
                     </div>
                 </div>
                 <div class="form-group">
@@ -48,6 +54,6 @@
         </div>
     </div>
 </div>
-
+<script src="./javascript/validazione_modificaPassword.js"></script>
 </body>
 </html>

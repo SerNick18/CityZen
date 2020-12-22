@@ -40,7 +40,6 @@ public class ModificaPassword extends HttpServlet {
      * @throws IOException se viene rilevato un errore di input o output
      *  quando la servlet gestisce la richiesta
      */
-
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         FacadeDAO service = new FacadeDAO();
@@ -59,6 +58,7 @@ public class ModificaPassword extends HttpServlet {
                 if (cittadino != null) {
                     String oldPass = req.getParameter("oldPass");
                     String newPass = req.getParameter("newPass");
+                    String newPass2 = req.getParameter("newPass2");
                     String passwordHash;
                     try {
                         MessageDigest digest =
@@ -72,15 +72,23 @@ public class ModificaPassword extends HttpServlet {
                     }
                     if (passwordHash != null) {
                         String passwordAttuale = cittadino.getPwd();
-                        if (passwordAttuale.equals(passwordHash)
-                                && Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
+                        if(!passwordAttuale.equals(passwordHash))
+                            throw new MyServletException("La vecchia password non corrisponde "
+                                    + "con la password attuale");
+                        if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                                        + "(?=.*[A-Z])"
                                 + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
-                            service.doUpdatePasswordByEmail(cittadino.getEmail(), newPass);
-                        } else {
-                            throw new MyServletException("Controlla di aver"
-                                    + "inserito correttamente le password");
+                            throw new MyServletException("Le due password"
+                                    + " nuove non rispettano il formato ("
+                                    + "Almeno 8 caratteri, 1 lettera maiuscola,"
+                                    + " 1 minuscola, 1 numero"
+                                    + " ed 1 carattere speciale");
                         }
+                        if (!newPass.equals(newPass2)){
+                            throw new MyServletException("Le password nuove "
+                                    + "non corrispondono");
+                        }
+                        service.doUpdatePasswordByEmail(cittadino.getEmail(), newPass);
                     }
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("WEB-INF/view/"
