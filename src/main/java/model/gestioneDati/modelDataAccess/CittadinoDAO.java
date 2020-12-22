@@ -8,7 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Questa classe effettua il recupero, il salvataggio e le modifiche,
+ * di un Cittadino, nel database.
+ * */
 public class CittadinoDAO {
     /**
      * Il metodo si connette col database, crea un comando
@@ -49,6 +52,7 @@ public class CittadinoDAO {
         }
         return null;
     }
+
     public void doRegister(Cittadino cittadino){
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -68,6 +72,8 @@ public class CittadinoDAO {
             e.printStackTrace();
         }
     }
+
+
     public Cittadino doRetrieveByEmail(String email) {
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -86,6 +92,7 @@ public class CittadinoDAO {
             throw new RuntimeException(e);
         }
     }
+
     public Cittadino doRetrieveByCF(String cf) {
         try {
             Connection connection = ConnectionPool.getConnection();
