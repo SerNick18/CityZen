@@ -65,5 +65,6 @@ public class FacadeDAO {
     //Facade per model segnalazione
     public List<SegnalazioneInterface> getSegnalazioniInoltrate(int offset){return segnalazioneDAO.doRetrieveInoltrateProxy(offset);}
     public Segnalazione getSegnalazioneById(int id){return segnalazioneDAO.doRetrieveById(id);}
+    public void inserisciSegnalazione(Segnalazione segnalazione){segnalazioneDAO.doInsert(segnalazione);}
 
 }

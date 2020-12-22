@@ -49,6 +49,13 @@ public class Segnalazione extends AbstractSegnalazione implements SegnalazioneIn
         this.cittadino = cittadino;
         this.riaperta = riaperta;
     }
+
+    /**
+     * Costruttore vuoto
+     */
+    public Segnalazione() {
+
+    }
     /**
      * Questo metodo restituisce l'identificativo della segnalazione
      * @return
