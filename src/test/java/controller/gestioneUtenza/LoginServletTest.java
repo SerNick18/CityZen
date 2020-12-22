@@ -73,5 +73,4 @@ class LoginServletTest extends LoginServlet {
         request.addParameter("pwd", "Prova123");
         assertDoesNotThrow(() -> {loginServlet.doPost(request, response);});
     }
-
 }
