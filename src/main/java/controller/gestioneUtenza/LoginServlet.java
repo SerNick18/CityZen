@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
                     sn.setAttribute("Impiegato", impiegato);
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("WEB-INF/view/"
-                                    + "gui-impiegato.jsp");
+                                    + "GuiImpiegato/gui-impiegato.jsp");
                     dispatcher.forward(req, resp);
                 } else {
                     throw new MyServletException("Email o password errati");
