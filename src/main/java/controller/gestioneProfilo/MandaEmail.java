@@ -57,9 +57,9 @@ public class MandaEmail extends HttpServlet {
         PrintWriter out = resp.getWriter();
         FacadeDAO service = new FacadeDAO();
 
-        Cittadino c = service.verificaEmail(email);
+        Cittadino cittadino = service.verificaEmail(email);
 
-        if (c != null) {
+        if (cittadino != null) {
             //manda email
             String host = "smtp.gmail.com";
             String oggetto = "Reimposta la password";
@@ -95,7 +95,7 @@ public class MandaEmail extends HttpServlet {
 
             try {
                 mail.setFrom(new InternetAddress("no-reply@scafati.it"));
-                mail.addRecipients(Message.RecipientType.TO, c.getEmail());
+                mail.addRecipients(Message.RecipientType.TO, cittadino.getEmail());
                 mail.setSubject(oggetto);
                 mail.setContent(testo, "text/html");
 
