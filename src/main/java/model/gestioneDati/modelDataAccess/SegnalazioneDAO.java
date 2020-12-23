@@ -33,6 +33,27 @@ public class SegnalazioneDAO {
         }
     }
 
+    public List<SegnalazioneInterface> doRetrieveByStato(String stato, int offset) {
+        try {
+            ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
+            FacadeDAO facadeDAO = new FacadeDAO();
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM segnalazione WHERE stato=? order by id desc limit 20 offset ?");
+            statement.setString(1, stato);
+            statement.setInt(2, offset);
+            ResultSet r = statement.executeQuery();
+            while (r.next()) {
+                SegnalazioneProxy s = new SegnalazioneProxy(r.getInt("ID"),r.getString("Oggetto"),
+                        r.getInt("Priorità"), facadeDAO.getCittadinoByCf(r.getString("Cittadino")), r.getInt("numSolleciti"));
+                segnalazioni.add(s);
+            }
+            return segnalazioni;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Segnalazione doRetrieveById(int id) {
         try {
             FacadeDAO facadeDAO = new FacadeDAO();

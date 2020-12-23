@@ -42,7 +42,7 @@
                 <h1>Segnalazioni</h1>
             </div>
             <div class="row align-items-start">
-                <div class="col"><a href="#">Inoltrate</a></div>
+                <div class="col"><a href="visualizza-segnalazioni-inoltrate">Inoltrate</a></div>
                 <div class="col"><a href="#">Approvate</a></div>
                 <div class="col"><a href="#">Chiuse</a></div>
             </div>
