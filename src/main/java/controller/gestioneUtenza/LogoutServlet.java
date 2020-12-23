@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 /**
  * Servlet per il logout
  */
@@ -25,7 +24,13 @@ public class LogoutServlet extends HttpServlet {
             throw new MyServletException("Non sei autenticato");
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
-
+    /**
+     * Metodo che richiama semplicemente il doGet
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
