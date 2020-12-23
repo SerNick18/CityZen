@@ -1,15 +1,13 @@
 package model.gestioneDati.modelDataAccess;
 
+import controller.gestioneUtenza.MyRuntimeException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Segnalazione;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
 import model.gestioneDati.modelObjects.SegnalazioneProxy;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +53,30 @@ public class SegnalazioneDAO {
             return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void doInsert(Segnalazione segnalazione){
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("insert into segnalazione" +
+                    "(Via, Civico, Priorità, numSolleciti, Stato, DataSegnalazione, Oggetto, Descrizione, Foto, Cittadino) "
+                    +"values(?,?,?,?,?,?,?,?,?,?)");
+            statement.setString(1,segnalazione.getVia());
+            statement.setInt(2,segnalazione.getCivico());
+            statement.setInt(3,segnalazione.getPriorita());
+            statement.setInt(4,segnalazione.getNumSolleciti());
+            statement.setString(5,segnalazione.getStato());
+            statement.setDate(6, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
+            statement.setString(7,segnalazione.getOggetto());
+            statement.setString(8,segnalazione.getDescrizione());
+            statement.setString(9,segnalazione.getFoto());
+            statement.setString(10,segnalazione.getCittadino().getCF());
+            //statement.setInt(11,segnalazione.getRiaperta());
+            if(statement.executeUpdate()!=1)
+                throw new MyRuntimeException("C'è stato un errore nell'inserimento della segnalazione");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

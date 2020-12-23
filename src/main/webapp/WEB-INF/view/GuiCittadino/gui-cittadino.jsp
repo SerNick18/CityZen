@@ -31,7 +31,6 @@
 %>
 <h1>Benvenuto <%=cittadino.getEmail()%></h1>
 
-
 <div class="container-fluid">
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
@@ -59,7 +58,10 @@
                     </div>
                 </c:forEach>
             </div>
-            <button class="mt-5">Inoltra Segnalazione</button>
+            <form action="inoltroSegnalazione" method="post">
+                <button class="mt-5">Inoltra Segnalazione</button>
+                <input type="hidden" name="fromGui" value="true">
+            </form>
         </div>
     </div>
 </div>
