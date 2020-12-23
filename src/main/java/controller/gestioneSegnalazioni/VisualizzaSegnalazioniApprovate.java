@@ -32,8 +32,22 @@ public class VisualizzaSegnalazioniApprovate extends HttpServlet {
         List<SegnalazioneInterface> approvate =service.getSegnalazioniByStato("approvata", 0);
 
         req.setAttribute("approvata", approvate);
-
-        RequestDispatcher dispatcher=req.getRequestDispatcher("WEB-INF/view/GuiImpiegato/visualizza-approvate.jsp");
-        dispatcher.forward(req, resp);
+        if (req.getSession().getAttribute("Impiegato") != null) {
+            RequestDispatcher dispatcher =
+                    req.getRequestDispatcher("WEB-INF/view/GuiImpiegato"
+                            + "/visualizza-approvate.jsp");
+            dispatcher.forward(req, resp);
+        } else if (req.getSession().getAttribute("Cittadino") != null) {
+            RequestDispatcher dispatcher =
+                    req.getRequestDispatcher("WEB-INF/view/GuiCittadino"
+                            + "/visualizza-approvate.jsp");
+            dispatcher.forward(req, resp);
+        }
+        else {
+            RequestDispatcher dispatcher =
+                    req.getRequestDispatcher("WEB-INF/view/GuiOspite"
+                            + "/gui-ospite.jsp");
+            dispatcher.forward(req, resp);
+        }
     }
 }

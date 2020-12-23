@@ -26,8 +26,8 @@
                 <div class="col-10 align-self-start">
                     <div class="row align-items-start">
                         <div class="col"><a href="visualizza-segnalazioni-inoltrate">Inoltrate</a></div>
-                        <div class="col"><a href="#">Approvate</a></div>
-                        <div class="col"><a href="#">Chiuse</a></div>
+                        <div class="col"><a href="ListApprovate">Approvate</a></div>
+                        <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
                     </div>
                     <div class="row align-items-center mt-3">
                         <table class="table">

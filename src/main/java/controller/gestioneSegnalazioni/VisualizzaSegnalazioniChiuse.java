@@ -63,9 +63,10 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
                             + "/visualizza-chiuse.jsp");
             dispatcher.forward(req, resp);
         } else {
-            throw new MyServletException("Per visualizzare "
-                    + "le segnalazioni chiuse "
-                    + "bisogna essere autenticati come impiegato");
+            RequestDispatcher dispatcher =
+                    req.getRequestDispatcher("WEB-INF/view/GuiOspite"
+                            + "/gui-ospite.jsp");
+            dispatcher.forward(req, resp);
         }
     }
 

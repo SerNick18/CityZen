@@ -39,10 +39,8 @@
                 <h1>SEGNALAZIONI</h1>
             </div>
             <div class="row align-items-start">
-                <div class="col"><a href="#">Popolari</a></div>
-                <div class="col"><a href="#">Chiuse</a></div>
-                <div class="col"><a href="#">Recenti</a></div>
-                <div class="col"><a href="#">Approvate</a></div>
+                <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
+                <div class="col"><a href="ListApprovate">Approvate</a></div>
             </div>
             <div class="row align-items-center mt-3">
                 <c:forEach items="<%=segnalazioni%>" var="s">
