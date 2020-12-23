@@ -95,7 +95,8 @@ public class MandaEmail extends HttpServlet {
 
             try {
                 mail.setFrom(new InternetAddress("no-reply@scafati.it"));
-                mail.addRecipients(Message.RecipientType.TO, cittadino.getEmail());
+                mail.addRecipients(Message.RecipientType.TO,
+                        cittadino.getEmail());
                 mail.setSubject(oggetto);
                 mail.setContent(testo, "text/html");
 

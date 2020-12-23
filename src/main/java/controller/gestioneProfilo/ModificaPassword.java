@@ -72,9 +72,11 @@ public class ModificaPassword extends HttpServlet {
                     }
                     if (passwordHash != null) {
                         String passwordAttuale = cittadino.getPwd();
-                        if(!passwordAttuale.equals(passwordHash))
-                            throw new MyServletException("La vecchia password non corrisponde "
+                        if (!passwordAttuale.equals(passwordHash)) {
+                            throw new MyServletException(
+                                    "La vecchia password non corrisponde "
                                     + "con la password attuale");
+                        }
                         if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                                        + "(?=.*[A-Z])"
                                 + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
@@ -84,11 +86,12 @@ public class ModificaPassword extends HttpServlet {
                                     + " 1 minuscola, 1 numero"
                                     + " ed 1 carattere speciale");
                         }
-                        if (!newPass.equals(newPass2)){
+                        if (!newPass.equals(newPass2)) {
                             throw new MyServletException("Le password nuove "
                                     + "non corrispondono");
                         }
-                        service.doUpdatePasswordByEmail(cittadino.getEmail(), newPass);
+                        service.doUpdatePasswordByEmail(
+                                cittadino.getEmail(), newPass);
                     }
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("WEB-INF/view/"

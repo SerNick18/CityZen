@@ -31,15 +31,17 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         doPost(req, resp);
     }
-    /**
+    /**.
      * Metodo usato per effettuare il login
-     * Controlla se l'utente ha già effettuato il login e se è loggato lancia un'eccezione.
-     * Riceve in input una email e una password ed effettua controlli sulla correttezza dei campi.
-     * L'email può contenere lettere e numeri e una @ seguita dal dominio,
-     * la password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.
-     * Inoltre se la mail contiene come dominio @scafati.it vuol dire che a loggarsi è stato un Impiegato
-     * che viene reindirizzato alla sua pagina principale, altrimenti è un Cittadino che verrà reindirizzato alla propria
-     * home page.
+     * Controlla se l'utente ha già effettuato il login e se è loggato lancia
+     * un'eccezione. Riceve in input una email e una password ed effettua
+     * controlli sulla correttezza dei campi. L'email può contenere lettere e
+     * numeri e una @ seguita dal dominio, la password deve contenere almeno
+     * 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.
+     * Inoltre se la mail contiene come dominio @scafati.it vuol dire che a
+     * loggarsi è stato un Impiegato che viene reindirizzato alla sua pagina
+     * principale, altrimenti è un Cittadino che verrà reindirizzato alla
+     * propria home page.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita
@@ -50,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = req.getParameter("email");
         String pwd = req.getParameter("pwd");
-        if (email == null || pwd == null){
+        if (email == null || pwd == null) {
             throw new MyServletException("Si è verificato un errore");
         }
         FacadeDAO service = new FacadeDAO();
@@ -78,7 +80,8 @@ public class LoginServlet extends HttpServlet {
                 if (cittadino != null) {
                     sn.setAttribute("Cittadino", cittadino);
                     RequestDispatcher dispatcher =
-                            req.getRequestDispatcher("/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+                            req.getRequestDispatcher(
+                                    "/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
                     dispatcher.forward(req, resp);
                 } else {
                     throw new MyServletException("Email o password errati");

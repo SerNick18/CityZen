@@ -125,37 +125,53 @@ public class SegnalazioneDAO {
             statement.setInt(3, segnalazione.getPriorita());
             statement.setInt(4, segnalazione.getNumSolleciti());
             statement.setString(5, segnalazione.getStato());
-            statement.setDate(6, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
+            statement.setDate(6,
+                    new java.sql.Date(segnalazione.getDataSegnalazione()
+                            .getTime()));
             statement.setString(7, segnalazione.getOggetto());
             statement.setString(8, segnalazione.getDescrizione());
             statement.setString(9, segnalazione.getFoto());
             statement.setString(10, segnalazione.getCittadino().getCF());
-            if(statement.executeUpdate()!=1)
-                throw new MyRuntimeException("C'è stato un errore nell'inserimento della segnalazione");
+            if (statement.executeUpdate() != 1) {
+                throw new MyRuntimeException(
+                        "C'è stato un errore nell'inserimento della "
+                                + "segnalazione");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-    public void doUpdate(Segnalazione segnalazione){
+    /**.
+     * Metodo per modificare una segnalazione
+     * @param segnalazione segnalazione modificata
+     */
+    public void doUpdate(Segnalazione segnalazione) {
         try {
             Connection connection = ConnectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement("UPDATE segnalazione SET " +
-                    "Via=?, Civico=?, Priorità=?, numSolleciti=?, Stato=?, DataSegnalazione=?" +
-                    ", Oggetto=?, Descrizione=?, Foto=?, Cittadino=? WHERE ID=?");
-            statement.setString(1,segnalazione.getVia());
-            statement.setInt(2,segnalazione.getCivico());
-            statement.setInt(3,segnalazione.getPriorita());
-            statement.setInt(4,segnalazione.getNumSolleciti());
-            statement.setString(5,segnalazione.getStato());
-            statement.setDate(6, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
-            statement.setString(7,segnalazione.getOggetto());
-            statement.setString(8,segnalazione.getDescrizione());
-            statement.setString(9,segnalazione.getFoto());
-            statement.setString(10,segnalazione.getCittadino().getCF());
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE segnalazione SET "
+                            + "Via=?, Civico=?, Priorità=?, numSolleciti=?,"
+                            + "Stato=?, DataSegnalazione=?,"
+                            + "Oggetto=?, Descrizione=?, Foto=?,"
+                            + "Cittadino=? WHERE ID=?");
+            statement.setString(1, segnalazione.getVia());
+            statement.setInt(2, segnalazione.getCivico());
+            statement.setInt(3, segnalazione.getPriorita());
+            statement.setInt(4, segnalazione.getNumSolleciti());
+            statement.setString(5, segnalazione.getStato());
+            statement.setDate(6,
+                    new java.sql.Date(segnalazione.getDataSegnalazione()
+                            .getTime()));
+            statement.setString(7, segnalazione.getOggetto());
+            statement.setString(8, segnalazione.getDescrizione());
+            statement.setString(9, segnalazione.getFoto());
+            statement.setString(10, segnalazione.getCittadino().getCF());
             statement.setInt(11, segnalazione.getId());
-            if(statement.executeUpdate()!=1)
-                throw new MyRuntimeException("C'è stato un errore nella modifica dello stato della segnalazione");
+            if (statement.executeUpdate() != 1) {
+                throw new MyRuntimeException(
+                        "C'è stato un errore nella modifica dello stato "
+                                + "della segnalazione");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
