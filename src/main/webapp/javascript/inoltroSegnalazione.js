@@ -23,7 +23,7 @@ function submitForm(){
 function validateOggetto(){
     var oggetto = document.getElementById("oggetto");
     var messageOggetto = document.getElementById("messageOggetto");
-    if (oggetto.value.match(/([A-Za-z0-9]\s*){4,25}/)){
+    if (oggetto.value.match(/([A-Za-z0-9']\s*){4,25}/)){
         oggetto.style.border = borderOk;
         oggettoOK = true;
         messageOggetto.innerHTML = "";
@@ -74,7 +74,7 @@ function validateCivico(){
     }else {
         civico.style.border = borderNo;
         civicoOK = false;
-        messageCivico.innerHTML = "Il numero civico deve essere un numero di massimo 5 cifre."
+        messageCivico.innerHTML = "Il numero civico non è valido."
     }
 }
 

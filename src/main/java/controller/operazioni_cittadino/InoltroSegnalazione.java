@@ -49,15 +49,14 @@ public class InoltroSegnalazione extends HttpServlet {
             String descrizione = req.getParameter("descrizione");
             String via = req.getParameter("via");
             String strCivico = req.getParameter("civico");
+            int civico;
 
             //controlli sui campi di input
             if(oggetto==null||descrizione==null||via==null||strCivico==null||
             oggetto.equals("")||descrizione.equals("")||via.equals("")||strCivico.equals("")) {
-                req.setAttribute("TryAgain","inoltroSegnalazione");
                 throw new MyServletException("Compilare tutti i campi richiesti!");
             }
-
-            if (!Pattern.matches("([A-Za-z0-9]\\s*){4,25}",oggetto)) {
+            if (!Pattern.matches("([A-Za-z0-9']\\s*){4,25}",oggetto)) {
                 throw new MyServletException("L'oggetto deve essere lungo minimo 4 e massimo 25 caratteri. " +
                         "Non può contenere caratteri speciali.");
             }
@@ -67,22 +66,31 @@ public class InoltroSegnalazione extends HttpServlet {
                 throw new MyServletException("La via deve essere lunga minimo 2 e massimo 200 caratteri. " +
                         "Non può contenere caratteri speciali.");
             }
-            if (!Pattern.matches("[0-9]{1,5}",strCivico)) {
-                throw new MyServletException("Il numero civico deve essere un numero di massimo 5 cifre.");
+
+            //controllo se il civico è un numero
+            try{
+                civico = Integer.parseInt(strCivico);
+            }catch (NumberFormatException e){
+                throw new MyServletException("Il numero civico non è valido.");
+            }
+            //controllo se il civico è < 5000
+            if (civico>5000 || civico<0) {
+                throw new MyServletException("Il numero civico non è valido.");
             }
 
             //creo la segnalazione
             Segnalazione segnalazione = new Segnalazione();
             segnalazione.setOggetto(oggetto);
             segnalazione.setVia(via);
-            segnalazione.setCivico(Integer.parseInt(strCivico));
+            segnalazione.setCivico(civico);
             segnalazione.setPriorita(0);
             segnalazione.setNumSolleciti(0);
             segnalazione.setStato("inoltrata");
             segnalazione.setDataSegnalazione(new Date());
             segnalazione.setDescrizione(descrizione);
             if ((uploadImage(req).equals("")))
-                throw new MyServletException("E' obbligatorio allegare una foto alla segnalazione");
+                throw new MyServletException("E' obbligatorio allegare una foto alla segnalazione. " +
+                        "I formati accettati sono .jpg, .jpeg, .jpg");
             else
                 segnalazione.setFoto(uploadImage(req));
             segnalazione.setCittadino(cittadino);
@@ -97,11 +105,16 @@ public class InoltroSegnalazione extends HttpServlet {
         }
     }
 
-    private String uploadImage(HttpServletRequest request) throws MyServletException {
+    private String uploadImage(HttpServletRequest request) throws MyServletException, ServletException {
         String fileName="";
         try {
             Part filePart = request.getPart("foto");
             fileName += Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String[] fileNameSplit = fileName.split("\\.");
+            if (!fileNameSplit[fileNameSplit.length-1].equals("png") && !fileNameSplit[fileNameSplit.length-1].equals("jpg")
+                                        && !fileNameSplit[fileNameSplit.length-1].equals("jpeg"))
+                throw new MyServletException("Formato della foto non accettato, I formati accettati sono .jpg, .jpeg, .jpg");
+
             InputStream in = filePart.getInputStream();
             BufferedInputStream buf = new BufferedInputStream(in);
             String parentPath = getServletContext().getRealPath("")+"/resources/images/";
@@ -113,9 +126,7 @@ public class InoltroSegnalazione extends HttpServlet {
             if (!file.exists())
                 throw new MyServletException("Errore nel caricamento della foto!");
         } catch (IOException e) {
-            throw new MyServletException("Errore nel caricamento della foto!");
-        } catch (ServletException e) {
-            throw new MyServletException("Errore nel caricamento della foto!");
+            throw new MyServletException("Errore I/O nel caricamento della foto!");
         }
         return fileName;
     }
