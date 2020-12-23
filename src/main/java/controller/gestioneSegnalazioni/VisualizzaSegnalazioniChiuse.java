@@ -1,4 +1,4 @@
-package controller.operazioni_impiegato;
+package controller.gestioneSegnalazioni;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;

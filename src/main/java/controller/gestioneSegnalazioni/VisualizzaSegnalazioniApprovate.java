@@ -1,4 +1,4 @@
-package controller.operazioni_impiegato;
+package controller.gestioneSegnalazioni;
 
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
