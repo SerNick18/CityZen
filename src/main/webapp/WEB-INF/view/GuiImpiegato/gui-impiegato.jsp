@@ -54,7 +54,7 @@
                                 <h5 class="card-title">${s.oggetto}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Priorità: ${s.priorita}</h6>
                                 <p class="card-text">Numero solleciti: ${s.numSolleciti}</p>
-                                <a href="#" class="card-link">Dettagli</a>
+                                <a href="dettagli?id=${s.id}" class="card-link">Dettagli</a>
                             </div>
                         </div>
                     </div>
