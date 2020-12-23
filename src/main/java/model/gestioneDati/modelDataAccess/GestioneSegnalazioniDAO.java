@@ -43,15 +43,15 @@ public class GestioneSegnalazioniDAO {
             ResultSet r = statement.executeQuery();
             while (r.next()) {
                 Impiegato i = new Impiegato(
+                        r.getString("Email"),
                         r.getString("Matricola"),
+                        r.getString(null),
                         r.getString("CF"),
                         r.getString("Nome"),
                         r.getString("Cognome"),
-                        r.getString(null),
                         r.getString("Via"),
                         r.getInt("Civico"),
                         r.getString("Citta"),
-                        r.getString("Email"),
                         r.getInt("numSegnalazioniApp"),
                         r.getInt("NumSegnalazioniChiuse"));
                 impiegati.add(i);
