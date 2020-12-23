@@ -12,13 +12,6 @@ public class GestioneSegnalazioni {
     private String tipoLavorazione;
     private Date dataLavorazione;
 
-    public Date getDataLavorazione() {
-        return dataLavorazione;
-    }
-
-    public void setDataLavorazione(Date dataLavorazione) {
-        this.dataLavorazione = dataLavorazione;
-    }
 
     /**
      * Costruttore con parametri
@@ -69,6 +62,9 @@ public class GestioneSegnalazioni {
      * Sovrascrittura metodo toString di Object
      * @return dati di GestioneSegnalazioni formato stringa
      */
+    public Date getDataLavorazione() { return dataLavorazione; }
+
+    public void setDataLavorazione(Date dataLavorazione) { this.dataLavorazione = dataLavorazione; }
     @Override
     public String toString() {
         return "GestioneSegnalazioni{" +

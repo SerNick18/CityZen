@@ -45,7 +45,6 @@ public class FacadeDAO {
      */
     public void doUpdatePasswordByEmail(String email, String password){ cittadinoDAO.doUpdatePasswordByEmail(email,password);}
     public Cittadino verificaEmail(String email) { return cittadinoDAO.doRetrieveByEmail(email); }
-
     /**
      * Il metodo richiama la funzione di
      * eliminazione del cittadino con codice
@@ -67,5 +66,8 @@ public class FacadeDAO {
     public List<SegnalazioneInterface> getSegnalazioniByStato(String stato, int offset){return segnalazioneDAO.doRetrieveByStato(stato, offset);}
     public Segnalazione getSegnalazioneById(int id){return segnalazioneDAO.doRetrieveById(id);}
     public void inserisciSegnalazione(Segnalazione segnalazione){segnalazioneDAO.doInsert(segnalazione);}
+    public void setStato(String stato, int id){ segnalazioneDAO.doSetStateById(stato, id);}
 
+    //Facade per model gestioneSegnalazioni
+    public void inserisciLavorazione(Impiegato impiegato, String stato, int id){ gestioneSegnalazioneDAO.doInsert(impiegato, stato, id);}
 }

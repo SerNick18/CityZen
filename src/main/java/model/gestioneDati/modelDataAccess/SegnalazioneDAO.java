@@ -93,9 +93,22 @@ public class SegnalazioneDAO {
             statement.setString(8,segnalazione.getDescrizione());
             statement.setString(9,segnalazione.getFoto());
             statement.setString(10,segnalazione.getCittadino().getCF());
-            //statement.setInt(11,segnalazione.getRiaperta());
             if(statement.executeUpdate()!=1)
                 throw new MyRuntimeException("C'è stato un errore nell'inserimento della segnalazione");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void doSetStateById(String stato, int id){
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE segnalazione" +
+                    "SET Stato=? WHERE ID=?");
+            statement.setString(1, stato);
+            statement.setInt(2, id);
+            if(statement.executeUpdate()!=1)
+                throw new MyRuntimeException("C'è stato un errore nella modifica dello stato della segnalazione");
         } catch (SQLException e) {
             e.printStackTrace();
         }
