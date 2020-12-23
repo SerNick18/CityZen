@@ -4,11 +4,16 @@ import controller.gestioneUtenza.MyRuntimeException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Impiegato;
 import model.gestioneDati.modelObjects.Segnalazione;
+import model.gestioneDati.modelObjects.SegnalazioneInterface;
+import model.gestioneDati.modelObjects.SegnalazioneProxy;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class GestioneSegnalazioniDAO {
     public void doInsert(Impiegato impiegato, Segnalazione segnalazione) {
@@ -25,6 +30,35 @@ public class GestioneSegnalazioniDAO {
                 throw new MyRuntimeException("C'è stato un errore nell'inserimento della lavorazione");
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public List<Impiegato> doRetrieveImpiegatiOsservatori(int idSegnalazione){
+        try {
+            ArrayList<Impiegato> impiegati = new ArrayList<>();
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM gestionisegnalazioni WHERE segnalazione=? ");
+            statement.setInt(1, idSegnalazione);
+            ResultSet r = statement.executeQuery();
+            while (r.next()) {
+                Impiegato i = new Impiegato(
+                        r.getString("Matricola"),
+                        r.getString("CF"),
+                        r.getString("Nome"),
+                        r.getString("Cognome"),
+                        r.getString(null),
+                        r.getString("Via"),
+                        r.getInt("Civico"),
+                        r.getString("Citta"),
+                        r.getString("Email"),
+                        r.getInt("numSegnalazioniApp"),
+                        r.getInt("NumSegnalazioniChiuse"));
+                impiegati.add(i);
+            }
+            return impiegati;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
