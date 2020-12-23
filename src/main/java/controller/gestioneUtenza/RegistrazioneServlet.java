@@ -120,7 +120,8 @@ public class RegistrazioneServlet extends HttpServlet {
                     Integer.parseInt(civico), citta, email, 0, 0);
             service.registraCittadino(cittadino);
             req.getSession().setAttribute("Cittadino", cittadino);
-            resp.sendRedirect(req.getContextPath()+"/index.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+            dispatcher.forward(req,resp);
         }else{
             /*
              * redirigere il cittadino al profilo ed indicargli che deve fare logout per potersi

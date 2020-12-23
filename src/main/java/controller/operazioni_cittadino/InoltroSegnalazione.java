@@ -57,7 +57,6 @@ public class InoltroSegnalazione extends HttpServlet {
                 throw new MyServletException("Compilare tutti i campi richiesti!");
             }
 
-            int civico = Integer.parseInt(strCivico);
             if (!Pattern.matches("([A-Za-z0-9]\\s*){4,25}",oggetto)) {
                 throw new MyServletException("L'oggetto deve essere lungo minimo 4 e massimo 25 caratteri. " +
                         "Non può contenere caratteri speciali.");
@@ -68,7 +67,7 @@ public class InoltroSegnalazione extends HttpServlet {
                 throw new MyServletException("La via deve essere lunga minimo 2 e massimo 200 caratteri. " +
                         "Non può contenere caratteri speciali.");
             }
-            if (!Pattern.matches("[0-9]{1,5}",String.valueOf(civico))) {
+            if (!Pattern.matches("[0-9]{1,5}",strCivico)) {
                 throw new MyServletException("Il numero civico deve essere un numero di massimo 5 cifre.");
             }
 
@@ -76,13 +75,16 @@ public class InoltroSegnalazione extends HttpServlet {
             Segnalazione segnalazione = new Segnalazione();
             segnalazione.setOggetto(oggetto);
             segnalazione.setVia(via);
-            segnalazione.setCivico(civico);
+            segnalazione.setCivico(Integer.parseInt(strCivico));
             segnalazione.setPriorita(0);
             segnalazione.setNumSolleciti(0);
             segnalazione.setStato("inoltrata");
             segnalazione.setDataSegnalazione(new Date());
             segnalazione.setDescrizione(descrizione);
-            segnalazione.setFoto(uploadImage(req));
+            if ((uploadImage(req).equals("")))
+                throw new MyServletException("E' obbligatorio allegare una foto alla segnalazione");
+            else
+                segnalazione.setFoto(uploadImage(req));
             segnalazione.setCittadino(cittadino);
             //segnalazione.setRiaperta(0);
 
@@ -106,6 +108,10 @@ public class InoltroSegnalazione extends HttpServlet {
             File file = new File(parentPath);
             filePart.write(parentPath+fileName);
 
+            //controlla se il file esiste
+            file = new File(parentPath+fileName);
+            if (!file.exists())
+                throw new MyServletException("Errore nel caricamento della foto!");
         } catch (IOException e) {
             throw new MyServletException("Errore nel caricamento della foto!");
         } catch (ServletException e) {
