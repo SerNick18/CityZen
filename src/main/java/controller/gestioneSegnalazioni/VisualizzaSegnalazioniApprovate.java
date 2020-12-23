@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ *Servlet che prende le segnalazioni
+ * con lo stato approvata e le mostra all'utente.
+ */
 @WebServlet("/ListApprovate")
 public class VisualizzaSegnalazioniApprovate extends HttpServlet {
     /**
@@ -25,11 +29,21 @@ public class VisualizzaSegnalazioniApprovate extends HttpServlet {
             throws ServletException, IOException {
         doPost(req, resp);
     }
+
+    /**
+     *Metodo per poter prendere le segnalazioni
+     * nello stato approvata e mostrarle all'utente.
+     * @param req request
+     * @param resp response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        FacadeDAO service=new FacadeDAO();
-        List<SegnalazioneInterface> approvate =service.getSegnalazioniByStato("approvata", 0);
+        FacadeDAO service = new FacadeDAO();
+        List<SegnalazioneInterface> approvate =
+                service.getSegnalazioniByStato("approvata", 0);
 
         req.setAttribute("approvata", approvate);
         if (req.getSession().getAttribute("Impiegato") != null) {
@@ -42,8 +56,7 @@ public class VisualizzaSegnalazioniApprovate extends HttpServlet {
                     req.getRequestDispatcher("WEB-INF/view/GuiCittadino"
                             + "/visualizza-approvate.jsp");
             dispatcher.forward(req, resp);
-        }
-        else {
+        } else {
             RequestDispatcher dispatcher =
                     req.getRequestDispatcher("WEB-INF/view/GuiOspite"
                             + "/gui-ospite.jsp");
