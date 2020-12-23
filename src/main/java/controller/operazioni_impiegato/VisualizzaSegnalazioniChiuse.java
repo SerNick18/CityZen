@@ -46,14 +46,20 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         FacadeDAO service = new FacadeDAO();
-        if (req.getSession().getAttribute("Impiegato") != null) {
+
             List<SegnalazioneInterface> chiuse =
                     service.getSegnalazioniByStato("chiusa", 0);
 
             req.setAttribute("chiuse", chiuse);
 
+        if (req.getSession().getAttribute("Impiegato") != null) {
             RequestDispatcher dispatcher =
                     req.getRequestDispatcher("WEB-INF/view/GuiImpiegato"
+                            + "/visualizza-chiuse.jsp");
+            dispatcher.forward(req, resp);
+        } else if (req.getSession().getAttribute("Cittadino") != null) {
+            RequestDispatcher dispatcher =
+                    req.getRequestDispatcher("WEB-INF/view/GuiCittadino"
                             + "/visualizza-chiuse.jsp");
             dispatcher.forward(req, resp);
         } else {
