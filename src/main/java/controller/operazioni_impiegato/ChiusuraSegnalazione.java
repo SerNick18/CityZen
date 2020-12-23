@@ -14,8 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Servlet per chiudere una segnalazione
+ */
 @WebServlet("/chiusuraSegnalazione")
 public class ChiusuraSegnalazione extends HttpServlet {
+    /**
+     * Metodo per chiudere una segnalazione
+     * Controlla se l'impiegato è loggato se non lo è manda un eccezione.
+     * Successivamente controlliamo che la segnalazione è stata selezionata e vediamo se è presente
+     * e se il suo stato è su approvata. Se lo stato è approvata possiamo chiuderla altrimenti mandiamo un'eccezione.
+     * Lo stato della segnalazione approvata verrà cambiata su chiusa e l'impiegato sarà reindirizzato sulla pagina
+     * delle segnalazioni chiuse
+     * @param req request
+     * @param resp response
+     * @throws ServletException eccezione
+     * @throws IOException eccezione
+     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Impiegato impiegato;
@@ -28,14 +43,27 @@ public class ChiusuraSegnalazione extends HttpServlet {
             if(segnalazione != null && (segnalazione.getStato().equals("approvata"))){
                 segnalazione.setStato("chiusa");
                 service.modificaSegnalazione(segnalazione);
-                impiegato.update(segnalazione);
+                segnalazione.notifyObservers();
                 service.inserisciLavorazione(impiegato, segnalazione);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiImpiegato/visualizza-chiuse.jsp");
+                dispatcher.forward(req,resp);
             } else {
                 throw new MyServletException("Segnalazione non approvata");
             }
+        }else{
+            throw new MyServletException(("Indicare una segnalazione"));
         }
     }
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    /**
+     * Metodo doGet che richiama il metodo doPost
+     * @param req request
+     * @param resp response
+     * @throws ServletException eccezione
+     * @throws IOException eccezione
+     */
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
 }
+

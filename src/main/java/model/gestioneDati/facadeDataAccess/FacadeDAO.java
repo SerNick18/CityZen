@@ -70,4 +70,6 @@ public class FacadeDAO {
 
     //Facade per model gestioneSegnalazioni
     public void inserisciLavorazione(Impiegato impiegato, Segnalazione segnalazione){ gestioneSegnalazioneDAO.doInsert(impiegato,segnalazione);}
+    public List<Impiegato> getImpiegatiOsservatori(int idSegnalazione) {
+        return gestioneSegnalazioneDAO.doRetrieveImpiegatiOsservatori(idSegnalazione);}
 }
