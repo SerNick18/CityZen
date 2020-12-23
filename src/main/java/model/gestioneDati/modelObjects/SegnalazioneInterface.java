@@ -2,19 +2,85 @@ package model.gestioneDati.modelObjects;
 
 import java.util.Date;
 
+/**
+ *
+ */
 public interface SegnalazioneInterface {
-    public int getId();
-    public String getOggetto();
-    public int getPriorita();
-    public String getNomeCittadino();
-    public int getNumSolleciti();
-    public String getVia();
-    public int getCivico();
-    public String getStato();
-    public Date getDataSegnalazione();
-    public String getDescrizione();
-    public String getFoto();
-    public Cittadino getCittadino();
-    public int getRiaperta();
+    /**
+     *
+     * @return id
+     */
+    int getId();
+    /**
+     *
+     * @return oggetto
+     */
+    String getOggetto();
+
+    /**
+     *
+     * @return int
+     */
+    int getPriorita();
+
+    /**
+     *
+     * @return nome del cittadino
+     */
+    String getNomeCittadino();
+
+    /**
+     *
+     * @return numero solleciti
+     */
+    int getNumSolleciti();
+
+    /**
+     *
+     * @return via
+     */
+    String getVia();
+
+    /**
+     *
+     * @return civico
+     */
+    int getCivico();
+
+    /**
+     *
+     * @return stato
+     */
+    String getStato();
+
+    /**
+     *
+     * @return data
+     */
+    Date getDataSegnalazione();
+
+    /**
+     *
+     * @return descrizione
+     */
+    String getDescrizione();
+
+    /**
+     *
+     * @return foto
+     */
+    String getFoto();
+
+    /**
+     *
+     * @return Cittadino
+     */
+    Cittadino getCittadino();
+
+    /**
+     *
+     * @return int
+     */
+    int getRiaperta();
 
 }

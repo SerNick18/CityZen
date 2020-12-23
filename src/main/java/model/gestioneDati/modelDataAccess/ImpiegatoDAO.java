@@ -8,15 +8,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ImpiegatoDAO {
-    public Impiegato doLogin(String email, String pwd){
+    /**
+     *
+     * @param email
+     * @param pwd
+     * @return Impiegato.
+     */
+    public Impiegato doLogin(String email, String pwd) {
         try {
             Connection connection = ConnectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement("select * from impiegato where email = ? and pwd = SHA1(?)");
-            statement.setString(1,email);
-            statement.setString(2,pwd);
+            PreparedStatement statement =
+                    connection.prepareStatement("select * from impiegato "
+                                    + "where email = ? and pwd = SHA1(?)");
+            statement.setString(1, email);
+            statement.setString(2, pwd);
             ResultSet r = statement.executeQuery();
-            if (r.next()){
-                Impiegato i=new Impiegato();
+            if (r.next()) {
+                Impiegato i = new Impiegato();
                 i.setMatricola(r.getString("Matricola"));
                 i.setCF(r.getString("CF"));
                 i.setNome(r.getString("Nome"));
