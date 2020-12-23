@@ -11,19 +11,18 @@ public class GestioneSegnalazioni {
     private Segnalazione segnalazione;
     private String tipoLavorazione;
     private Date dataLavorazione;
-
-
     /**
      * Costruttore con parametri
      * @param impiegato Impiegato che ha lavorato la segnalazione
      * @param segnalazione Segnalazione lavorata
      * @param tipoLavorazione Tipo di lavoro effettuato dall'impiegato sulla segnalazione
+     * @param data Data della lavorazione
      */
-    public GestioneSegnalazioni(Impiegato impiegato, Segnalazione segnalazione, String tipoLavorazione, Date dataLavorazione) {
+    public GestioneSegnalazioni(Impiegato impiegato, Segnalazione segnalazione, String tipoLavorazione, Date data) {
         this.impiegato = impiegato;
         this.segnalazione = segnalazione;
         this.tipoLavorazione = tipoLavorazione;
-        this.dataLavorazione = dataLavorazione;
+        this.dataLavorazione = data;
     }
     /**
      * Questo metodo restituisce l'impiegato che ha lavorato la segnalazione
@@ -62,16 +61,18 @@ public class GestioneSegnalazioni {
      * Sovrascrittura metodo toString di Object
      * @return dati di GestioneSegnalazioni formato stringa
      */
-    public Date getDataLavorazione() { return dataLavorazione; }
-
-    public void setDataLavorazione(Date dataLavorazione) { this.dataLavorazione = dataLavorazione; }
+    public Date getDataLavorazione() {
+        return dataLavorazione;
+    }
+    public void setDataLavorazione(Date dataLavorazione) {
+        dataLavorazione = dataLavorazione;
+    }
     @Override
     public String toString() {
         return "GestioneSegnalazioni{" +
                 "impiegato=" + impiegato +
                 ", segnalazione=" + segnalazione +
                 ", tipoLavorazione='" + tipoLavorazione +
-                ", dataLvorazione='" + dataLavorazione +
                 '}';
     }
 }
