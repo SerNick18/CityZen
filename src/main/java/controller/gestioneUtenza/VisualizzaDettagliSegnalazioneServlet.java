@@ -48,22 +48,23 @@ public class VisualizzaDettagliSegnalazioneServlet extends HttpServlet {
             throw new MyServletException("segnalazione non valida");
         }
         Segnalazione segnalazione = service.getSegnalazioneById(id);
-        if (segnalazione == null){
+        if (segnalazione == null) {
             throw new MyServletException("Nessuna segnalazione trovata");
         }
         req.getSession().setAttribute("Segnalazione", segnalazione);
-        if(req.getSession().getAttribute("Cittadino") != null){
+        if (req.getSession().getAttribute("Cittadino") != null) {
             RequestDispatcher dispatcher =
                 req.getRequestDispatcher(
                         "/WEB-INF/view/GuiCittadino/dettagli-segnalazione.jsp");
             dispatcher.forward(req, resp);
-        }else if(req.getSession().getAttribute("Impiegato") != null) {
+        } else if (req.getSession().getAttribute("Impiegato") != null) {
             RequestDispatcher dispatcher =
-                    req.getRequestDispatcher("" +
-                            "/WEB-INF/view/GuiImpiegato/dettagli-segnalazione.jsp");
+                    req.getRequestDispatcher("/WEB-INF/view/"
+                            + "GuiImpiegato/dettagli-segnalazione.jsp");
             dispatcher.forward(req, resp);
-        }else {
-            throw new MyServletException("Impossibile vedere i dettagli se non si è autenticato");
+        } else {
+            throw new MyServletException("Impossibile "
+                   + "vedere i dettagli se non si è autenticato");
         }
     }
 }

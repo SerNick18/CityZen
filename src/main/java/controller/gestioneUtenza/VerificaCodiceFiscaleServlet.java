@@ -23,7 +23,8 @@ public class VerificaCodiceFiscaleServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         doGet(req, resp);
     }
     /**
@@ -34,11 +35,13 @@ public class VerificaCodiceFiscaleServlet extends HttpServlet {
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      */
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         FacadeDAO service = new FacadeDAO();
         String cf = req.getParameter("cf");
         resp.setContentType("text/xml");
-        if (cf != null && cf.matches("^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$")
+        if (cf != null && cf.matches(
+                "^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$")
                 && service.verificaCodiceFiscale(cf) == null) {
             resp.getWriter().append("<ok/>");
         } else {
