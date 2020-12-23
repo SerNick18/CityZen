@@ -11,27 +11,27 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     /**
      * Metodo per invalidare la sessione
-     * @param request
-     * @param response
+     * @param req
+     * @param resp
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("Cittadino") != null || request.getSession().getAttribute("Impiegato") != null)
-            request.getSession().invalidate();
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(req.getSession().getAttribute("Cittadino") != null || req.getSession().getAttribute("Impiegato") != null)
+            req.getSession().invalidate();
         else
             throw new MyServletException("Non sei autenticato");
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
     /**
      * Metodo che richiama semplicemente il doGet
-     * @param request
-     * @param response
+     * @param req
+     * @param resp
      * @throws ServletException
      * @throws IOException
      */
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }
