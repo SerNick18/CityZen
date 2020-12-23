@@ -54,6 +54,7 @@ public class SegnalazioneDAO {
         }
     }
 
+
     public Segnalazione doRetrieveById(int id) {
         try {
             FacadeDAO facadeDAO = new FacadeDAO();
