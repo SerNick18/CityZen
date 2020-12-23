@@ -76,7 +76,7 @@
                         <%
                             }else if (s.getStato().equals("approvata")){
                         %>
-                        <form class="form-group" action="chiudi" method="post">
+                        <form class="form-group" action="chiusuraSegnalazione" method="post">
                             <input type="hidden" name="id" value="${Segnalazione.id}">
                             <input type="submit" name="chiudi" value="Chiudi">
                         </form>

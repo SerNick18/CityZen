@@ -1,5 +1,11 @@
 package model.gestioneDati.modelObjects;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.PrintWriter;
+import java.util.Properties;
+
 /**
  * Questa classe rappresenta un impiegato comunale
  */
@@ -200,8 +206,46 @@ public class Impiegato implements Observer {
     @Override
     public void update(AbstractSegnalazione s) {
         //mail
+        final int port = 587;
         Segnalazione segnalazione = (Segnalazione) s;
         System.out.println("è stata modificata la segnalazione "+segnalazione.getOggetto()
                 +" con lo stato "+segnalazione.getStato());
+        String host = "smtp.gmail.com";
+        String oggetto = "Reimposta la password";
+        String testo = "Gentile Utente, "
+                + "Puoi reimpostare la tua password premendo "
+                + "il pulsante di seguito: \n"
+                + "<form action=\"http://localhost:8080"
+                + "/CityZen_war_exploded/reimposta-password\" "
+                + "method=\"post\">\n"
+                + "    <input type=\"hidden\" name=\"email\""
+                + " value=\"" + email + "\" />\n"
+                + "    <input type=\"hidden\" name=\"provenienza\""
+                + " value=\"email\" />\n"
+                + "    <button>Reimposta Password</button>\n"
+                + "</form>";
+        Properties p = new Properties();
+        p.put("mail.smtp.auth", "true"); //enable authentication
+        p.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+        p.put("mail.smtp.host", host);
+        p.put("mail.smtp.port", port);
+        Session sessione = Session.getDefaultInstance(p,
+                new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("progettoC04@gmail.com",
+                                "TestProgetto4");
+                    }
+                });
+        MimeMessage mail = new MimeMessage(sessione);
+        try {
+            mail.setFrom(new InternetAddress("no-reply@scafati.it"));
+            mail.addRecipients(Message.RecipientType.TO, this.getEmail());
+            mail.setSubject(oggetto);
+            mail.setContent(testo, "text/html");
+            Transport.send(mail);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
