@@ -11,6 +11,15 @@ public class GestioneSegnalazioni {
     private Segnalazione segnalazione;
     private String tipoLavorazione;
     private Date dataLavorazione;
+
+    public Date getDataLavorazione() {
+        return dataLavorazione;
+    }
+
+    public void setDataLavorazione(Date dataLavorazione) {
+        this.dataLavorazione = dataLavorazione;
+    }
+
     /**
      * Costruttore con parametri
      * @param impiegato Impiegato che ha lavorato la segnalazione
