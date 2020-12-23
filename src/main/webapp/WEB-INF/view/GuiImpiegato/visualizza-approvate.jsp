@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Segnalazioni Inoltrate</h1>
+<h1>Segnalazioni Approvate</h1>
 <div class="container-fluid">
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${approvate}" var="i">
+                    <c:forEach items="${approvata}" var="i">
                         <tr>
                             <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
                             <td>${i.cittadino.nome}</td>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/visualizza-segnalazioni-approvate")
+@WebServlet("/ListApprovate")
 public class VisualizzaSegnalazioniApprovate extends HttpServlet {
     /**
      * @param req request
