@@ -19,7 +19,7 @@ public class LogoutServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("Cittadino") != null)
+        if(request.getSession().getAttribute("Cittadino") != null || request.getSession().getAttribute("Impiegato") != null)
             request.getSession().invalidate();
         else
             throw new MyServletException("Non sei autenticato");
