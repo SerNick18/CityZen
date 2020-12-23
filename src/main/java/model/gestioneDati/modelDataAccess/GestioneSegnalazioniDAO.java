@@ -38,20 +38,20 @@ public class GestioneSegnalazioniDAO {
             ArrayList<Impiegato> impiegati = new ArrayList<>();
             Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM gestionisegnalazioni WHERE segnalazione=? ");
+                    "SELECT * FROM gestionesegnalazioni JOIN Impiegato i ON gestionesegnalazioni.Impiegato=i.Matricola  WHERE segnalazione=? ");
             statement.setInt(1, idSegnalazione);
             ResultSet r = statement.executeQuery();
             while (r.next()) {
                 Impiegato i = new Impiegato(
                         r.getString("Email"),
                         r.getString("Matricola"),
-                        r.getString(null),
+                        r.getString("Pwd"),
                         r.getString("CF"),
                         r.getString("Nome"),
                         r.getString("Cognome"),
                         r.getString("Via"),
                         r.getInt("Civico"),
-                        r.getString("Citta"),
+                        r.getString("Città"),
                         r.getInt("numSegnalazioniApp"),
                         r.getInt("NumSegnalazioniChiuse"));
                 impiegati.add(i);

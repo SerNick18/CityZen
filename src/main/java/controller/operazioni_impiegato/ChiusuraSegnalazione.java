@@ -2,6 +2,7 @@ package controller.operazioni_impiegato;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
+import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 import model.gestioneDati.modelObjects.Segnalazione;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet per chiudere una segnalazione
@@ -34,6 +36,7 @@ public class ChiusuraSegnalazione extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Impiegato impiegato;
+        Cittadino cittadino;
         if((impiegato = (Impiegato) session.getAttribute("Impiegato"))==null){
             throw new MyServletException("Effettua il login per visualizzare la pagina");
         }
@@ -43,9 +46,15 @@ public class ChiusuraSegnalazione extends HttpServlet {
             if(segnalazione != null && (segnalazione.getStato().equals("approvata"))){
                 segnalazione.setStato("chiusa");
                 service.modificaSegnalazione(segnalazione);
-                segnalazione.notifyObservers();
                 service.inserisciLavorazione(impiegato, segnalazione);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiImpiegato/visualizza-chiuse.jsp");
+                List<Impiegato> impiegati = service.getImpiegatiOsservatori(segnalazione.getId());
+                cittadino = segnalazione.getCittadino();
+                segnalazione.addObserver(cittadino);
+                for(Impiegato i: impiegati){
+                    segnalazione.addObserver(i);
+                }
+                segnalazione.notifyObservers();
+                RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiImpiegato/gui-impiegato.jsp");
                 dispatcher.forward(req,resp);
             } else {
                 throw new MyServletException("Segnalazione non approvata");
