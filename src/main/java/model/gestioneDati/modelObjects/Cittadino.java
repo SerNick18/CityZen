@@ -1,11 +1,15 @@
 package model.gestioneDati.modelObjects;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Objects;
+import java.util.Properties;
 
 /**
  * Questa classe rappresenta un cittadino
  */
-public class Cittadino {
+public class Cittadino implements Observer{
     private String CF;
     private String nome;
     private String cognome;
@@ -207,5 +211,38 @@ public class Cittadino {
     @Override
     public int hashCode() {
         return Objects.hash(CF, nome, cognome, pwd, via, civico, citta, email, numSegnalazioni, numSegnApp);
+    }
+
+    @Override
+    public void update(AbstractSegnalazione s) {
+        //mail
+        final int port = 587;
+        Segnalazione segnalazione = (Segnalazione) s;
+        String host = "smtp.gmail.com";
+        String oggetto = "Notifica Segnalazione #"+segnalazione.getId();
+        String testo = "La segnalazione è stata "+segnalazione.getStato();
+        Properties p = new Properties();
+        p.put("mail.smtp.auth", "true"); //enable authentication
+        p.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+        p.put("mail.smtp.host", host);
+        p.put("mail.smtp.port", port);
+        Session sessione = Session.getDefaultInstance(p,
+                new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("progettoC04@gmail.com",
+                                "TestProgetto4");
+                    }
+                });
+        MimeMessage mail = new MimeMessage(sessione);
+        try {
+            mail.setFrom(new InternetAddress("no-reply@scafati.it"));
+            mail.addRecipients(Message.RecipientType.TO, this.getEmail());
+            mail.setSubject(oggetto);
+            mail.setContent(testo, "text/html");
+            Transport.send(mail);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
