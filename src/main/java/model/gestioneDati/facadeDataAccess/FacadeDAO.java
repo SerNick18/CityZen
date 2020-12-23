@@ -65,6 +65,12 @@ public class FacadeDAO {
     //Facade per model segnalazione
     public List<SegnalazioneInterface> getSegnalazioniInoltrate(int offset){return segnalazioneDAO.doRetrieveInoltrateProxy(offset);}
     public Segnalazione getSegnalazioneById(int id){return segnalazioneDAO.doRetrieveById(id);}
+
+    /**
+     * Metodo riceve una segnalazione da inserire nel database e
+     * richiama la funzionalità di inserimento di una segnalazione.
+     * @param segnalazione da inserire nel database
+     */
     public void inserisciSegnalazione(Segnalazione segnalazione){segnalazioneDAO.doInsert(segnalazione);}
 
 }

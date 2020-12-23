@@ -56,6 +56,12 @@ public class SegnalazioneDAO {
         }
     }
 
+    /**
+     * Il metodo ha il compito di memorizzare nel database una segnalazione.
+     * Riceve la segnalazione sotto forma di oggetto, estrapola tutti i suoi
+     * campi, e li inserisce in una query da eseguire sul database.
+     * @param segnalazione da inserire nel database
+     */
     public void doInsert(Segnalazione segnalazione){
         try {
             Connection connection = ConnectionPool.getConnection();

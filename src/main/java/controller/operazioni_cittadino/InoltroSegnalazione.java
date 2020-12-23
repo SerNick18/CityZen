@@ -31,6 +31,16 @@ public class InoltroSegnalazione extends HttpServlet {
         doPost(req,resp);
     }
 
+    /**
+     * Il metodo gestisce l'inoltro di una segnalazione da parte del cittadino.
+     * Il cittadino sottomette un form con i parametri di seguito indicati.
+     * Il metodo effettua la validazione dei campi, controlla e memorizza il file
+     * immagine caricato dal cittadino, crea una nuova segnalazione e la inserisce nel database.
+     * @param req request in cui si passano i campi sottomessi dal cittadino
+     * @param resp response
+     * @throws ServletException per errori di validazione dei campi ed autorizzazioni di sicurezza
+     * @throws IOException per errori relativi all'I/O
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cittadino cittadino;
@@ -105,6 +115,17 @@ public class InoltroSegnalazione extends HttpServlet {
         }
     }
 
+    /**
+     * Il metodo riceve una request, da cui estrae il file
+     * caricato dal cittadino. Si effettua un controllo sul formato accettato (jpg, png, jpeg),
+     * si memorizza il file nel server sotto la cartella /resources/images/ e si
+     * restituisce il nome del file.
+     * @param request da cui estrarre i file caricati dal cliente
+     * @return il nome del file caricato
+     * @throws MyServletException per gestire errori relativi al formato del file caricato,
+     * e per quanto riguarda la memorizzazione del file (se non viene memorizzato)
+     * @throws ServletException per gestire errori relativi al ciclo di vita della servlet
+     */
     private String uploadImage(HttpServletRequest request) throws MyServletException, ServletException {
         String fileName="";
         try {
