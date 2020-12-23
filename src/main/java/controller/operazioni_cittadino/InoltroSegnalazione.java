@@ -4,10 +4,6 @@ import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Segnalazione;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
