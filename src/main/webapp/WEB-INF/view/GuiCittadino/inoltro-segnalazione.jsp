@@ -31,10 +31,10 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <form class="form-group" action="inoltroSegnalazione" method="post" enctype="multipart/form-data">
+                    <form class="form-group" action="inoltroSegnalazione" method="post" enctype="multipart/form-data" novalidate>
                         <div class="row">
                             <label for="oggetto" class="col-form-label">Oggetto</label>
-                            <input type="text" name="oggetto" id="oggetto">
+                            <input type="text" name="oggetto" id="oggetto" oninput="validateOggetto()" required>
                         </div>
                         <div class="row">
                             <label for="descrizione" class="col-form-label">Descrizione</label>
@@ -62,6 +62,6 @@
         </div>
     </div>
 </div>
-
+<script src="./javascript/inoltroSegnalazione.js"></script>
 </body>
 </html>

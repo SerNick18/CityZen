@@ -58,17 +58,17 @@ public class InoltroSegnalazione extends HttpServlet {
             }
 
             int civico = Integer.parseInt(strCivico);
-            if (!Pattern.matches("[A-Za-z0-9]{4,25}",oggetto)) {
+            if (!Pattern.matches("([A-Za-z0-9]\\s*){4,25}",oggetto)) {
                 throw new MyServletException("L'oggetto deve essere lungo minimo 4 e massimo 25 caratteri. " +
                         "Non può contenere caratteri speciali.");
             }
             if (descrizione.length()>500 || descrizione.length()<10)
                 throw new MyServletException("La descrizione deve essere lunga minimo 10 caratteri e massimo 500");
-            if (!Pattern.matches("[A-Za-z0-9]{2,200}",via)) {
-                throw new MyServletException("L'indirizzo deve essere lungo minimo 2 e massimo 200 caratteri. " +
+            if (!Pattern.matches("([A-Za-z0-9]\\s*){2,200}",via)) {
+                throw new MyServletException("La via deve essere lunga minimo 2 e massimo 200 caratteri. " +
                         "Non può contenere caratteri speciali.");
             }
-            if (!Pattern.matches("[0-9]{5}",String.valueOf(civico))) {
+            if (!Pattern.matches("[0-9]{1,5}",String.valueOf(civico))) {
                 throw new MyServletException("Il numero civico deve essere un numero di massimo 5 cifre.");
             }
 
