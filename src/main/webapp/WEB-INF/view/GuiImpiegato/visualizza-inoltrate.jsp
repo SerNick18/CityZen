@@ -43,7 +43,7 @@
                             <tbody>
                                 <c:forEach items="${inoltrate}" var="i">
                                     <tr>
-                                        <td><a href="visualizza-dettagli">${i.oggetto}</a></td>
+                                        <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
                                         <td>${i.cittadino.nome}</td>
                                         <td>${i.numSolleciti}</td>
                                         <td>${i.priorita}</td>
