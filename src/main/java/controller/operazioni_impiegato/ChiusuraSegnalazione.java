@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Servlet per chiudere una segnalazione
+ */
 @WebServlet("/chiusuraSegnalazione")
 public class ChiusuraSegnalazione extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,14 +31,15 @@ public class ChiusuraSegnalazione extends HttpServlet {
             if(segnalazione != null && (segnalazione.getStato().equals("approvata"))){
                 segnalazione.setStato("chiusa");
                 service.modificaSegnalazione(segnalazione);
-                impiegato.update(segnalazione);
+                segnalazione.notifyObservers();
                 service.inserisciLavorazione(impiegato, segnalazione);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiImpiegato/visualizza-chiuse.jsp");
+                dispatcher.forward(req,resp);
             } else {
                 throw new MyServletException("Segnalazione non approvata");
             }
+        }else{
+            throw new MyServletException(("Indicare una segnalazione"));
         }
-    }
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
     }
 }
