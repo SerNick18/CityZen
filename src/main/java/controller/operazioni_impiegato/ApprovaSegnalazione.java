@@ -25,15 +25,18 @@ public class ApprovaSegnalazione extends HttpServlet {
         if(req.getParameter("id") != null) {
             Segnalazione segnalazione = new FacadeDAO().getSegnalazioneById(Integer.parseInt(req.getParameter("id")));
             if(segnalazione != null && segnalazione.getStato().equals("inoltrata")) {
-                int id = Integer.parseInt(req.getParameter("id"));
-                service.setStato("approva", id);
-                service.inserisciLavorazione(impiegato, "approvata", id);
-                req.getRequestDispatcher("").forward(req, resp);
+                segnalazione.setStato("approvata");
+                service.modificaSegnalazione(segnalazione);
+                service.inserisciLavorazione(impiegato, segnalazione);
+                req.getRequestDispatcher("gui-impiegato.jsp").forward(req, resp);
             } else {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Indicare una segnalazione correttamente");
+                throw new MyServletException("Indicare una segnalazione correttamente");
             }
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Indicare una segnalazione");
+            throw new MyServletException("Indicare una segnalazione");
         }
+    }
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

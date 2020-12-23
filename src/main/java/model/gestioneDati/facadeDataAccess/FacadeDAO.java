@@ -66,8 +66,8 @@ public class FacadeDAO {
     public List<SegnalazioneInterface> getSegnalazioniByStato(String stato, int offset){return segnalazioneDAO.doRetrieveByStato(stato, offset);}
     public Segnalazione getSegnalazioneById(int id){return segnalazioneDAO.doRetrieveById(id);}
     public void inserisciSegnalazione(Segnalazione segnalazione){segnalazioneDAO.doInsert(segnalazione);}
-    public void setStato(String stato, int id){ segnalazioneDAO.doSetStateById(stato, id);}
+    public void modificaSegnalazione(Segnalazione segnalazione){ segnalazioneDAO.doUpdate(segnalazione);}
 
     //Facade per model gestioneSegnalazioni
-    public void inserisciLavorazione(Impiegato impiegato, String stato, int id){ gestioneSegnalazioneDAO.doInsert(impiegato, stato, id);}
+    public void inserisciLavorazione(Impiegato impiegato, Segnalazione segnalazione){ gestioneSegnalazioneDAO.doInsert(impiegato,segnalazione);}
 }
