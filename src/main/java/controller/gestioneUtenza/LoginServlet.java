@@ -81,14 +81,14 @@ public class LoginServlet extends HttpServlet {
                     sn.setAttribute("Cittadino", cittadino);
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher(
-                                    "/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+                                    "/WEB-INF/view/GuiCittadino"
+                                            + "/gui-cittadino.jsp");
                     dispatcher.forward(req, resp);
                 } else {
                     throw new MyServletException("Email o password errati");
                 }
             }
-        }
-        else {
+        } else {
             throw new MyServletException("Utente già loggato");
         }
     }
