@@ -10,16 +10,18 @@ public class GestioneSegnalazioni {
     private Impiegato impiegato;
     private Segnalazione segnalazione;
     private String tipoLavorazione;
+    private Date dataLavorazione;
     /**
      * Costruttore con parametri
      * @param impiegato Impiegato che ha lavorato la segnalazione
      * @param segnalazione Segnalazione lavorata
      * @param tipoLavorazione Tipo di lavoro effettuato dall'impiegato sulla segnalazione
      */
-    public GestioneSegnalazioni(Impiegato impiegato, Segnalazione segnalazione, String tipoLavorazione) {
+    public GestioneSegnalazioni(Impiegato impiegato, Segnalazione segnalazione, String tipoLavorazione, Date dataLavorazione) {
         this.impiegato = impiegato;
         this.segnalazione = segnalazione;
         this.tipoLavorazione = tipoLavorazione;
+        this.dataLavorazione = dataLavorazione;
     }
     /**
      * Questo metodo restituisce l'impiegato che ha lavorato la segnalazione
@@ -64,6 +66,7 @@ public class GestioneSegnalazioni {
                 "impiegato=" + impiegato +
                 ", segnalazione=" + segnalazione +
                 ", tipoLavorazione='" + tipoLavorazione +
+                ", dataLvorazione='" + dataLavorazione +
                 '}';
     }
 }
