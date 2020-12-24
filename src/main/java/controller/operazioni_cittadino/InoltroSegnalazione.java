@@ -30,7 +30,6 @@ public class InoltroSegnalazione extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
     }
-
     /**
      * Il metodo gestisce l'inoltro di una segnalazione da parte del cittadino.
      * Il cittadino sottomette un form con i parametri di seguito indicati.
