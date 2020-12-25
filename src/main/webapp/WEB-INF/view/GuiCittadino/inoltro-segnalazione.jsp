@@ -52,7 +52,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="descrizione" class="col-form-label boldFont">Descrizione</label>
-                            <textarea class="form-control boxShadow" type="text" name="descrizione" id="descrizione" rows="20" oninput="validateDescrizione()"></textarea>
+                            <textarea class="form-control boxShadow" type="text" name="descrizione" id="descrizione" rows="10" oninput="validateDescrizione()"></textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col">

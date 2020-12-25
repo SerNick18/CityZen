@@ -29,8 +29,6 @@
     FacadeDAO facadeDAO = new FacadeDAO();
     ArrayList<SegnalazioneInterface> segnalazioni = (ArrayList<SegnalazioneInterface>) facadeDAO.getSegnalazioniInoltrate(0);
 %>
-<h1>Benvenuto <%=cittadino.getEmail()%></h1>
-
 <div class="container-fluid">
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>

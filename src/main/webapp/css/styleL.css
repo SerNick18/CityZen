@@ -34,3 +34,37 @@ body{
     background-color: #F53478;
     border-color: #F53478;
 }
+.noDecoration{
+    text-decoration: none;
+}
+.greyText{
+    color: #222222
+}
+.marginTop150{
+    margin-top: 150px;
+}
+.marginBottom200{
+    margin-bottom: 200px;
+}
+.roundShape{
+    height: 80px;
+    width: 80px;
+    background-color: #8a8989;
+    border: 0px;
+    border-radius: 50%;
+    display: inline-block;
+}
+#logoutLink{
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+}
+#profileCircle{
+    font-family: 'Poppins', sans-serif;
+    color: #222222;
+}
+#headerContainer{
+    background-color: #ffffff;
+}

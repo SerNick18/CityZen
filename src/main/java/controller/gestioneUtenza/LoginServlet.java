@@ -55,38 +55,35 @@ public class LoginServlet extends HttpServlet {
         }
         FacadeDAO service = new FacadeDAO();
         HttpSession sn = req.getSession();
-        if (req.getSession().getAttribute("Cittadino") == null) {
-            if (email.compareTo("") == 0
-                    || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)
-                    || pwd.compareTo("") == 0
-                    || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
-                   + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
-                throw new MyServletException("Controlla correttezza campi");
-            } else if (email.contains("@scafati.it")) { //login impiegato
-                Impiegato impiegato = service.loginImpiegato(email, pwd);
-                if (impiegato != null) {
-                    sn.setAttribute("Impiegato", impiegato);
-                    RequestDispatcher dispatcher =
-                            req.getRequestDispatcher("WEB-INF/view/"
-                                    + "gui-impiegato.jsp");
-                    dispatcher.forward(req, resp);
-                } else {
-                    throw new MyServletException("Email o password errati");
-                }
-            } else { //login cittadino
-                Cittadino cittadino = service.loginCittadino(email, pwd);
-                if (cittadino != null) {
-                    sn.setAttribute("Cittadino", cittadino);
-                    RequestDispatcher dispatcher =
-                            req.getRequestDispatcher("/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
-                    dispatcher.forward(req, resp);
-                } else {
-                    throw new MyServletException("Email o password errati");
-                }
+
+        if (email.compareTo("") == 0
+                || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)
+                || pwd.compareTo("") == 0
+                || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
+               + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
+            throw new MyServletException("Controlla correttezza campi");
+        } else if (email.contains("@scafati.it")) { //login impiegato
+            Impiegato impiegato = service.loginImpiegato(email, pwd);
+            if (impiegato != null) {
+                sn.setAttribute("Impiegato", impiegato);
+                RequestDispatcher dispatcher =
+                        req.getRequestDispatcher("WEB-INF/view/"
+                                + "gui-impiegato.jsp");
+                dispatcher.forward(req, resp);
+            } else {
+                throw new MyServletException("Email o password errati");
+            }
+        } else { //login cittadino
+            Cittadino cittadino = service.loginCittadino(email, pwd);
+            if (cittadino != null) {
+                sn.setAttribute("Cittadino", cittadino);
+                RequestDispatcher dispatcher =
+                        req.getRequestDispatcher("/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+                dispatcher.forward(req, resp);
+            } else {
+                throw new MyServletException("Email o password errati");
             }
         }
-        else {
-            throw new MyServletException("Utente già loggato");
-        }
+
     }
 }

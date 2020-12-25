@@ -1,14 +1,49 @@
-
+<%@ page import="model.gestioneDati.modelObjects.Cittadino" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="css/styleL.css">
+<%Cittadino cittadino = (Cittadino) request.getSession().getAttribute("Cittadino");%>
 
-<div class="col-2 align-self-center">
-    <div class="row ml-3"><a href="profilo">Profilo</a></div>
-    <div class="row ml-3"><a href="#">Inoltrate</a></div>
-    <div class="row ml-3"><a href="#">Calendario Raccolta Rifiuti</a></div>
-    <div class="row ml-3"><a href="#">Visualizza Classifica</a></div>
-    <div class="row ml-3"><a href="#">Sito del comune</a></div>
 
-    <div class="row"><div>Totali</div><div></div></div>
+<div class="col-2 align-self-start h-100 boxShadow" id="headerContainer">
+    <div class="row mb-5 justify-content-center mt-5 collapsable">
+        <button class="roundShape boxShadow" id="profileCircle" class="boldFont" disabled>
+            <!-- iniziali nome e cognome -->
+            <%if(cittadino!=null){%>
+            <%=cittadino.getNome().charAt(0)%>
+            <%=cittadino.getCognome().charAt(0)%>
+            <%}%>
+        </button>
+    </div>
+    <div class="row ml-3 marginTop150 collapsable">
+        <a href="profilo" class="noDecoration greyText">Profilo</a>
+    </div>
+    <div class="row ml-3 mt-2 collapsable">
+        <a href="#" class="noDecoration greyText">Inoltrate</a>
+    </div>
+    <div class="row ml-3 mt-2 collapsable">
+        <a href="#" class="noDecoration greyText">Calendario Raccolta Rifiuti</a>
+    </div>
+    <div class="row ml-3 mt-2 collapsable">
+        <a href="#" class="noDecoration greyText">Visualizza Classifica</a>
+    </div>
+    <div class="row ml-3 mb-5 mt-2 collapsable">
+        <a href="#" class="greyText">Sito del comune</a>
+    </div>
+
+    <div class="row collapsable">
+        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7">Totali</div>
+        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7 myBtnPink mr-3 boxShadow" style="margin-left: 10px;">
+            <!-- segnalazioni totali -->
+            3
+        </div>
+    </div>
     <hr>
-    <a href="logout">Logout</a>
+    <div class="row mt-2 justify-content-center collapsable">
+        <a id="logoutLink" class="boxShadow" href="logout" style="padding: 6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+            </svg>
+        </a>
+    </div>
 </div>
