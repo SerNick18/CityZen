@@ -27,11 +27,11 @@
                     <h1 class="boldFont">Nuova Segnalazione</h1>
                 </div>
                 <div class="col-6" id="message">
-                    <h3 id="messageOggetto"></h3>
-                    <h3 id="messageDescrizione"></h3>
-                    <h3 id="messageVia"></h3>
-                    <h3 id="messageCivico"></h3>
-                    <h3 id="messageFoto"></h3>
+                    <p id="messageOggetto"></p>
+                    <p id="messageDescrizione"></p>
+                    <p id="messageVia"></p>
+                    <p id="messageCivico"></p>
+                    <p id="messageFoto"></p>
                 </div>
             </div>
             <!--row of content-->
