@@ -200,19 +200,31 @@ public class FacadeDAO {
     //Facade per model feedback
 
     /**
-     *
-     * @param id
-     * @return
+     * Il metodo riceve l'id di una segnalazione e restituisce tutti
+     * i feedback ad essa collegati.
+     * @param id id sella segnalazione.
+     * @return restituisce una lista di feedback.
      */
     public List<Feedback> getFeedbacksBySegnalazione(int id){
         return feedbackDAO.doRetrieveFeedBackBySegnalazione(id);
     }
-
-
+    /**
+     * Il metodo riceve un feedback e lo memorizza nel
+     * database.
+     * @param feedback feedback da memorizzare
+     */
     public void doInsertFeedback(Feedback feedback){
         feedbackDAO.doInsertFeedback(feedback);
     }
 
+    /**
+     * Il metodo verifica se un cittadino ha già inserito
+     * un feedback per una determinata segnalazione.
+     * @param cfCittadino codice fiscale cittadino
+     * @param idSegnalazione id segnalazione
+     * @return true - se il cittadino ha già inserito un feedback
+     * false - se il cittadino non ha inserito nessun feedback
+     */
     public boolean isCittadinoFeedbackSegnalazione(String cfCittadino, int idSegnalazione){
        return feedbackDAO.isCittadinoFeedbackSegnalazione(cfCittadino,idSegnalazione);
     }

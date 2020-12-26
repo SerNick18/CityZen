@@ -1,7 +1,5 @@
 package model.gestioneDati.modelDataAccess;
 
-import model.gestioneDati.facadeDataAccess.FacadeDAO;
-import model.gestioneDati.modelObjects.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,12 +11,16 @@ import java.util.List;
 import controller.gestioneUtenza.MyRuntimeException;
 import model.gestioneDati.modelObjects.Feedback;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
+/**
+ * Questa classe si occupa dell'inserimento, del recupero
+ * dei feedback dal database, e in generale della loro gestione.
+ */
 public class FeedbackDAO {
-
+    /**
+     * Il metodo riceve un feedback e lo memorizza nel
+     * database.
+     * @param feedback feedback da memorizzare
+     */
     public void doInsertFeedback(Feedback feedback){
         try {
             Connection connection = ConnectionPool.getConnection();
@@ -43,6 +45,12 @@ public class FeedbackDAO {
         }
     }
 
+    /**
+     * Il metodo riceve l'id di una segnalazione e restituisce tutti
+     * i feedback ad essa collegati.
+     * @param id id sella segnalazione.
+     * @return restituisce una lista di feedback.
+     */
     public List<Feedback> doRetrieveFeedBackBySegnalazione(int id) {
         try {
             ArrayList<Feedback> feedbacks = new ArrayList<>();
@@ -68,6 +76,14 @@ public class FeedbackDAO {
         }
     }
 
+    /**
+     * Il metodo verifica se un cittadino ha già inserito
+     * un feedback per una determinata segnalazione.
+     * @param cFCittadino codice fiscale cittadino
+     * @param idSegnalazione id segnalazione
+     * @return true - se il cittadino ha già inserito un feedback
+     * false - se il cittadino non ha inserito nessun feedback
+     */
     public boolean isCittadinoFeedbackSegnalazione (String cFCittadino, int idSegnalazione){
         try{
             Connection connection = ConnectionPool.getConnection();
