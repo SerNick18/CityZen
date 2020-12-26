@@ -61,6 +61,30 @@
                     </div>
                 </div>
                 <div class="row">
+                    <%
+                        Segnalazione s = (Segnalazione)request.getSession().getAttribute("Segnalazione");
+                        if (s.getStato().equals("inoltrata")){
+                    %>
+                    <form class="form-group" action="modificaSegnalazione" method="post" >
+                        <input type="hidden" name="id" value="${Segnalazione.id}">
+                        <input type="submit" name="approva" value="Modifica">
+                    </form>
+                    <form class="form-group" action="" method="post" >
+                        <input type="hidden" name="id" value="${Segnalazione.id}">
+                        <input type="submit" name="eliminia" value="Elimia">
+                    </form>
+                    <%
+                        }else if(s.getStato().equals("chiusa")){
+                    %>
+                    <form class="form-group" action="riapriSegnalazione" method="post" >
+                        <input type="hidden" name="id" value="${Segnalazione.id}">
+                        <input type="submit" name="riapri" value="Riapri">
+                    </form>
+                    <%
+                        }
+                    %>
+                </div>
+                <div class="row">
                     <h2>Feedback</h2>
                     <c:choose>
                         <c:when test="${feedbacks.size()!=0}">

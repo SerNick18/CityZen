@@ -21,6 +21,7 @@
 </head>
 <body>
     <div class="container-fluid h-100">
+        <jsp:include page="header.jsp"></jsp:include>
         <div class="row h-50 text-center" id="bordo">
             <div class="col-12">
                 <h1>I tuoi dati</h1>
@@ -67,7 +68,8 @@
         </div>
         <div class="row h-50 text-center">
             <div class="col-6">
-                <form action="visualizza-segnalazioni">
+                <form action="visualizza-segnalazioni" method="post">
+                    <input type="hidden" name="cf" value="${Cittadino.CF}">
                     <input type="submit" class="btn btn-success btn-block" value="Visualizza Segnalazioni">
                 </form>
             </div>

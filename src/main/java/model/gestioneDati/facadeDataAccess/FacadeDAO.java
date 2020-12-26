@@ -134,10 +134,11 @@ public class FacadeDAO {
     /**
      *
      * @param cf
+     * @param offset
      * @return
      */
-    public List<Segnalazione> getSegnalazioneByCittadino(String cf){
-        return segnalazioneDAO.doRetrieveByCittadino(cf);
+    public List<SegnalazioneInterface> getSegnalazioneByCittadino(String cf, int offset){
+        return segnalazioneDAO.doRetrieveByCittadino(cf, offset);
     }
     /**.
      *Facade per model segnalazione

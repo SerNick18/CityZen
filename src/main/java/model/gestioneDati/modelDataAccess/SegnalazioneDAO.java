@@ -109,14 +109,16 @@ public class SegnalazioneDAO {
             throw new RuntimeException(e);
         }
     }
-    public List<Segnalazione> doRetrieveByCittadino(String cf) {
-        ArrayList<Segnalazione> segnalazioni = new ArrayList<>();
+    public List<SegnalazioneInterface> doRetrieveByCittadino(String cf, int offset) {
+        ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
         try {
             FacadeDAO facadeDAO = new FacadeDAO();
             Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM segnalazione WHERE Cittadino=?");
+                    "SELECT * FROM segnalazione WHERE Cittadino=?"
+            + " order by id desc limit 20 offset ?");
             statement.setString(1, cf);
+            statement.setInt(2, offset);
             ResultSet r = statement.executeQuery();
             while (r.next()) {
                 Segnalazione s = new Segnalazione(r.getInt("ID"),r.getString("Via"),

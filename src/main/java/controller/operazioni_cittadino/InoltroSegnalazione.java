@@ -125,7 +125,6 @@ public class InoltroSegnalazione extends HttpServlet {
 
             service.inserisciSegnalazione(segnalazione);
             //aggiorna numero segnalazoni cittadino
-            cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()+1);
             service.modificaCittadino(cittadino);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher(

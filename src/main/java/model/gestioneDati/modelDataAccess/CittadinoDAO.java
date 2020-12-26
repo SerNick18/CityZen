@@ -44,10 +44,10 @@ public class CittadinoDAO {
         try {
             Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE segnalazione SET "
+                    "UPDATE cittadino SET "
                             + "Nome=?, Cognome=?, Pwd=?,"
                             + "Via=?, Civico=?,"
-                            + "Città=?, Email=?, numSegnalazoni=?,"
+                            + "Città=?, Email=?, numSegnalazioni=?,"
                             + "numSegnAppr=? WHERE CF=?");
             statement.setString(1, cittadino.getNome());
             statement.setString(2, cittadino.getNome());
