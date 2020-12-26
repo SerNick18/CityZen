@@ -114,6 +114,16 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         assertEquals("Il numero civico non è valido."
                 ,exception.getMessage());
     }
+    void testSegnalazioneNonInoltrata() {
+        request.setParameter("id", "1");
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "a");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La segnalazione non è nello stato inoltrata.",exception.getMessage());
+    }
     @Test
     void testFormatoFotoNonValido() throws IOException {
         request.setParameter("id", "2");
