@@ -1,11 +1,28 @@
 <%@ page import="model.gestioneDati.modelObjects.Cittadino" %>
+<%@ page import="model.gestioneDati.facadeDataAccess.FacadeDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.gestioneDati.modelObjects.SegnalazioneInterface" %>
+<%@ page import="model.gestioneDati.modelObjects.Segnalazione" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="css/styleL.css">
-<%Cittadino cittadino = (Cittadino) request.getSession().getAttribute("Cittadino");%>
+<%
+    Cittadino cittadino = (Cittadino) request.getSession().getAttribute("Cittadino");
+    FacadeDAO service = new FacadeDAO();
+    ArrayList<Segnalazione> segnalazioni = (ArrayList<Segnalazione>) service.getSegnalazioneByCittadino(cittadino.getCF());
+%>
+
+<label for="toggle" id="iconToggle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+    </svg>
+</label>
+<input type="checkbox" id="toggle" style="display: none;">
+
+<div class="col-2 align-self-start height100 boxShadow" id="headerContainer">
+    <!-- collapse icon -->
 
 
-<div class="col-2 align-self-start h-100 boxShadow" id="headerContainer">
-    <div class="row mb-5 justify-content-center mt-5 collapsable">
+    <div class="row mb-5 justify-content-center mt-1 mt-md-1 mt-lg-5 mt-xl-5 collapsable">
         <button class="roundShape boxShadow" id="profileCircle" class="boldFont" disabled>
             <!-- iniziali nome e cognome -->
             <%if(cittadino!=null){%>
@@ -14,27 +31,29 @@
             <%}%>
         </button>
     </div>
-    <div class="row ml-3 marginTop150 collapsable">
-        <a href="profilo" class="noDecoration greyText">Profilo</a>
+    <div class="row ml-3 marginTop150" id="linkProfilo">
+        <a href="profilo" class="noDecoration greyText collapsable">Profilo</a>
     </div>
-    <div class="row ml-3 mt-2 collapsable">
-        <a href="#" class="noDecoration greyText">Inoltrate</a>
+    <div class="row ml-3 mt-2">
+        <a href="#" class="noDecoration greyText collapsable">Inoltrate</a>
     </div>
-    <div class="row ml-3 mt-2 collapsable">
-        <a href="#" class="noDecoration greyText">Calendario Raccolta Rifiuti</a>
+    <div class="row ml-3 mt-2">
+        <a href="#" class="noDecoration greyText collapsable">Calendario Raccolta Rifiuti</a>
     </div>
-    <div class="row ml-3 mt-2 collapsable">
-        <a href="#" class="noDecoration greyText">Visualizza Classifica</a>
+    <div class="row ml-3 mt-2">
+        <a href="#" class="noDecoration greyText collapsable">Visualizza Classifica</a>
     </div>
-    <div class="row ml-3 mb-5 mt-2 collapsable">
-        <a href="#" class="greyText">Sito del comune</a>
+    <div class="row ml-3 mb-1 mb-md-1 mb-lg-5 mb-xl-5 mb-xxl-5 mt-2">
+        <a href="#" class="greyText collapsable">Sito del comune</a>
     </div>
 
-    <div class="row collapsable">
-        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7">Totali</div>
-        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7 myBtnPink mr-3 boxShadow" style="margin-left: 10px;">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7 collapsable">Totali</div>
+        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7 myBtnPink mr-3 boxShadow collapsable" style="margin-left: 10px;">
             <!-- segnalazioni totali -->
-            3
+            <%if(segnalazioni!=null){%>
+            <%=segnalazioni.size()%>
+            <%}%>
         </div>
     </div>
     <hr>

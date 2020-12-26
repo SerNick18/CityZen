@@ -55,6 +55,29 @@ public class SegnalazioneDAO {
             throw new RuntimeException(e);
         }
     }
+    public List<Segnalazione> doRetrieveByCittadino(String cf) {
+        ArrayList<Segnalazione> segnalazioni = new ArrayList<>();
+        try {
+            FacadeDAO facadeDAO = new FacadeDAO();
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM segnalazione WHERE Cittadino=?");
+            statement.setString(1, cf);
+            ResultSet r = statement.executeQuery();
+            while (r.next()) {
+                Segnalazione s = new Segnalazione(r.getInt("ID"),r.getString("Via"),
+                        r.getInt("Civico"), r.getInt("Priorità"), r.getInt("numSolleciti"),
+                        r.getString("Stato"), r.getDate("DataSegnalazione"), r.getString("Oggetto"),
+                        r.getString("Descrizione"), r.getString("Foto"),
+                        facadeDAO.getCittadinoByCf(r.getString("Cittadino")),
+                        r.getInt("Riaperta"));
+                segnalazioni.add(s);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return segnalazioni;
+    }
 
     /**
      * Il metodo ha il compito di memorizzare nel database una segnalazione.

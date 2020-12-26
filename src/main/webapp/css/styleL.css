@@ -54,6 +54,9 @@ body{
     border-radius: 50%;
     display: inline-block;
 }
+.height100{
+    height: 100%;
+}
 #logoutLink{
     height: 30px;
     width: 30px;
@@ -67,4 +70,33 @@ body{
 }
 #headerContainer{
     background-color: #ffffff;
+}
+#iconToggle{
+    display: none;
+}
+@media screen and (max-width: 900px) {
+    #headerContainer{
+        visibility: hidden;
+        opacity: 0;
+    }
+    #toggle:checked + #headerContainer{
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        padding-bottom: 10px;
+        visibility: visible;
+        opacity: 1;
+        -webkit-transition: opacity 600ms, visibility 600ms, height 600ms, width 600ms;
+        transition: opacity 600ms, visibility 600ms, height 600ms, width 600ms;
+    }
+    #linkProfilo{
+        margin-top: 0px;
+    }
+    #iconToggle{
+        display: flex;
+        margin: 10px;
+    }
+    .collapsable{
+        text-align: center;
+    }
 }

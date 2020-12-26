@@ -35,7 +35,7 @@
                 </div>
             </div>
             <!--row of content-->
-            <div class="row align-items-start mt-3">
+            <div class="row align-items-start mt-3" style="margin-left: auto;">
                 <!--col of photo-->
                 <div class="col-md-11 col-sm-11 col-lg-4 col-xl-4 col-xxl-4 col-11">
                     <div class="row boldFont">Aggiungi Foto</div>

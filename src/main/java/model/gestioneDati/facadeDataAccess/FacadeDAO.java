@@ -72,5 +72,8 @@ public class FacadeDAO {
      * @param segnalazione da inserire nel database
      */
     public void inserisciSegnalazione(Segnalazione segnalazione){segnalazioneDAO.doInsert(segnalazione);}
+    public List<Segnalazione> getSegnalazioneByCittadino(String cf){
+        return segnalazioneDAO.doRetrieveByCittadino(cf);
+    }
 
 }
