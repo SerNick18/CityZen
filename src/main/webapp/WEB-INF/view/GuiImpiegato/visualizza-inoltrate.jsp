@@ -59,9 +59,11 @@
                                 </c:forEach>
                             </tbody>
                         </table>
+                        <button class="btn btn-success">Carica Altro</button>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="./javascript/visualizza-altre-segnalazioni.js"></script>
 </body>
 </html>
