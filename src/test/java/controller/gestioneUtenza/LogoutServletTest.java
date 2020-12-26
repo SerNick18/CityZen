@@ -1,6 +1,7 @@
 package controller.gestioneUtenza;
 
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Impiegato;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -38,6 +39,21 @@ class LogoutServletTest extends LogoutServlet {
         request.getSession().setAttribute("Cittadino", new Cittadino("FQSGNN97L19B973R","Giovanni",
                 "Fresco","Prova123","Roma",4,
                 "Salerno","fresco@gmail.com",0,0));
+        logoutServlet.doPost(request,response);
+        assertNotEquals(request.getSession().getAttribute("Cittadino"), new Cittadino());
+    }
+    @Test
+    void testLogoutImpiegatoNull() {
+        request.getSession().setAttribute("Impiegato", null);
+        String message = "Non sei autenticato";
+        MyServletException exception = assertThrows(MyServletException.class, () -> {logoutServlet.doGet(request, response);});
+        assertEquals(message, exception.getMessage());
+    }
+    @Test
+    void testLogoutImpiegatoOk() throws ServletException, IOException {
+        request.getSession().setAttribute("Impiegato", new Impiegato("asd@scafati.it","MAT10",
+                "Pippotto8.","NPLPQL45G10A509L" ,"Giovanni","Fresco","Roma",4,
+                "Salerno",0,0));
         logoutServlet.doPost(request,response);
         assertNotEquals(request.getSession().getAttribute("Cittadino"), new Cittadino());
     }

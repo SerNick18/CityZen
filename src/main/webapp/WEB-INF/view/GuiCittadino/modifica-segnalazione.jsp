@@ -1,14 +1,15 @@
-<%--
+<%@ page import="model.gestioneDati.modelObjects.Segnalazione" %>
+<%@ page import="model.gestioneDati.facadeDataAccess.FacadeDAO" %><%--
   Created by IntelliJ IDEA.
-  User: leoca
-  Date: 22/12/2020
-  Time: 20:14
+  User: pnapo
+  Date: 26/12/2020
+  Time: 15:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>CityZen - Nuova Segnalazione</title>
+    <title>CityZen - Modifica Segnalazione</title>
     <link rel="stylesheet" href="css/styleL.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -24,7 +25,7 @@
         <div class="col-10 align-self-start">
             <div class="row align-items-start">
                 <div class="col-4">
-                    <h1 class="boldFont">Nuova Segnalazione</h1>
+                    <h1 class="boldFont">Modifica Segnalazione</h1>
                 </div>
                 <div class="col-6" id="message">
                     <p id="messageOggetto"></p>
@@ -38,37 +39,39 @@
             <div class="row align-items-start mt-3" style="margin-left: auto;">
                 <!--col of photo-->
                 <div class="col-md-11 col-sm-11 col-lg-4 col-xl-4 col-xxl-4 col-11">
-                    <div class="row boldFont">Aggiungi Foto</div>
+                    <div class="row boldFont">Modifica Foto</div>
                     <div class="row m-3">
-                        <img id="fotoImg" class="boxShadow">
+                        <img src="./resources/images/${Segnalazione.foto}">
                     </div>
                 </div>
                 <!--col of form-->
                 <div class="col-md-11 col-sm-11 col-lg-7 col-xl-7 col-xxl-7 col-11">
-                    <form id="inoltroForm" class="form-group" action="inoltroSegnalazione" method="post" enctype="multipart/form-data" novalidate>
+                    <form id="inoltroForm" class="form-group" action="modificaSegnalazione" method="post" enctype="multipart/form-data" novalidate>
+                        <% Segnalazione segnalazione = (new FacadeDAO()).getSegnalazioneById(Integer.parseInt(request.getParameter("id"))); %>
                         <div class="row mb-3">
                             <label for="oggetto" class="col-form-label boldFont">Oggetto</label>
-                            <input class="form-control boxShadow" type="text" name="oggetto" id="oggetto" oninput="validateOggetto()" required>
+                            <input class="form-control boxShadow" type="text" name="oggetto" id="oggetto" oninput="validateOggetto()" value = "<%= segnalazione.getOggetto() %>" required>
                         </div>
                         <div class="row mb-3">
                             <label for="descrizione" class="col-form-label boldFont">Descrizione</label>
-                            <textarea class="form-control boxShadow" type="text" name="descrizione" id="descrizione" rows="10" oninput="validateDescrizione()"></textarea>
+                            <textarea class="form-control boxShadow" type="text" name="descrizione" id="descrizione" rows="10" oninput="validateDescrizione()" value = "<%= segnalazione.getDescrizione()%>"> <%= segnalazione.getDescrizione()%></textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="via" class="form-label boldFont">Via</label>
-                                <input class="form-control boxShadow" type="text" name="via" id="via" oninput="validateVia()">
+                                <input class="form-control boxShadow" type="text" name="via" id="via" oninput="validateVia()" value = "<%= segnalazione.getVia()%>">
                             </div>
                             <div class="col">
                                 <label for="civico" class="form-label boldFont">Civico</label>
-                                <input class="form-control boxShadow" type="text" name="civico" id="civico" oninput="validateCivico()">
+                                <input class="form-control boxShadow" type="text" name="civico" id="civico" oninput="validateCivico()" value = "<%= segnalazione.getCivico()%>">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <input class="form-control boxShadow" oninput="validateFoto()" class="form-control" type="file" id="foto" name="foto" multiple>
+                            <input class="form-control boxShadow" class="form-control" type="file" id="foto" name="foto" value = "<%= segnalazione.getFoto()%>" multiple>
                         </div>
                         <div class="row mb-4">
-                            <button type="button" id="buttonInoltro" class="myBtnPink boldFont boxShadow" onclick="submitForm()">Inoltra Segnalazione</button>
+                            <input type="hidden" name="id" value="<%= segnalazione.getId()%>">
+                            <button type="submit" id="buttonInoltro" class="myBtnPink boldFont boxShadow" >Modifica Segnalazione</button>
                         </div>
                     </form>
                 </div>
