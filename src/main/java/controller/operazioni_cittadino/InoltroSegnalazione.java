@@ -41,18 +41,22 @@ public class InoltroSegnalazione extends HttpServlet {
      * @throws IOException per errori relativi all'I/O
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         Cittadino cittadino;
-        if ((cittadino=(Cittadino)req.getSession().getAttribute("Cittadino"))==null)
+        if ((cittadino = (Cittadino) req.getSession()
+                .getAttribute("Cittadino")) == null) {
             throw new MyServletException("Effettua il login per"
-                    +" poter visualizzare questa pagina");
-
-        if(req.getParameter("fromGui")!=null && req.getParameter("fromGui").equals("true")){
+                    + " poter visualizzare questa pagina");
+        }
+        if (req.getParameter("fromGui") != null && req.getParameter("fromGui")
+                .equals("true")) {
             //si proviene dalla gui cittadino
             RequestDispatcher dispatcher =
-                    req.getRequestDispatcher("WEB-INF/view/GuiCittadino/inoltro-segnalazione.jsp");
-            dispatcher.forward(req,resp);
-        }else{
+                    req.getRequestDispatcher("WEB-INF/view/"
+                            + "GuiCittadino/inoltro-segnalazione.jsp");
+            dispatcher.forward(req, resp);
+        } else {
             //recupero campi di input
             String oggetto = req.getParameter("oggetto");
             String descrizione = req.getParameter("descrizione");
@@ -61,19 +65,29 @@ public class InoltroSegnalazione extends HttpServlet {
             int civico;
 
             //controlli sui campi di input
-            if(oggetto==null||descrizione==null||via==null||strCivico==null||
-            oggetto.equals("")||descrizione.equals("")||via.equals("")||strCivico.equals("")) {
-                throw new MyServletException("Compilare tutti i campi richiesti!");
+            if(oggetto == null || descrizione == null || via == null
+                    || strCivico == null || oggetto.equals("")
+                    || descrizione.equals("") ||via.equals("")
+                    || strCivico.equals("")) {
+                throw new MyServletException(
+                        "Compilare tutti i campi richiesti!");
             }
-            if (!Pattern.matches("([A-Za-z0-9']\\s*){4,25}",oggetto)) {
-                throw new MyServletException("L'oggetto deve essere lungo minimo 4 e massimo 25 caratteri. " +
-                        "Non può contenere caratteri speciali.");
+            if (!Pattern.matches("([A-Za-z0-9']\\s*){4,25}", oggetto)) {
+                throw new MyServletException(
+                        "L'oggetto deve essere lungo minimo 4 e massimo 25 "
+                                + "caratteri. Non può contenere "
+                                + "caratteri speciali.");
             }
-            if (descrizione.length()>500 || descrizione.length()<10)
-                throw new MyServletException("La descrizione deve essere lunga minimo 10 caratteri e massimo 500");
+            if (descrizione.length() > 500 || descrizione.length() < 10) {
+                throw new MyServletException(
+                        "La descrizione deve essere lunga minimo 10 caratteri "
+                                + "e massimo 500");
+            }
             if (!Pattern.matches("([A-Za-z0-9]\\s*){2,200}",via)) {
-                throw new MyServletException("La via deve essere lunga minimo 2 e massimo 200 caratteri. " +
-                        "Non può contenere caratteri speciali.");
+                throw new MyServletException(
+                        "La via deve essere lunga minimo 2 e massimo 200 "
+                                + "caratteri. Non può contenere caratteri "
+                                + "speciali.");
             }
 
             //controllo se il civico è un numero
@@ -97,20 +111,24 @@ public class InoltroSegnalazione extends HttpServlet {
             segnalazione.setStato("inoltrata");
             segnalazione.setDataSegnalazione(new Date());
             segnalazione.setDescrizione(descrizione);
-            if ((uploadImage(req).equals("")))
-                throw new MyServletException("E' obbligatorio allegare una foto alla segnalazione. " +
-                        "I formati accettati sono .jpg, .jpeg, .jpg");
-            else
+            if ((uploadImage(req).equals(""))) {
+                throw new MyServletException(
+                        "E' obbligatorio allegare una foto alla segnalazione. "
+                                + "I formati accettati sono .jpg, .jpeg, .jpg");
+            } else {
                 segnalazione.setFoto(uploadImage(req));
+            }
+            cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()+1);
+            FacadeDAO service = new FacadeDAO();
+            //query update cittadino
             segnalazione.setCittadino(cittadino);
             //segnalazione.setRiaperta(0);
 
-            FacadeDAO service = new FacadeDAO();
             service.inserisciSegnalazione(segnalazione);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher(
+                    "WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
             dispatcher.forward(req,resp);
-
         }
     }
 
