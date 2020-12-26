@@ -121,17 +121,19 @@ public class FacadeDAO {
     public Impiegato loginImpiegato(String email, String pwd) {
         return impiegatoDAO.doLogin(email, pwd);
     }
-
-    //Facade per model segnalazione
-    public List<SegnalazioneInterface> getSegnalazioniInoltrate(int offset){return segnalazioneDAO.doRetrieveInoltrateProxy(offset);}
-    public Segnalazione getSegnalazioneById(int id){return segnalazioneDAO.doRetrieveById(id);}
-
     /**
      * Metodo riceve una segnalazione da inserire nel database e
      * richiama la funzionalità di inserimento di una segnalazione.
      * @param segnalazione da inserire nel database
      */
-    public void inserisciSegnalazione(Segnalazione segnalazione){segnalazioneDAO.doInsert(segnalazione);}
+    public void inserisciSegnalazione(Segnalazione segnalazione){
+        segnalazioneDAO.doInsert(segnalazione);
+    }
+    /**
+     *
+     * @param cf
+     * @return
+     */
     public List<Segnalazione> getSegnalazioneByCittadino(String cf){
         return segnalazioneDAO.doRetrieveByCittadino(cf);
     }
@@ -163,15 +165,6 @@ public class FacadeDAO {
     public Segnalazione getSegnalazioneById(int id) {
         return segnalazioneDAO.doRetrieveById(id);
     }
-
-    /**
-     *
-     * @param segnalazione
-     */
-    public void inserisciSegnalazione(Segnalazione segnalazione) {
-        segnalazioneDAO.doInsert(segnalazione);
-    }
-
     /**
      *
      * @param segnalazione
