@@ -207,4 +207,13 @@ public class FacadeDAO {
     public List<Feedback> getFeedbacksBySegnalazione(int id){
         return feedbackDAO.doRetrieveFeedBackBySegnalazione(id);
     }
+
+
+    public void doInsertFeedback(Feedback feedback){
+        feedbackDAO.doInsertFeedback(feedback);
+    }
+
+    public boolean isCittadinoFeedbackSegnalazione(String cfCittadino, int idSegnalazione){
+       return feedbackDAO.isCittadinoFeedbackSegnalazione(cfCittadino,idSegnalazione);
+    }
 }

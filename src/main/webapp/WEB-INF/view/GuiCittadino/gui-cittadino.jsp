@@ -33,6 +33,18 @@
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
+            <c:choose>
+                <c:when test="${notificaErrore!=null}">
+                    <div class="alert alert-danger" role="alert">
+                            ${notificaErrore}
+                    </div>
+                </c:when>
+                <c:when test="${notificaSuccesso!=null}">
+                    <div class="alert alert-success" role="alert">
+                            ${notificaSuccesso}
+                    </div>
+                </c:when>
+            </c:choose>
             <div class="row align-items-start">
                 <h1>SEGNALAZIONI</h1>
             </div>

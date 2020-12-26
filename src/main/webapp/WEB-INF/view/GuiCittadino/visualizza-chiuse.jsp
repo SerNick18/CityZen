@@ -30,6 +30,7 @@
                         <th scope="col">Numero Solleciti</th>
                         <th scope="col">Priorità</th>
                         <th scope="col">Riaperto da</th>
+                        <th scope="col">Feedback</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,6 +48,7 @@
                                     <td>Nessuno</td>
                                 </c:otherwise>
                             </c:choose>
+                            <td><a href="inserimentoFeedback?id=${i.id}&provenienza=listaChiuse">Inserisci feedback</a> </td>
                         </tr>
                     </c:forEach>
                     </tbody>
