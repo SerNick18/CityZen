@@ -111,6 +111,10 @@ public class FacadeDAO {
             throws MyServletException {
         cittadinoDAO.doDelete(cf);
     }
+    public void modificaCittadino(Cittadino cittadino) {
+        cittadinoDAO.doUpdate(cittadino);
+    }
+
 
     /**.
      *Facade per model impiegato

@@ -120,11 +120,13 @@ public class InoltroSegnalazione extends HttpServlet {
             }
             cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()+1);
             FacadeDAO service = new FacadeDAO();
-            //query update cittadino
             segnalazione.setCittadino(cittadino);
-            //segnalazione.setRiaperta(0);
+            segnalazione.setRiaperta(0);
 
             service.inserisciSegnalazione(segnalazione);
+            //aggiorna numero segnalazoni cittadino
+            cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()+1);
+            service.modificaCittadino(cittadino);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher(
                     "WEB-INF/view/GuiCittadino/gui-cittadino.jsp");

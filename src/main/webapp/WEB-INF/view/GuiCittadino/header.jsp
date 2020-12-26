@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="css/styleL.css">
 <%
     Cittadino cittadino = (Cittadino) request.getSession().getAttribute("Cittadino");
-    FacadeDAO service = new FacadeDAO();
-    ArrayList<Segnalazione> segnalazioni = (ArrayList<Segnalazione>) service.getSegnalazioneByCittadino(cittadino.getCF());
 %>
 
 <label for="toggle" id="iconToggle">
@@ -51,8 +49,8 @@
         <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7 collapsable">Totali</div>
         <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-5 col-7 myBtnPink mr-3 boxShadow collapsable" style="margin-left: 10px;">
             <!-- segnalazioni totali -->
-            <%if(segnalazioni!=null){%>
-            <%=segnalazioni.size()%>
+            <%if(cittadino!=null){%>
+            <%=cittadino.getNumSegnalazioni()%>
             <%}%>
         </div>
     </div>

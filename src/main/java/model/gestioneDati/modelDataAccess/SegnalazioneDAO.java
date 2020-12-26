@@ -145,8 +145,8 @@ public class SegnalazioneDAO {
             PreparedStatement statement = connection.prepareStatement(
                     "insert into segnalazione (Via, Civico, Priorità,"
                             + "numSolleciti, Stato, DataSegnalazione, Oggetto,"
-                            + "Descrizione, Foto, Cittadino)"
-                            + "values(?,?,?,?,?,?,?,?,?,?)");
+                            + "Descrizione, Foto, Cittadino, Riaperta)"
+                            + "values(?,?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1, segnalazione.getVia());
             statement.setInt(2, segnalazione.getCivico());
             statement.setInt(3, segnalazione.getPriorita());
@@ -159,6 +159,7 @@ public class SegnalazioneDAO {
             statement.setString(8, segnalazione.getDescrizione());
             statement.setString(9, segnalazione.getFoto());
             statement.setString(10, segnalazione.getCittadino().getCF());
+            statement.setInt(11, segnalazione.getRiaperta());
             if (statement.executeUpdate() != 1) {
                 throw new MyRuntimeException(
                         "C'è stato un errore nell'inserimento della "
@@ -180,7 +181,7 @@ public class SegnalazioneDAO {
                             + "Via=?, Civico=?, Priorità=?, numSolleciti=?,"
                             + "Stato=?, DataSegnalazione=?,"
                             + "Oggetto=?, Descrizione=?, Foto=?,"
-                            + "Cittadino=? WHERE ID=?");
+                            + "Cittadino=?, Riaperta=? WHERE ID=?");
             statement.setString(1, segnalazione.getVia());
             statement.setInt(2, segnalazione.getCivico());
             statement.setInt(3, segnalazione.getPriorita());
@@ -193,10 +194,11 @@ public class SegnalazioneDAO {
             statement.setString(8, segnalazione.getDescrizione());
             statement.setString(9, segnalazione.getFoto());
             statement.setString(10, segnalazione.getCittadino().getCF());
-            statement.setInt(11, segnalazione.getId());
+            statement.setInt(11, segnalazione.getRiaperta());
+            statement.setInt(12, segnalazione.getId());
             if (statement.executeUpdate() != 1) {
                 throw new MyRuntimeException(
-                        "C'è stato un errore nella modifica dello stato "
+                        "C'è stato un errore nella modifica "
                                 + "della segnalazione");
             }
         } catch (SQLException e) {

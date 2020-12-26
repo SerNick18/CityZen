@@ -3,6 +3,7 @@ package model.gestioneDati.modelDataAccess;
 import controller.gestioneUtenza.MyRuntimeException;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Segnalazione;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +38,34 @@ public class CittadinoDAO {
         } catch (SQLException e) {
             throw new MyServletException("C'è stato"
                    + "un errore nell'eliminazione del profilo");
+        }
+    }
+    public void doUpdate(Cittadino cittadino) {
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE segnalazione SET "
+                            + "Nome=?, Cognome=?, Pwd=?,"
+                            + "Via=?, Civico=?,"
+                            + "Città=?, Email=?, numSegnalazoni=?,"
+                            + "numSegnAppr=? WHERE CF=?");
+            statement.setString(1, cittadino.getNome());
+            statement.setString(2, cittadino.getNome());
+            statement.setString(3, cittadino.getPwd());
+            statement.setString(4, cittadino.getVia());
+            statement.setInt(5, cittadino.getCivico());
+            statement.setString(6, cittadino.getCitta());
+            statement.setString(7, cittadino.getEmail());
+            statement.setInt(8, cittadino.getNumSegnalazioni());
+            statement.setInt(9, cittadino.getNumSegnApp());
+            statement.setString(10, cittadino.getCF());
+            if (statement.executeUpdate() != 1) {
+                throw new MyRuntimeException(
+                        "C'è stato un errore nella modifica "
+                                + "del cittadino");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
