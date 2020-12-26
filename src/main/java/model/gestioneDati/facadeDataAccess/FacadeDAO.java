@@ -2,11 +2,9 @@ package model.gestioneDati.facadeDataAccess;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelDataAccess.*;
-import model.gestioneDati.modelObjects.Cittadino;
-import model.gestioneDati.modelObjects.Impiegato;
-import model.gestioneDati.modelObjects.Segnalazione;
-import model.gestioneDati.modelObjects.SegnalazioneInterface;
+import model.gestioneDati.modelObjects.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -196,5 +194,16 @@ public class FacadeDAO {
      */
     public List<Impiegato> getImpiegatiOsservatori(int idSegnalazione) {
         return gestioneSegnalazioneDAO.doRetrieveImpiegatiOsservatori(idSegnalazione);
+    }
+
+    //Facade per model feedback
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List<Feedback> getFeedbacksBySegnalazione(int id){
+        return feedbackDAO.doRetrieveFeedBackBySegnalazione(id);
     }
 }

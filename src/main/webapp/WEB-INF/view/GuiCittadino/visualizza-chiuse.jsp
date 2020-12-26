@@ -17,11 +17,11 @@
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
-            <div class="row align-items-start">
+            <div class="row mx-auto">
                 <div class="col"><a href="ListApprovate">Approvate</a></div>
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
             </div>
-            <div class="row align-items-center mt-3">
+            <div class="row align-items-center mx-auto">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>

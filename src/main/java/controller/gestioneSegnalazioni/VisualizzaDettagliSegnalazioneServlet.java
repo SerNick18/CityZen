@@ -2,6 +2,7 @@ package controller.gestioneSegnalazioni;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
+import model.gestioneDati.modelObjects.Feedback;
 import model.gestioneDati.modelObjects.Segnalazione;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * Questa servlet prende una segnalazione e mostra i dettagli,
@@ -54,6 +57,8 @@ public class VisualizzaDettagliSegnalazioneServlet extends HttpServlet {
         }
         req.getSession().setAttribute("Segnalazione", segnalazione);
         if (req.getSession().getAttribute("Cittadino") != null) {
+            ArrayList<Feedback> feedbacks= (ArrayList<Feedback>) service.getFeedbacksBySegnalazione(id);
+            req.setAttribute("feedbacks", feedbacks);
             RequestDispatcher dispatcher =
                 req.getRequestDispatcher(
                         "/WEB-INF/view/GuiCittadino/dettagli-segnalazione.jsp");
