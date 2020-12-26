@@ -9,12 +9,21 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 
 public class ConnectionPool {
+    /**
+     *
+     */
     private static DataSource dataSource;
 
+    /**
+     *
+     * @return connection
+     * @throws SQLException
+     */
     public static Connection getConnection() throws SQLException {
-        if (dataSource==null){
+        if (dataSource == null) {
             PoolProperties p = new PoolProperties();
-            p.setUrl("jdbc:mysql://localhost:3306/cityzendb?serverTimezone=" + TimeZone.getDefault().getID());
+            p.setUrl("jdbc:mysql://localhost:3306/cityzendb?serverTimezone="
+                    + TimeZone.getDefault().getID());
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
             p.setUsername("root");
             p.setPassword("admin");

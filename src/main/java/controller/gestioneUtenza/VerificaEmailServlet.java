@@ -24,7 +24,8 @@ public class VerificaEmailServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         doGet(req, resp);
     }
     /**
@@ -35,7 +36,8 @@ public class VerificaEmailServlet extends HttpServlet {
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      */
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         FacadeDAO service = new FacadeDAO();
         String email = req.getParameter("email");
         resp.setContentType("text/xml");

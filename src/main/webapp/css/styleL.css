@@ -5,7 +5,23 @@
 }
 body{
     background-image: url('../resources/images/background.png');
+    background-attachment: fixed;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
 }
+
+thead{
+    border-style: hidden !important;
+    background-color: #00cc9a;
+    color: #FFFFFF;
+    font-family: "Times New Roman", Times, serif;
+}
+
+
 .boldFont{
     font-weight: bold;
 }

@@ -9,14 +9,34 @@ import model.gestioneDati.modelObjects.SegnalazioneInterface;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class FacadeDAO {
+    /**
+     *
+     */
     private CittadinoDAO cittadinoDAO;
+    /**
+     *
+     */
     private SegnalazioneDAO segnalazioneDAO;
+    /**
+     *
+     */
     private FeedbackDAO feedbackDAO;
+    /**
+     *
+     */
     private GestioneSegnalazioniDAO gestioneSegnalazioneDAO;
+    /**
+     *
+     */
     private ImpiegatoDAO impiegatoDAO;
 
-
+    /**
+     *
+     */
     public FacadeDAO() {
         cittadinoDAO = new CittadinoDAO();
         segnalazioneDAO = new SegnalazioneDAO();
@@ -25,28 +45,61 @@ public class FacadeDAO {
         impiegatoDAO = new ImpiegatoDAO();
     }
 
-    //Facade per model cittadino
-    public Cittadino loginCittadino(String email, String pwd){
+    /**.
+     *  Facade per model cittadino
+     * @param email
+     * @param pwd
+     * @return cittadino
+     */
+    public Cittadino loginCittadino(String email, String pwd) {
         return cittadinoDAO.doLogin(email, pwd);
     }
-    public Cittadino getCittadinoByCf(String cf){
-        return cittadinoDAO.doRetrieveByCF(cf);
-    }
-    public void registraCittadino(Cittadino c){
-        cittadinoDAO.doRegister(c);
-    }
-    public Cittadino verificaCodiceFiscale(String cf) { return cittadinoDAO.doRetrieveByCF(cf); }
 
     /**
+     *
+     * @param cf
+     * @return cittadino
+     */
+    public Cittadino getCittadinoByCf(String cf) {
+        return cittadinoDAO.doRetrieveByCF(cf);
+    }
+
+    /**
+     *
+     * @param c
+     */
+    public void registraCittadino(Cittadino c) {
+        cittadinoDAO.doRegister(c);
+    }
+
+    /**
+     *
+     * @param cf
+     * @return cittadino
+     */
+    public Cittadino verificaCodiceFiscale(String cf) {
+        return cittadinoDAO.doRetrieveByCF(cf);
+    }
+
+    /**.
      * Aggiorna la password del
      * cittadino nel database
      * @param email email del cittadino
      * @param password nuova password del cittadino
      */
-    public void doUpdatePasswordByEmail(String email, String password){ cittadinoDAO.doUpdatePasswordByEmail(email,password);}
-    public Cittadino verificaEmail(String email) { return cittadinoDAO.doRetrieveByEmail(email); }
+    public void doUpdatePasswordByEmail(String email, String password) {
+        cittadinoDAO.doUpdatePasswordByEmail(email, password);
+    }
 
     /**
+     *
+     * @param email
+     * @return cittadino
+     */
+    public Cittadino verificaEmail(String email) {
+        return cittadinoDAO.doRetrieveByEmail(email);
+    }
+    /**.
      * Il metodo richiama la funzione di
      * eliminazione del cittadino con codice
      * fiscale 'cf' dal database.
@@ -55,10 +108,17 @@ public class FacadeDAO {
      * nell'eliminazione del cittadino
      */
     public void eliminaCittadino(String cf)
-            throws MyServletException {cittadinoDAO.doDelete(cf);}
+            throws MyServletException {
+        cittadinoDAO.doDelete(cf);
+    }
 
-    //Facade per model impiegato
-    public Impiegato loginImpiegato(String email, String pwd){
+    /**.
+     *Facade per model impiegato
+     * @param email
+     * @param pwd
+     * @return impiegato
+     */
+    public Impiegato loginImpiegato(String email, String pwd) {
         return impiegatoDAO.doLogin(email, pwd);
     }
 
@@ -75,5 +135,69 @@ public class FacadeDAO {
     public List<Segnalazione> getSegnalazioneByCittadino(String cf){
         return segnalazioneDAO.doRetrieveByCittadino(cf);
     }
+    /**.
+     *Facade per model segnalazione
+     * @param offset
+     * @return lista di segnalazioni interface
+     */
+    public List<SegnalazioneInterface> getSegnalazioniInoltrate(int offset) {
+        return segnalazioneDAO.doRetrieveInoltrateProxy(offset);
+    }
 
+    /**
+     *
+     * @param stato
+     * @param offset
+     * @return lista di segnalazioni interface
+     */
+    public List<SegnalazioneInterface> getSegnalazioniByStato(String stato,
+                                                              int offset) {
+        return segnalazioneDAO.doRetrieveByStato(stato, offset);
+    }
+
+    /**
+     *
+     * @param id
+     * @return segnalazione
+     */
+    public Segnalazione getSegnalazioneById(int id) {
+        return segnalazioneDAO.doRetrieveById(id);
+    }
+
+    /**
+     *
+     * @param segnalazione
+     */
+    public void inserisciSegnalazione(Segnalazione segnalazione) {
+        segnalazioneDAO.doInsert(segnalazione);
+    }
+
+    /**
+     *
+     * @param segnalazione
+     */
+    public void modificaSegnalazione(Segnalazione segnalazione) {
+        segnalazioneDAO.doUpdate(segnalazione);
+    }
+
+    //Facade per model gestioneSegnalazioni
+
+    /**
+     *
+     * @param impiegato
+     * @param segnalazione
+     */
+    public void inserisciLavorazione(Impiegato impiegato,
+                                     Segnalazione segnalazione) {
+        gestioneSegnalazioneDAO.doInsert(impiegato, segnalazione);
+    }
+
+    /**
+     *
+     * @param idSegnalazione
+     * @return lista degli impiegati
+     */
+    public List<Impiegato> getImpiegatiOsservatori(int idSegnalazione) {
+        return gestioneSegnalazioneDAO.doRetrieveImpiegatiOsservatori(idSegnalazione);
+    }
 }
