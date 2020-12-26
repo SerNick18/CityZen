@@ -114,7 +114,7 @@ public class InoltroSegnalazione extends HttpServlet {
             if ((uploadImage(req).equals(""))) {
                 throw new MyServletException(
                         "E' obbligatorio allegare una foto alla segnalazione. "
-                                + "I formati accettati sono .jpg, .jpeg, .jpg");
+                                + "I formati accettati sono .png, .jpeg, .jpg");
             } else {
                 segnalazione.setFoto(uploadImage(req));
             }
