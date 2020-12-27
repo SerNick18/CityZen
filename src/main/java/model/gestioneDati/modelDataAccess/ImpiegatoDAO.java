@@ -15,8 +15,7 @@ public class ImpiegatoDAO {
      * @return Impiegato.
      */
     public Impiegato doLogin(String email, String pwd) {
-        try {
-            Connection connection = ConnectionPool.getConnection();
+        try(Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement =
                     connection.prepareStatement("select * from impiegato "
                                     + "where email = ? and pwd = SHA1(?)");

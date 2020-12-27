@@ -11,50 +11,53 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-<h1>Segnalazioni Chiuse</h1>
-<div class="container-fluid">
-    <div class="row h-100">
-        <jsp:include page="header.jsp"></jsp:include>
-        <div class="col-10 align-self-start">
-            <div class="row align-items-start">
-                <div class="col"><a href="visualizza-segnalazioni-inoltrate">Inoltrate</a></div>
-                <div class="col"><a href="ListApprovate">Approvate</a></div>
-                <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
-            </div>
-            <div class="row align-items-center mt-3">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Oggetto</th>
-                        <th scope="col">Segnalato da</th>
-                        <th scope="col">Numero Solleciti</th>
-                        <th scope="col">Priorità</th>
-                        <th scope="col">Riaperto da</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${chiuse}" var="i">
-                        <tr>
-                            <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
-                            <td>${i.cittadino.nome}</td>
-                            <td>${i.numSolleciti}</td>
-                            <td>${i.priorita}</td>
-                            <c:choose>
-                                <c:when test="${i.riaperta!=0}">
-                                    <td>${i.riaperta}</td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>Nessuno</td>
-                                </c:otherwise>
-                            </c:choose>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+    <body>
+        <h1>Segnalazioni Chiuse</h1>
+        <div class="container-fluid">
+            <div class="row h-100">
+                <jsp:include page="header.jsp"></jsp:include>
+                <div class="col-10 align-self-start">
+                    <div class="row align-items-start">
+                        <div class="col"><a href="visualizza-segnalazioni-inoltrate">Inoltrate</a></div>
+                        <div class="col"><a href="ListApprovate">Approvate</a></div>
+                        <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
+                    </div>
+                    <div class="row align-items-center mt-3">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Oggetto</th>
+                                <th scope="col">Segnalato da</th>
+                                <th scope="col">Numero Solleciti</th>
+                                <th scope="col">Priorità</th>
+                                <th scope="col">Riaperto da</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${chiuse}" var="i">
+                                <tr>
+                                    <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
+                                    <td>${i.cittadino.nome}</td>
+                                    <td>${i.numSolleciti}</td>
+                                    <td>${i.priorita}</td>
+                                    <c:choose>
+                                        <c:when test="${i.riaperta!=0}">
+                                            <td>${i.riaperta}</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>Nessuno</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-success">Carica Altro</button>
+                        <input type="hidden" name="stato" value="chiusa">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</body>
+        <script src="./javascript/visualizza-altre-segnalazioni.js"></script>
+    </body>
 </html>

@@ -6,11 +6,13 @@ $("document").ready(function () {
     }
     var offset=20;
     $(".btn-success").click(function () {
+        //recupera lo stato delle segnalazioni da caricare
+        var stato=$('input[type=hidden]').val();
         //chiamata ajax
         $.ajax({
             type: "POST",
             url: "carica-altre-segnalazioni",
-            data:  {"stato":"inoltrata", "offset": offset},
+            data:  {"stato":stato, "offset": offset},
             dataType: "json",
             timeout: 100000,
             success: function(data){
@@ -20,7 +22,7 @@ $("document").ready(function () {
                 var tbody=document.getElementsByTagName("tbody");
                 for(var i=0; i<data.length; i++){
                     var tr=document.createElement("tr");
-                    //console.log(data[0].segnalazione.riaperta);
+
                     var tdOggetto=document.createElement("td");
                     var tdNome=document.createElement("td");
                     var tdSolleciti=document.createElement("td");
