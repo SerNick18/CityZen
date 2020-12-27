@@ -69,11 +69,7 @@ public class InserimentoFeedback extends HttpServlet {
                        + " cercata non esiste");
             }
             String descrizione = req.getParameter("descrizione");
-            if (descrizione == null
-                    || descrizione.equals("")) {
-                throw new MyServletException("La descrizione"
-                        + " non può essere vuota");
-            }
+
             if (descrizione.length() > 500 || descrizione.length() < 10) {
                 throw new MyServletException("La descrizione deve"
                         + " essere lunga minimo 10 caratteri e massimo 500");
@@ -87,7 +83,7 @@ public class InserimentoFeedback extends HttpServlet {
                            + "essere minore di 1 o maggiore di 5");
                 }
             } catch (NumberFormatException e) {
-                throw new MyServletException("Valutazione non valida");
+                throw new MyServletException("Devi selezionare una valutazione.");
             }
 
             if (service.isCittadinoFeedbackSegnalazione(cittadino.getCF(), idSegnalazione)) {
