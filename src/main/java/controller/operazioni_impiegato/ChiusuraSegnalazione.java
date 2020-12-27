@@ -55,6 +55,8 @@ public class ChiusuraSegnalazione extends HttpServlet {
                     && (segnalazione.getStato().equals("approvata"))) {
                 segnalazione.setStato("chiusa");
                 service.modificaSegnalazione(segnalazione);
+                impiegato.setNumSegnalazioniChiuse(impiegato.getNumSegnalazioniChiuse()+1);
+                service.modificaImpiegato(impiegato);
                 service.inserisciLavorazione(impiegato, segnalazione);
                 List<Impiegato> impiegati =
                         service.getImpiegatiOsservatori(segnalazione.getId());
