@@ -50,7 +50,6 @@ public class EliminaSegnalazione extends HttpServlet {
             throw new MyServletException("La segnalazione non è nello stato inoltrata");
         }
     }
-
     /**
      * Metodo doGet che richiama il metodo doPost
      * @param req
