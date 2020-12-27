@@ -39,6 +39,7 @@ public class EliminaSegnalazione extends HttpServlet {
         if(segnalazione.getStato().equals("inoltrata")){
             if(req.getParameter("approva")==null){
                 service.eliminaSegnalazione(segnalazione.getId());
+                cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()-1);
                 service.modificaCittadino(cittadino);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
                 dispatcher.forward(req, resp);
