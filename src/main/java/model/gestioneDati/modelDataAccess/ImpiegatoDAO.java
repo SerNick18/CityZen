@@ -1,5 +1,6 @@
 package model.gestioneDati.modelDataAccess;
 
+import controller.gestioneUtenza.MyRuntimeException;
 import model.gestioneDati.modelObjects.Impiegato;
 
 import java.sql.Connection;
@@ -41,5 +42,32 @@ public class ImpiegatoDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void doUpdate(Impiegato impiegato) {
+        try(Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE impiegato SET "
+                            + "Nome=?, Cognome=?, Pwd=?,"
+                            + "Via=?, Civico=?,"
+                            + "Città=?, numSegnalazioniApp=?,"
+                            + "numSegnalazioniChiuse=? WHERE Matricola=?");
+            statement.setString(1, impiegato.getNome());
+            statement.setString(2, impiegato.getCognome());
+            statement.setString(3, impiegato.getPwd());
+            statement.setString(4, impiegato.getVia());
+            statement.setInt(5, impiegato.getCivico());
+            statement.setString(6, impiegato.getCitta());
+            statement.setInt(7, impiegato.getNumSegnalazioniApp());
+            statement.setInt(8, impiegato.getNumSegnalazioniChiuse());
+            statement.setString(9, impiegato.getMatricola());
+            if (statement.executeUpdate() != 1) {
+                throw new MyRuntimeException(
+                        "C'è stato un errore nella modifica "
+                                + "dell'impiegato");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

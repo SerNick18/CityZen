@@ -43,6 +43,9 @@ public class ApprovaSegnalazione extends HttpServlet {
                     && segnalazione.getStato().equals("inoltrata")) {
                 segnalazione.setStato("approvata");
                 service.modificaSegnalazione(segnalazione);
+                impiegato.setNumSegnalazioniApp(
+                        impiegato.getNumSegnalazioniApp() + 1);
+                service.modificaImpiegato(impiegato);
                 service.inserisciLavorazione(impiegato, segnalazione);
                 req.getRequestDispatcher(
                         "/WEB-INF/view/GuiImpiegato/gui-impiegato.jsp")

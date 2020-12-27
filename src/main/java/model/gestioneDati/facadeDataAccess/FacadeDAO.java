@@ -123,6 +123,7 @@ public class FacadeDAO {
     public Impiegato loginImpiegato(String email, String pwd) {
         return impiegatoDAO.doLogin(email, pwd);
     }
+    public void modificaImpiegato(Impiegato impiegato) { impiegatoDAO.doUpdate(impiegato);}
     /**
      * Metodo riceve una segnalazione da inserire nel database e
      * richiama la funzionalità di inserimento di una segnalazione.

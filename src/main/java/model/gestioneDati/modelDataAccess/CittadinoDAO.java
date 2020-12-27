@@ -48,7 +48,7 @@ public class CittadinoDAO {
                             + "Città=?, Email=?, numSegnalazioni=?,"
                             + "numSegnAppr=? WHERE CF=?");
             statement.setString(1, cittadino.getNome());
-            statement.setString(2, cittadino.getNome());
+            statement.setString(2, cittadino.getCognome());
             statement.setString(3, cittadino.getPwd());
             statement.setString(4, cittadino.getVia());
             statement.setInt(5, cittadino.getCivico());

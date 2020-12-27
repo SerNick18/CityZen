@@ -1,12 +1,12 @@
 package controller.operazioni_cittadino;
 
-import com.sun.prism.impl.BaseMesh;
+//import com.sun.prism.impl.BaseMesh;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Segnalazione;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
-import org.omg.Messaging.SyncScopeHelper;
+//import org.omg.Messaging.SyncScopeHelper;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
