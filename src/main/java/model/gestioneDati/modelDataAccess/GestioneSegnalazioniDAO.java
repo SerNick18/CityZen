@@ -20,8 +20,7 @@ public class GestioneSegnalazioniDAO {
      * @param segnalazione
      */
     public void doInsert(Impiegato impiegato, Segnalazione segnalazione) {
-        try {
-            Connection connection = ConnectionPool.getConnection();
+        try(Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO gestionesegnalazioni"
                     + "(Impiegato, Segnalazione,"
@@ -46,9 +45,8 @@ public class GestioneSegnalazioniDAO {
      * @return lista di Impiegati
      */
     public List<Impiegato> doRetrieveImpiegatiOsservatori(int idSegnalazione) {
-        try {
+        try(Connection connection = ConnectionPool.getConnection()) {
             ArrayList<Impiegato> impiegati = new ArrayList<>();
-            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM gestionesegnalazioni "
                             + "JOIN Impiegato i "

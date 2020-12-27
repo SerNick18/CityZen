@@ -22,8 +22,7 @@ public class FeedbackDAO {
      * @param feedback feedback da memorizzare
      */
     public void doInsertFeedback(Feedback feedback){
-        try {
-            Connection connection = ConnectionPool.getConnection();
+        try(Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "insert into feedback (Cittadino, Segnalazione, Descrizione,"
                             + "valutazione, DataFeedback)"
@@ -52,11 +51,10 @@ public class FeedbackDAO {
      * @return restituisce una lista di feedback.
      */
     public List<Feedback> doRetrieveFeedBackBySegnalazione(int id) {
-        try {
+        try(Connection connection = ConnectionPool.getConnection()) {
             ArrayList<Feedback> feedbacks = new ArrayList<>();
             CittadinoDAO cittadinoDAO = new CittadinoDAO();
             SegnalazioneDAO segnalazioneDAO=new SegnalazioneDAO();
-            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM feedback WHERE feedback.Segnalazione=?;");
             statement.setInt(1, id);
@@ -85,8 +83,7 @@ public class FeedbackDAO {
      * false - se il cittadino non ha inserito nessun feedback
      */
     public boolean isCittadinoFeedbackSegnalazione (String cFCittadino, int idSegnalazione){
-        try{
-            Connection connection = ConnectionPool.getConnection();
+        try(Connection connection = ConnectionPool.getConnection()){
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM feedback AS f WHERE f.cittadino=? AND f.segnalazione=?");
             statement.setString(1, cFCittadino);

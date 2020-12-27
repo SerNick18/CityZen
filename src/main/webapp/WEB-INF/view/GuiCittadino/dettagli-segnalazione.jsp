@@ -94,76 +94,87 @@
                     %>
                 </div>
                 <div class="row">
-                    <h2>Feedback</h2>
-                    <c:choose>
-                        <c:when test="${feedbacks.size()!=0}">
-                            <c:forEach items="${feedbacks}" var="f">
-                                <c:choose>
-                                    <c:when test = "${f.valutazione>=1 && f.valutazione<=2}">
-                                        <div class="alert alert-danger" role="alert">
-                                            <div class="row">
-                                                <div class="col-10">
-                                                        ${f.cittadino.nome} ${f.cittadino.cognome}: ${f.descrizione}
+                    <c:if test='<%=s.getStato().equals("chiusa")%>'>
+                        <h2>Feedback</h2>
+                        <c:choose>
+                            <c:when test="${feedbacks.size()!=0}">
+                                <c:forEach items="${feedbacks}" var="f">
+                                    <c:choose>
+                                        <c:when test = "${f.valutazione>=1 && f.valutazione<=2}">
+                                            <div class="alert alert-danger" role="alert">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                            ${f.cittadino.nome} ${f.cittadino.cognome}: ${f.descrizione}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <c:forEach begin="1" end="${f.valutazione}">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach begin="${f.valutazione+1}" end="5">
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </div>
                                                 </div>
-                                                <div class="col-2">
-                                                    <c:forEach begin="1" end="${f.valutazione}">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </c:forEach>
+                                                <div class="row feedback-data">
+                                                    <div class="col-12">
+                                                        <fmt:formatDate pattern="dd-MM-yyyy" value="${f.dataFeedback}" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row feedback-data">
-                                                <div class="col-12">
-                                                    <fmt:formatDate pattern="dd-MM-yyyy" value="${f.dataFeedback}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:when>
+                                        </c:when>
 
-                                    <c:when test = "${f.valutazione==3}">
-                                        <div class="alert alert-warning" role="alert">
-                                            <div class="row">
-                                                <div class="col-10">
-                                                        ${f.cittadino.nome} ${f.cittadino.cognome}: ${f.descrizione}
+                                        <c:when test = "${f.valutazione==3}">
+                                            <div class="alert alert-warning" role="alert">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                            ${f.cittadino.nome} ${f.cittadino.cognome}: ${f.descrizione}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <c:forEach begin="1" end="${f.valutazione}">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach begin="${f.valutazione+1}" end="5">
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </div>
                                                 </div>
-                                                <div class="col-2">
-                                                    <c:forEach begin="1" end="${f.valutazione}">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </c:forEach>
-                                                </div>
-                                            </div>
-                                            <div class="row feedback-data">
-                                                <div class="col-12">
-                                                    <fmt:formatDate pattern="dd-MM-yyyy" value="${f.dataFeedback}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="alert alert-success" role="alert">
-                                            <div class="row">
-                                                <div class="col-10">
-                                                        ${f.cittadino.nome} ${f.cittadino.cognome}: ${f.descrizione}
-                                                </div>
-                                                <div class="col-2">
-                                                    <c:forEach begin="1" end="${f.valutazione}">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </c:forEach>
+                                                <div class="row feedback-data">
+                                                    <div class="col-12">
+                                                        <fmt:formatDate pattern="dd-MM-yyyy" value="${f.dataFeedback}" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row feedback-data">
-                                                <div class="col-12">
-                                                    <fmt:formatDate pattern="dd-MM-yyyy" value="${f.dataFeedback}" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="alert alert-success" role="alert">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                            ${f.cittadino.nome} ${f.cittadino.cognome}: ${f.descrizione}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <c:forEach begin="1" end="${f.valutazione}">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach begin="${f.valutazione+1}" end="5">
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                                <div class="row feedback-data">
+                                                    <div class="col-12">
+                                                        <fmt:formatDate pattern="dd-MM-yyyy" value="${f.dataFeedback}" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <h3>Non ci sono feedback</h3>
-                        </c:otherwise>
-                    </c:choose>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <h3>Non ci sono feedback</h3>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
                 </div>
             </div>
         </div>

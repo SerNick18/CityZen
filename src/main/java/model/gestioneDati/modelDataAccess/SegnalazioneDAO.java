@@ -23,10 +23,9 @@ public class SegnalazioneDAO {
      * @return lista di SegnalazioneProxy inoltrate
      */
     public List<SegnalazioneInterface> doRetrieveInoltrateProxy(int offset) {
-        try {
+        try(Connection connection = ConnectionPool.getConnection()) {
             ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
             FacadeDAO facadeDAO = new FacadeDAO();
-            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM segnalazione WHERE stato=? "
                             + "order by id desc limit 6 offset ?");
@@ -55,10 +54,9 @@ public class SegnalazioneDAO {
      */
     public List<SegnalazioneInterface> doRetrieveByStato(
             String stato, int offset) {
-        try {
+        try (Connection connection = ConnectionPool.getConnection()) {
             ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
             FacadeDAO facadeDAO = new FacadeDAO();
-            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM segnalazione WHERE stato=? "
                             + "order by id desc limit 20 offset ?");
@@ -84,9 +82,8 @@ public class SegnalazioneDAO {
      * @return segnalazione con l'id passato come parametro
      */
     public Segnalazione doRetrieveById(int id) {
-        try {
+        try (Connection connection = ConnectionPool.getConnection()) {
             FacadeDAO facadeDAO = new FacadeDAO();
-            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM segnalazione WHERE id=?");
             statement.setInt(1, id);
@@ -112,9 +109,8 @@ public class SegnalazioneDAO {
     }
     public List<SegnalazioneInterface> doRetrieveByCittadino(String cf, int offset) {
         ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
-        try {
+        try (Connection connection = ConnectionPool.getConnection()) {
             FacadeDAO facadeDAO = new FacadeDAO();
-            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM segnalazione WHERE Cittadino=?"
             + " order by id desc limit 20 offset ?");
@@ -143,8 +139,7 @@ public class SegnalazioneDAO {
      * @param segnalazione da inserire nel database
      */
     public void doInsert(Segnalazione segnalazione){
-        try {
-            Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "insert into segnalazione (Via, Civico, Priorità,"
                             + "numSolleciti, Stato, DataSegnalazione, Oggetto,"
@@ -177,8 +172,7 @@ public class SegnalazioneDAO {
      * @param segnalazione segnalazione modificata
      */
     public void doUpdate(Segnalazione segnalazione) {
-        try {
-            Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE segnalazione SET "
                             + "Via=?, Civico=?, Priorità=?, numSolleciti=?,"
@@ -215,8 +209,7 @@ public class SegnalazioneDAO {
      * @throws MyServletException
      */
     public void doDelete(int ID) throws MyServletException{
-        try {
-            Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM segnalazione WHERE ID=?");
             statement.setInt(1, ID);
             if (statement.executeUpdate() != 1) {
