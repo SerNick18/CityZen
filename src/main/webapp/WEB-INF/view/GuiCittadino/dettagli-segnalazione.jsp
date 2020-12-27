@@ -78,9 +78,9 @@
                         <input type="hidden" name="id" value="${Segnalazione.id}">
                         <input type="submit" name="approva" value="Modifica">
                     </form>
-                    <form class="form-group" action="" method="post" >
+                    <form class="form-group" action="eliminaSegnalazione" method="post" >
                         <input type="hidden" name="id" value="${Segnalazione.id}">
-                        <input type="submit" name="eliminia" value="Elimia">
+                        <input type="submit" name="elimina" value="Elimina">
                     </form>
                     <%
                         }else if(s.getStato().equals("chiusa")){

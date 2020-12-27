@@ -175,6 +175,7 @@ public class FacadeDAO {
     public void modificaSegnalazione(Segnalazione segnalazione) {
         segnalazioneDAO.doUpdate(segnalazione);
     }
+    public void eliminaSegnalazione(int ID) throws MyServletException { segnalazioneDAO.doDelete(ID);}
 
     //Facade per model gestioneSegnalazioni
 

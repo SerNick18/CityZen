@@ -1,6 +1,7 @@
 package model.gestioneDati.modelDataAccess;
 
 import controller.gestioneUtenza.MyRuntimeException;
+import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Segnalazione;
@@ -205,6 +206,24 @@ public class SegnalazioneDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo per eliminare una segnalazione
+     * @param ID
+     * @throws MyServletException
+     */
+    public void doDelete(int ID) throws MyServletException{
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM segnalazione WHERE ID=?");
+            statement.setInt(1, ID);
+            if (statement.executeUpdate() != 1) {
+                throw new MyServletException("C'è stato un errore nell'eliminazione della segnalazione");
+            }
+        } catch (SQLException e) {
+            throw new MyServletException("C'è stato un errore nell'eliminazione della segnalazione");
         }
     }
 }
