@@ -4,6 +4,7 @@ import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Segnalazione;
+import model.gestioneDati.modelObjects.SegnalazioneInterface;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 
 @WebServlet("/riapriSegnalazione")
@@ -43,12 +45,33 @@ public class RiapriSegnalazione extends HttpServlet {
             dispatcher.forward(req,resp);
         }else {
             //id segnalazione da riaprire
-            int idSegnalazione = Integer.parseInt(req.getParameter("idSegnalazione"));
+            int idSegnalazione;
+            try{
+                idSegnalazione = Integer.parseInt(req.getParameter("idSegnalazione"));
+            }catch (Exception e){
+                throw new MyServletException("Errore nell'elaborazione della richiesta, riprovare!");
+            }
             String descrizione = req.getParameter("descrizione");
             //provengo dal form di riapertura, riapro la segnalazione
             FacadeDAO service = new FacadeDAO();
             //recupero la segnalazione chiusa
             Segnalazione segnalazioneChiusa = service.getSegnalazioneById(idSegnalazione);
+
+            //controllo se il cittadino ho già riaperto questa segnalazione
+            //recupero le segnalazioni inoltrate dal cittadino
+            int offset=0;
+            ArrayList<SegnalazioneInterface> segnalazioni =
+                    (ArrayList<SegnalazioneInterface>) service.getSegnalazioneByCittadino(cittadino.getCF(), offset);
+            while (segnalazioni.size()>0) {
+                for (SegnalazioneInterface s: segnalazioni){
+                    if (s.getStato().equals("inoltrata") && s.getRiaperta()!=0 && s.getRiaperta()==segnalazioneChiusa.getId())
+                        throw new MyServletException("Hai già riaperto questa segnalazione!");
+                }
+                offset+=20;
+                segnalazioni =
+                        (ArrayList<SegnalazioneInterface>) service.getSegnalazioneByCittadino(cittadino.getCF(), offset);
+            }
+
 
             //controlli sugli input inviati
             if (descrizione.length()>500 || descrizione.length()<10)

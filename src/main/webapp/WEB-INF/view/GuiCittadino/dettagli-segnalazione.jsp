@@ -24,7 +24,16 @@
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
             <div class="row align-items-start">
-                <h1>Segnalazione</h1>
+                <div class="col-4">
+                    <h1 class="boldFont">Dettagli Segnalazione</h1>
+                </div>
+                <div class="col-6 m-2" id="message">
+                    <c:if test="${Segnalazione.riaperta>0}">
+                        <div class="alert alert-danger" role="alert">
+                            Questa segnalazione faceva già riferimento ad <a href="dettagli?id=${Segnalazione.riaperta}">un'altra chiusa!</a>
+                        </div>
+                    </c:if>
+                </div>
             </div>
             <div class="row mx-auto">
                 <div class="col-4 ml-3">
@@ -77,7 +86,7 @@
                         }else if(s.getStato().equals("chiusa")){
                     %>
                     <form class="form-group" action="riapriSegnalazione" method="post" >
-                        <input type="hidden" name="id" value="${Segnalazione.id}">
+                        <input type="hidden" name="idSegnalazioneDaAprire" value="${Segnalazione.id}">
                         <input type="submit" name="riapri" value="Riapri">
                     </form>
                     <%

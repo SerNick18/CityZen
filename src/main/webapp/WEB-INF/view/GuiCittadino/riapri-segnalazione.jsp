@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
         <title>CityZen - Riapri Segnalazione</title>
@@ -35,6 +37,11 @@
                 <div class="col-6" id="message">
                     <p id="messageDescrizione"></p>
                     <p id="messageFoto"></p>
+                    <c:if test="${Segnalazione.riaperta>0}">
+                        <div class="alert alert-danger" role="alert">
+                            Questa segnalazione faceva già riferimento ad <a href="dettagli?id=${Segnalazione.riaperta}">un'altra chiusa!</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <!--row of content-->
