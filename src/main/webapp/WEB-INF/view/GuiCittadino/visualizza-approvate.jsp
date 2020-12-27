@@ -20,6 +20,7 @@
             <div class="row mx-auto">
                 <div class="col"><a href="ListApprovate">Approvate</a></div>
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
+                <input type="hidden" name="numeroButton" value="0">
             </div>
             <div class="row align-items-center mx-auto">
                 <table class="table">
@@ -37,7 +38,10 @@
                         <tr>
                             <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
                             <td>${i.cittadino.nome}</td>
-                            <td>${i.numSolleciti}</td>
+                            <td>${i.numSolleciti}
+                                <form class="form-group" action="inoltroSol" method="post">
+                                    <input type="submit" name="idSol${i.id}" value="+" >
+                                </form> </td>
                             <td>${i.priorita}</td>
                             <c:choose>
                                 <c:when test="${i.riaperta!=0}">
@@ -55,5 +59,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
