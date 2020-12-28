@@ -35,13 +35,13 @@
                     <h1 class="boldFont">Riapri Segnalazione</h1>
                 </div>
                 <div class="col-6" id="message">
-                    <p id="messageDescrizione"></p>
-                    <p id="messageFoto"></p>
                     <c:if test="${Segnalazione.riaperta>0}">
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mt-2" role="alert">
                             Questa segnalazione faceva già riferimento ad <a href="dettagli?id=${Segnalazione.riaperta}">un'altra chiusa!</a>
                         </div>
                     </c:if>
+                    <p id="messageDescrizione"></p>
+                    <p id="messageFoto"></p>
                 </div>
             </div>
             <!--row of content-->

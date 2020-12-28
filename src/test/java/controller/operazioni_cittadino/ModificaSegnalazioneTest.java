@@ -114,6 +114,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         assertEquals("Il numero civico non è valido."
                 ,exception.getMessage());
     }
+    @Test
     void testSegnalazioneNonInoltrata() {
         request.setParameter("id", "1");
         request.setParameter("oggetto", "Perdita d'acqua");

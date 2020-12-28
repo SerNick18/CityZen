@@ -25,11 +25,34 @@ import java.util.Date;
 @WebServlet("/riapriSegnalazione")
 @MultipartConfig
 public class RiapriSegnalazione extends HttpServlet {
+    /**
+     * Si forza il flusso di esecuzione sul metodo doPost.
+     * Anche se si riceve una richiesta di tipo GET, si richiama il
+     * metodo che gestisce le richieste di tipo POST
+     * @param req oggetto che contiene la richiesta da parte di un client
+     * @param resp oggetto che contiene la risposta che la servlet
+     * deve ritornare al cliente
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     * quando la servlet gestisce la richiesta
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
     }
-
+    /**
+     * Questo metodo ha duplice funzionalità: redirige le richieste
+     * di riapertura di una segnalazione provenienti dalla pagina di
+     * dettagli, ed effettua le operazioni di riapertura di una segnalazione:
+     * recupera la segnalazione chiusa da riaprire, controlla che il
+     * cittadino non abbia già riaperto questa segnalazione e crea una nuova
+     * segnalazione con alcuni campi ereditati da quella chiusa.
+     * @param req request che contiene l'id della segnalazione chiusa da riaprire
+     * @param resp oggetto che contiene la risposta che la servlet
+     * deve ritornare al cliente
+     * @throws ServletException per errori di validazione dei campi ed autorizzazioni di sicurezza
+     * @throws IOException per errori relativi all'I/O
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cittadino cittadino;
@@ -64,6 +87,9 @@ public class RiapriSegnalazione extends HttpServlet {
                     (ArrayList<SegnalazioneInterface>) service.getSegnalazioneByCittadino(cittadino.getCF(), offset);
             while (segnalazioni.size()>0) {
                 for (SegnalazioneInterface s: segnalazioni){
+                    //controllo se la segnalazione del cittadino ha stato "inoltrata"
+                    //e se fa riferimento alla stessa segnalazione che si sta cercando di riaprire con
+                    //questa servlet
                     if (s.getStato().equals("inoltrata") && s.getRiaperta()!=0 && s.getRiaperta()==segnalazioneChiusa.getId())
                         throw new MyServletException("Hai già riaperto questa segnalazione!");
                 }
@@ -92,12 +118,14 @@ public class RiapriSegnalazione extends HttpServlet {
                         "I formati accettati sono .jpg, .jpeg, .jpg");
             else
                 nuovaSegnalazione.setFoto(uploadImage(req));
+            cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()+1);
             nuovaSegnalazione.setCittadino(cittadino);
             nuovaSegnalazione.setRiaperta(segnalazioneChiusa.getId());
 
             //inserisco la nuova segnalazione
             service.inserisciSegnalazione(nuovaSegnalazione);
-            //setto questa segnalaizone come riaperta
+            //aggiorno il campo numSegnalazioni inoltrate del cittadino
+            service.modificaCittadino(cittadino);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
             dispatcher.forward(req,resp);
