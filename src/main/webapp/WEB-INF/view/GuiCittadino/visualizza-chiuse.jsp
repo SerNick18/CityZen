@@ -21,9 +21,9 @@
                 <div class="col"><a href="ListApprovate">Approvate</a></div>
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
             </div>
-            <div class="row align-items-center mx-auto">
-                <table class="table">
-                    <thead class="thead-dark">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
                     <tr>
                         <th scope="col">Oggetto</th>
                         <th scope="col">Segnalato da</th>

@@ -21,62 +21,60 @@
 </head>
 <body>
     <div class="container-fluid h-100">
-        <jsp:include page="header.jsp"></jsp:include>
-        <div class="row h-50 text-center" id="bordo">
-            <div class="col-12">
+        <div class="row h-100" id="bordo">
+                <jsp:include page="header.jsp"></jsp:include>
+            <div class="col-10">
                 <h1>I tuoi dati</h1>
                 <div class="row">
-                    <div class="col-6">
-                        <b>Nome:</b> ${Cittadino.nome}
+                    <div class="form-group col-3">
+                        <label for="nome">Nome</label>
+                        <input type="email" class="form-control" id="nome" placeholder="${Cittadino.nome}" disabled>
                     </div>
-                    <div class="col-6">
-                        <b>Cognome:</b> ${Cittadino.cognome}
+                    <div class="form-group col-3">
+                        <label for="cognome">Cognome</label>
+                        <input type="password" class="form-control" id="cognome" placeholder=" ${Cittadino.cognome}" disabled>
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="col-6">
-                        <b>Email:</b> ${Cittadino.email}
+                    <div class="form-group col-4">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="${Cittadino.email}" disabled>
                     </div>
-                    <div class="col-6">
-                        <b>Password: </b>
-                        <form action="modificaPassword" class="form-inline">
-                            <input type="hidden" name="provenienza" value="profilo">
-                            <input type="submit" class="btn btn-success btn-sm" value="Modifica Password">
+                    <div class="form-group col-4">
+                        <label>Password</label>
+                        <div class="input-group mb-3">
+                                <form action="modificaPassword" class="form-inline">
+                                    <input type="hidden" name="provenienza" value="profilo">
+                                    <input type="submit" class="btn btn-success btn-sm" value="Modifica Password">
+                                </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="via">Via</label>
+                        <input type="email" class="form-control" id="via" placeholder="${Cittadino.via}" disabled>
+                    </div>
+                    <div class="form-group col-1">
+                        <label for="civico">Civico</label>
+                        <input type="password" class="form-control" id="civico" placeholder=" ${Cittadino.civico}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-3">
+                        <label>Segnalazioni effettuate: ${Cittadino.numSegnalazioni}</label>
+                        <form action="visualizza-segnalazioni" method="post" class="inline">
+                            <input type="hidden" name="cf" value="${Cittadino.CF}">
+                            <input type="submit" class="btn btn-success btn-block" value="Visualizza Segnalazioni">
+                        </form>
+                    </div>
+                    <div class="form-group col-3">
+                        <label>Segnalazioni Approvate: ${Cittadino.numSegnApp}</label>
+                        <form action="elimina-profilo" class="inline">
+                            <input type="submit" class="btn btn-danger btn-block" value="Elimina Profilo">
                         </form>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <b>Via:</b> ${Cittadino.via}
-                    </div>
-                    <div class="col-6">
-                        <b>Civico:</b> ${Cittadino.civico}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <b>Segnalazioni effettuate:</b> ${Cittadino.numSegnalazioni}
-                    </div>
-                    <div class="col-6">
-                        <b>Segnalazioni Approvate:</b> ${Cittadino.numSegnApp}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row h-50 text-center">
-            <div class="col-6">
-                <form action="visualizza-segnalazioni" method="post">
-                    <input type="hidden" name="cf" value="${Cittadino.CF}">
-                    <input type="submit" class="btn btn-success btn-block" value="Visualizza Segnalazioni">
-                </form>
-            </div>
-            <div class="col-6">
-                <form action="elimina-profilo">
-                    <input type="submit" class="btn btn-danger btn-block" value="Elimina Profilo">
-                </form>
             </div>
         </div>
     </div>

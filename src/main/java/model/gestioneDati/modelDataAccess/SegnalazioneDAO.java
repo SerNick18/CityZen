@@ -107,6 +107,13 @@ public class SegnalazioneDAO {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     *
+     * @param cf
+     * @param offset
+     * @return
+     */
     public List<SegnalazioneInterface> doRetrieveByCittadino(String cf, int offset) {
         ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection()) {

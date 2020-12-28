@@ -9,7 +9,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <html>
 <head>
-    <title>Segnalazioni Chiuse</title>
+    <title>Le tue Segnalazioni</title>
     <link rel="stylesheet" href="css/styleL.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -24,36 +24,36 @@
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
-            <div class="row align-items-center mt-3">
-                <table class="table">
-                    <thead class="thead-dark">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Oggetto</th>
+                    <th scope="col">Stato</th>
+                    <th scope="col">Numero Solleciti</th>
+                    <th scope="col">Priorità</th>
+                    <th scope="col">Riaperto da</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${proprie}" var="i">
                     <tr>
-                        <th scope="col">Oggetto</th>
-                        <th scope="col">Stato</th>
-                        <th scope="col">Numero Solleciti</th>
-                        <th scope="col">Priorità</th>
-                        <th scope="col">Riaperto da</th>
+                        <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
+                        <td>${i.stato}</td>
+                        <td>${i.numSolleciti}</td>
+                        <td>${i.priorita}</td>
+                        <c:choose>
+                            <c:when test="${i.riaperta!=0}">
+                                <td>${i.riaperta}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>Nessuno</td>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${proprie}" var="i">
-                        <tr>
-                            <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
-                            <td>${i.stato}</td>
-                            <td>${i.numSolleciti}</td>
-                            <td>${i.priorita}</td>
-                            <c:choose>
-                                <c:when test="${i.riaperta!=0}">
-                                    <td>${i.riaperta}</td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>Nessuno</td>
-                                </c:otherwise>
-                            </c:choose>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                </c:forEach>
+                </tbody>
+              </table>
             </div>
         </div>
     </div>

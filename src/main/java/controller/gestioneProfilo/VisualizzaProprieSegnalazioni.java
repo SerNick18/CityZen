@@ -2,7 +2,6 @@ package controller.gestioneProfilo;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
-import model.gestioneDati.modelObjects.Segnalazione;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
 
 import javax.servlet.RequestDispatcher;
@@ -12,9 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servlet che cerca le segnalazioni di
+ * un Cittadino, il cui id è passato nella request
+ */
 @WebServlet("/visualizza-segnalazioni")
 public class VisualizzaProprieSegnalazioni extends HttpServlet {
     /**
@@ -32,6 +34,14 @@ public class VisualizzaProprieSegnalazioni extends HttpServlet {
             throws ServletException, IOException {
         doPost(req, resp);
     }
+
+    /**
+     * Metodo effettuato per poter visualizzare le proprie segnalazioni.
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -39,7 +49,8 @@ public class VisualizzaProprieSegnalazioni extends HttpServlet {
         if (req.getSession().getAttribute("Cittadino") != null) {
             String cf = req.getParameter("cf");
             FacadeDAO service = new FacadeDAO();
-            List<SegnalazioneInterface> lista = service.getSegnalazioneByCittadino(cf, 0);
+            List<SegnalazioneInterface> lista =
+                    service.getSegnalazioneByCittadino(cf, 0);
 
             req.setAttribute("proprie", lista);
             RequestDispatcher dispatcher =
