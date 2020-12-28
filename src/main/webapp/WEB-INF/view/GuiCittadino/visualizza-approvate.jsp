@@ -38,9 +38,10 @@
                         <tr>
                             <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
                             <td>${i.cittadino.nome}</td>
-                            <td>${i.numSolleciti}
+                            <td>
                                 <form class="form-group" action="inoltroSol" method="post">
-                                    <input type="submit" name="idSol${i.id}" value="+" >
+                                ${i.numSolleciti}
+                                    <button type="submit" name="idSol${i.id}">+</button>
                                 </form> </td>
                             <td>${i.priorita}</td>
                             <c:choose>
