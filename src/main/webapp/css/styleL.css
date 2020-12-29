@@ -73,6 +73,9 @@ thead{
 .height100{
     height: 100%;
 }
+.cardSegnalazione{
+    height: 250px;
+}
 #logoutLink{
     height: 30px;
     width: 30px;
@@ -92,8 +95,9 @@ thead{
 }
 @media screen and (max-width: 900px) {
     #headerContainer{
-        visibility: hidden;
+        visibility: collapse;
         opacity: 0;
+        width: 50px;
     }
     #toggle:checked + #headerContainer{
         flex-direction: column;

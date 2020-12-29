@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <!-- Google Poppins font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
 
 </head>
 <body>
@@ -46,30 +49,35 @@
                 </c:when>
             </c:choose>
             <div class="row align-items-start">
-                <h1>SEGNALAZIONI</h1>
+                <h1 class="boldFont">SEGNALAZIONI</h1>
             </div>
             <div class="row align-items-start">
-                <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
-                <div class="col"><a href="ListApprovate">Approvate</a></div>
+                <div class="col"><a href="visualizzaChiuse" class="greyText">Chiuse</a></div>
+                <div class="col"><a href="ListApprovate" class="greyText">Approvate</a></div>
             </div>
             <div class="row align-items-center mt-3">
                 <c:forEach items="<%=segnalazioni%>" var="s">
-                    <div class="col-4 mt-3">
+                    <div class="col-11 col-sm-10 col-md-6 col-lg-4 col-xl-4 mt-3">
                         <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">${s.oggetto}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Priorità: ${s.priorita}</h6>
-                                <p class="card-text">Numero solleciti: ${s.numSolleciti}</p>
-                                <a href="dettagli?id=${s.id}" class="card-link">Dettagli</a>
+                            <div class="card-body boxShadow cardSegnalazione">
+                                <h5 class="card-title boldFont">${s.oggetto}</h5>
+                                <hr class="mb-3">
+                                <h6 class="card-subtitle mb-3 text-muted">Priorità: ${s.priorita}</h6>
+                                <p class="card-text mb3">Numero solleciti: ${s.numSolleciti}</p>
+                                <a href="dettagli?id=${s.id}" class="greyText">Dettagli</a>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
             </div>
-            <form action="inoltroSegnalazione" method="post">
-                <button class="mt-5">Inoltra Segnalazione</button>
-                <input type="hidden" name="fromGui" value="true">
-            </form>
+            <div class="row">
+                <div class="col w-100">
+                    <form action="inoltroSegnalazione" method="post" style="text-align: center;">
+                        <button class="mt-5 myBtnPink w-100">Inoltra Segnalazione</button>
+                        <input type="hidden" name="fromGui" value="true">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
