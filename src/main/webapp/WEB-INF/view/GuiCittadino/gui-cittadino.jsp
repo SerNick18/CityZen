@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col w-100">
                     <form action="inoltroSegnalazione" method="post" style="text-align: center;">
-                        <button class="mt-5 myBtnPink w-100">Inoltra Segnalazione</button>
+                        <button class="mt-5 myBtnPink w-100 boxShadow">Inoltra Segnalazione</button>
                         <input type="hidden" name="fromGui" value="true">
                     </form>
                 </div>
