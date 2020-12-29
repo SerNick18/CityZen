@@ -17,13 +17,13 @@
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
-            <div class="row mx-auto">
+            <div class="row align-items-start">
                 <div class="col"><a href="ListApprovate">Approvate</a></div>
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
                 <input type="hidden" name="numeroButton" value="0">
             </div>
-            <div class="row align-items-center mx-auto">
-                <table class="table">
+            <div class="row align-items-center mt-3 panel panel-default">
+                <table class="table rounded">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">Oggetto</th>
