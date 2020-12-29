@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +37,9 @@ public class InoltroSollecito extends HttpServlet {
     /**
      * Il metodo gestisce l'inoltro di un sollecito da parte del cittadino.
      * Il cittadino clicca il pulsante relativo alla segnalazione di interesse.
-     * Il metodo controlla a quale bottone fa riferimento il cittadino e
-     * inserisce nel database il valore aggiornato del numero di solleciti
+     * Il metodo controlla a quale bottone fa riferimento il cittadino ,
+     * controlla se il cittadino ha già effettuato il sollecito ad una segnalazione e
+     * inserisce nel database il valore aggiornato relativo al numero di solleciti
      * @param req request in cui si passano i campi sottomessi dal cittadino
      * @param resp response
      * @throws ServletException per errori di validazione dei campi ed autorizzazioni di sicurezza
@@ -57,23 +58,43 @@ public class InoltroSollecito extends HttpServlet {
         {
 
             FacadeDAO service = new FacadeDAO();
-            //Vengono salvate in una lista tutte le segnalazioni approvate
-            List<SegnalazioneInterface> lista_approvate = service.getSegnalazioniByStato("approvata",0);
-            //nel for si scorre la lista per ottenere l'id della segnalazione per cui effettuare il sollecito
-            for(int i = 0; i<lista_approvate.size(); i++) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            Segnalazione segnalazione = service.getSegnalazioneById(id);
+            //controllo quale segnalazione il cittadino ha scelto per effettuare il sollecito
+            if (req.getParameter("id") != null) {
 
-                String button = "idSol" + lista_approvate.get(i).getId();
-                //si controlla che il pulsante sia stato premuto e che si riferisca al pulsante premuto dal cittadino
-                if (req.getParameter(button) != null) {
-                    int id = lista_approvate.get(i).getId();
-
-                    Segnalazione segnalazione = service.getSegnalazioneById(id);
-                    int old_sol = segnalazione.getNumSolleciti();
-                    segnalazione.setNumSolleciti(old_sol + 1);
-                    //si aggiorna il valore nel database
-                    service.modificaSegnalazione(segnalazione);
+                //Un file conserverà i dati relativi al sollecito
+                String path = getServletContext().getRealPath("") + "/resources/solleciti.txt";
+                File file_sollecitiR = new File(path);
+                FileReader reader = new FileReader(file_sollecitiR);
+                BufferedReader bufferR = new BufferedReader(reader);
+                String riga = "";
+                //leggo nel file e controllo se il cittadino ha già effettuato un sollecito a questa segnalazione
+                while((riga = bufferR.readLine()) != null)
+                {
+                    String[] array_riga = riga.split(",");
+                    if(array_riga[0].equals(CF) && Integer.parseInt(array_riga[1]) == segnalazione.getId())
+                    {
+                        throw new MyServletException("hai già effettuato un sollecito a questa segnalazione");
+                    }
                 }
+                bufferR.close();
+                reader.close();
+
+                int old_sol = segnalazione.getNumSolleciti();
+                segnalazione.setNumSolleciti(old_sol + 1);
+                //si aggiorna il valore nel database
+                service.modificaSegnalazione(segnalazione);
+
+                //si aggiorna il valore dei solleciti anche nel file relativo ai solleciti
+                File file_sollecitiW = new File(path);
+                FileWriter writer = new FileWriter(file_sollecitiW , true);
+                BufferedWriter bufferW = new BufferedWriter(writer);
+                bufferW.write(CF + "," + id + "\n");
+                bufferW.flush();
+                bufferW.close();
             }
+
         }
         //si passa il controllo alla servlet ListApprovate
         //cosi da poter visualizzare il valore correttamente aggiornato

@@ -41,7 +41,7 @@
                             <td>
                                 <form class="form-group" action="inoltroSol" method="post">
                                 ${i.numSolleciti}
-                                    <button type="submit" name="idSol${i.id}">+</button>
+                                    <button type="submit" name="id" value="${i.id}">+</button>
                                 </form> </td>
                             <td>${i.priorita}</td>
                             <c:choose>
