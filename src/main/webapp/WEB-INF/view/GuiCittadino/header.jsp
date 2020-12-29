@@ -29,7 +29,10 @@
             <%}%>
         </button>
     </div>
-    <div class="row ml-3 marginTop150" id="linkProfilo">
+    <div class="row ml-3 marginTop150" id="linkHome">
+        <a href="guiCittadino" class="noDecoration greyText collapsable">Home</a>
+    </div>
+    <div class="row ml-3 mt-2" id="linkProfilo">
         <a href="profilo" class="noDecoration greyText collapsable">Profilo</a>
     </div>
     <div class="row ml-3 mt-2">
