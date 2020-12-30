@@ -70,18 +70,18 @@
                                 %>
                                 <form class="form-group" action="modificaSegnalazione" method="post" >
                                     <input type="hidden" name="id" value="${Segnalazione.id}">
-                                    <input type="submit" name="approva" value="Modifica">
+                                    <input type="submit" class="myBtnPink boldFont boxShadow" name="approva" value="Modifica">
                                 </form>
                                 <form class="form-group" action="eliminaSegnalazione" method="post" >
                                     <input type="hidden" name="id" value="${Segnalazione.id}">
-                                    <input type="submit" name="elimina" value="Elimina">
+                                    <input type="submit" class="myBtnPink boldFont boxShadow" name="elimina" value="Elimina">
                                 </form>
                                 <%
                                 }else if(s.getStato().equals("chiusa")){
                                 %>
                                 <form class="form-group" action="riapriSegnalazione" method="post" >
                                     <input type="hidden" name="idSegnalazioneDaAprire" value="${Segnalazione.id}">
-                                    <input type="submit" name="riapri" value="Riapri">
+                                    <input type="submit" class="myBtnPink boldFont boxShadow" name="riapri" value="Riapri">
                                 </form>
                                 <%
                                     }
