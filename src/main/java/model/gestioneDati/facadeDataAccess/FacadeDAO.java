@@ -3,10 +3,7 @@ package model.gestioneDati.facadeDataAccess;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelDataAccess.*;
 import model.gestioneDati.modelObjects.*;
-
-import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  */
@@ -109,6 +106,11 @@ public class FacadeDAO {
             throws MyServletException {
         cittadinoDAO.doDelete(cf);
     }
+
+    /**
+     *
+     * @param cittadino
+     */
     public void modificaCittadino(Cittadino cittadino) {
         cittadinoDAO.doUpdate(cittadino);
     }
@@ -123,13 +125,20 @@ public class FacadeDAO {
     public Impiegato loginImpiegato(String email, String pwd) {
         return impiegatoDAO.doLogin(email, pwd);
     }
-    public void modificaImpiegato(Impiegato impiegato) { impiegatoDAO.doUpdate(impiegato);}
+
+    /**
+     *
+     * @param impiegato
+     */
+    public void modificaImpiegato(Impiegato impiegato) {
+        impiegatoDAO.doUpdate(impiegato);
+    }
     /**
      * Metodo riceve una segnalazione da inserire nel database e
      * richiama la funzionalità di inserimento di una segnalazione.
      * @param segnalazione da inserire nel database
      */
-    public void inserisciSegnalazione(Segnalazione segnalazione){
+    public void inserisciSegnalazione(Segnalazione segnalazione) {
         segnalazioneDAO.doInsert(segnalazione);
     }
     /**
@@ -138,7 +147,8 @@ public class FacadeDAO {
      * @param offset
      * @return
      */
-    public List<SegnalazioneInterface> getSegnalazioneByCittadino(String cf, int offset){
+    public List<SegnalazioneInterface> getSegnalazioneByCittadino(String cf,
+                                                                  int offset) {
         return segnalazioneDAO.doRetrieveByCittadino(cf, offset);
     }
     /**.
@@ -179,13 +189,13 @@ public class FacadeDAO {
 
     /**
      *
-     * @param ID
+     * @param id
      * @throws MyServletException
      */
-    public void eliminaSegnalazione(int ID) throws MyServletException { segnalazioneDAO.doDelete(ID);}
-
+    public void eliminaSegnalazione(int id) throws MyServletException {
+        segnalazioneDAO.doDelete(id);
+    }
     //Facade per model gestioneSegnalazioni
-
     /**
      *
      * @param impiegato
@@ -202,18 +212,17 @@ public class FacadeDAO {
      * @return lista degli impiegati
      */
     public List<Impiegato> getImpiegatiOsservatori(int idSegnalazione) {
-        return gestioneSegnalazioneDAO.doRetrieveImpiegatiOsservatori(idSegnalazione);
+        return gestioneSegnalazioneDAO
+                .doRetrieveImpiegatiOsservatori(idSegnalazione);
     }
-
     //Facade per model feedback
-
     /**
      * Il metodo riceve l'id di una segnalazione e restituisce tutti
      * i feedback ad essa collegati.
      * @param id id sella segnalazione.
      * @return restituisce una lista di feedback.
      */
-    public List<Feedback> getFeedbacksBySegnalazione(int id){
+    public List<Feedback> getFeedbacksBySegnalazione(int id) {
         return feedbackDAO.doRetrieveFeedBackBySegnalazione(id);
     }
     /**
@@ -221,7 +230,7 @@ public class FacadeDAO {
      * database.
      * @param feedback feedback da memorizzare
      */
-    public void doInsertFeedback(Feedback feedback){
+    public void doInsertFeedback(Feedback feedback) {
         feedbackDAO.doInsertFeedback(feedback);
     }
 
@@ -233,7 +242,9 @@ public class FacadeDAO {
      * @return true - se il cittadino ha già inserito un feedback
      * false - se il cittadino non ha inserito nessun feedback
      */
-    public boolean isCittadinoFeedbackSegnalazione(String cfCittadino, int idSegnalazione){
-       return feedbackDAO.isCittadinoFeedbackSegnalazione(cfCittadino,idSegnalazione);
+    public boolean isCittadinoFeedbackSegnalazione(String cfCittadino,
+                                                   int idSegnalazione) {
+       return feedbackDAO.isCittadinoFeedbackSegnalazione(cfCittadino,
+               idSegnalazione);
     }
 }

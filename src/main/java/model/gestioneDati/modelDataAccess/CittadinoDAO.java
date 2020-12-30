@@ -3,7 +3,6 @@ package model.gestioneDati.modelDataAccess;
 import controller.gestioneUtenza.MyRuntimeException;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelObjects.Cittadino;
-import model.gestioneDati.modelObjects.Segnalazione;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +24,7 @@ public class CittadinoDAO {
      * nell'eliminazione del cittadino
      */
     public void doDelete(String cf) throws MyServletException {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement =
                     connection.prepareStatement(
                             "delete from cittadino where CF=?");
@@ -39,8 +38,13 @@ public class CittadinoDAO {
                    + "un errore nell'eliminazione del profilo");
         }
     }
+
+    /**
+     *
+     * @param cittadino
+     */
     public void doUpdate(Cittadino cittadino) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE cittadino SET "
                             + "Nome=?, Cognome=?, Pwd=?,"
@@ -74,7 +78,7 @@ public class CittadinoDAO {
      * @return cittadino
      */
     public Cittadino doLogin(String email, String pwd) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "select * from cittadino "
                             + "where email = ? and pwd = SHA1(?)");
@@ -100,7 +104,7 @@ public class CittadinoDAO {
      * @param cittadino
      */
     public void doRegister(Cittadino cittadino) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "insert into cittadino"
                     + " values(?,?,?,sha1(?),?,?,?,?,0,0)");
@@ -127,7 +131,7 @@ public class CittadinoDAO {
      * @return cittadino
      */
     public Cittadino doRetrieveByEmail(String email) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM cittadino WHERE email=?");
             statement.setString(1, email);
@@ -152,7 +156,7 @@ public class CittadinoDAO {
      * @return cittadino
      */
     public Cittadino doRetrieveByCF(String cf) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM cittadino WHERE cf=?");
             statement.setString(1, cf);
