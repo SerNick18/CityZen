@@ -55,52 +55,50 @@ public class InoltroSollecito extends HttpServlet {
             throw new MyServletException("Effettua il login per"
                     + " poter visualizzare questa pagina");
         }
-        String cf = cittadino.getCF();
-        if (cf != null) {
-            FacadeDAO service = new FacadeDAO();
+        //controllo quale segnalazione il cittadino
+        // ha scelto per effettuare il sollecito
+        if (req.getParameter("id") != null) {
             int id = Integer.parseInt(req.getParameter("id"));
+            FacadeDAO service = new FacadeDAO();
             Segnalazione segnalazione = service.getSegnalazioneById(id);
-            //controllo quale segnalazione il cittadino
-            // ha scelto per effettuare il sollecito
-            if (req.getParameter("id") != null) {
-
-                //Un file conserverà i dati relativi al sollecito
-                String path = getServletContext().getRealPath("")
-                        + "/resources/solleciti.txt";
-                File fileSollecitiR = new File(path);
-                FileReader reader = new FileReader(fileSollecitiR);
-                BufferedReader bufferR = new BufferedReader(reader);
-                String riga = "";
-                //leggo nel file e controllo se il cittadino ha già effettuato
-                // un sollecito a questa segnalazione
-                while ((riga = bufferR.readLine()) != null) {
-                    String[] arrayRiga = riga.split(",");
-                    if (arrayRiga[0].equals(cf)
-                            && Integer.parseInt(arrayRiga[1])
-                            == segnalazione.getId()) {
-                        throw new MyServletException(
-                                "hai già effettuato un sollecito "
-                                        + "a questa segnalazione");
-                    }
+            //Un file conserverà i dati relativi al sollecito
+            String path = getServletContext().getRealPath("")
+                    + "/resources/solleciti.txt";
+            File fileSollecitiR = new File(path);
+            FileReader reader = new FileReader(fileSollecitiR);
+            BufferedReader bufferR = new BufferedReader(reader);
+            String riga = "";
+            //leggo nel file e controllo se il cittadino ha già effettuato
+            // un sollecito a questa segnalazione
+            while ((riga = bufferR.readLine()) != null) {
+                String[] arrayRiga = riga.split(",");
+                if (arrayRiga[0].equals(cittadino.getCF())
+                        && Integer.parseInt(arrayRiga[1])
+                        == segnalazione.getId()) {
+                    throw new MyServletException(
+                            "hai già effettuato un sollecito "
+                                    + "a questa segnalazione");
                 }
-                bufferR.close();
-                reader.close();
-
-                int oldSol = segnalazione.getNumSolleciti();
-                segnalazione.setNumSolleciti(oldSol + 1);
-                //si aggiorna il valore nel database
-                service.modificaSegnalazione(segnalazione);
-
-                //si aggiorna il valore dei solleciti
-                // anche nel file relativo ai solleciti
-                File fileSollecitiW = new File(path);
-                FileWriter writer = new FileWriter(fileSollecitiW, true);
-                BufferedWriter bufferW = new BufferedWriter(writer);
-                bufferW.write(cf + "," + id + "\n");
-                bufferW.flush();
-                bufferW.close();
             }
 
+            bufferR.close();
+            reader.close();
+
+            int oldSol = segnalazione.getNumSolleciti();
+            segnalazione.setNumSolleciti(oldSol + 1);
+            //si aggiorna il valore nel database
+            service.modificaSegnalazione(segnalazione);
+
+            //si aggiorna il valore dei solleciti
+            // anche nel file relativo ai solleciti
+            File fileSollecitiW = new File(path);
+            FileWriter writer = new FileWriter(fileSollecitiW, true);
+            BufferedWriter bufferW = new BufferedWriter(writer);
+            bufferW.write(cittadino.getCF() + "," + id + "\n");
+            bufferW.flush();
+            bufferW.close();
+        } else {
+            throw new MyServletException("Id della segnalazione non definito");
         }
         //si passa il controllo alla servlet ListApprovate
         //cosi da poter visualizzare il valore correttamente aggiornato
