@@ -11,8 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
 
 @WebServlet("/inoltroSol")
 public class InoltroSollecito extends HttpServlet {
@@ -46,8 +50,8 @@ public class InoltroSollecito extends HttpServlet {
             throws ServletException, IOException {
         Cittadino cittadino;
         //controllo se il cittadino è autenticato
-        if ((cittadino = (Cittadino)
-                req.getSession().getAttribute("Cittadino")) == null) {
+        cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
+        if (cittadino == null) {
             throw new MyServletException("Effettua il login per"
                     + " poter visualizzare questa pagina");
         }
