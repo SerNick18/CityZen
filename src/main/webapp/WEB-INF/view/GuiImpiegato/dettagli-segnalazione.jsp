@@ -21,71 +21,64 @@
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
             <div class="row align-items-start">
-                <h1>Segnalazione</h1>
+                <h1>Dettagli Segnalazione</h1>
             </div>
-            <div class="row align-items-start">
-                <div class="col-4 ml-3">
-                    <div class="row">
-                        <div class="row">
-                            <img src="./resources/images/${Segnalazione.foto}">
-                        </div>
+            <div class="row align-items-start mt-3" style="margin-left: auto;">
+                <!--col of photo-->
+                <div class="col-md-11 col-sm-11 col-lg-4 col-xl-4 col-xxl-4 col-11">
+                    <div class="row boldFont">Foto</div>
+                    <div class="row m-3">
+                        <img class="boxShadow" src="./resources/images/${Segnalazione.foto}">
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="row">
-                        <label class="col-form-label">${Segnalazione.oggetto}</label>
+                <!--col of form-->
+                <div class="col-md-11 col-sm-11 col-lg-7 col-xl-7 col-xxl-7 col-11">
+                    <div class="row mb-3">
+                        <label for="oggetto" class="col-form-label boldFont">Oggetto</label>
+                        <input class="form-control boxShadow" type="text" name="oggetto" id="oggetto" placeholder="${Segnalazione.oggetto}" disabled>
                     </div>
-                    <div class="row">
-                        <label for="descrizione" class="col-form-label">Descrizione</label>
-                        <textarea type="text" name="descrizione" id="descrizione" rows="5" placeholder="${Segnalazione.descrizione}" disabled></textarea>
+                    <div class="row mb-3">
+                        <label for="descrizione" class="col-form-label boldFont">Descrizione</label>
+                        <textarea class="form-control boxShadow" type="text" name="descrizione" id="descrizione" rows="10" placeholder="${Segnalazione.descrizione}" disabled></textarea>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col">
-                            <label class="col-form-label">Via: ${Segnalazione.via}</label>
+                            <label for="via" class="form-label boldFont">Via</label>
+                            <input class="form-control boxShadow" type="text" name="via" id="via" placeholder="${Segnalazione.via}" disabled>
                         </div>
                         <div class="col">
-                            <label  class="col-form-label">Civico: ${Segnalazione.civico}</label>
+                            <label for="civico" class="form-label boldFont">Civico</label>
+                            <input class="form-control boxShadow" type="text"  id="civico" placeholder="${Segnalazione.civico}" disabled>
                         </div>
                     </div>
-                    <div class="row">
-                        <label  class="col-form-label">Stato: ${Segnalazione.stato}</label>
-                    </div>
-                    <div class="row">
-                        <label class="col-form-label">Priorità: ${Segnalazione.priorita}</label>
-                    </div>
-                    <div class="row">
-                        <label  class="col-form-label">Numero Solleciti: ${Segnalazione.numSolleciti}</label>
-                    </div>
-                    <div class="row">
-                        <label  class="col-form-label">Numero Solleciti: ${Segnalazione.numSolleciti}</label>
-                    </div>
-                </div>
-                <div class="row">
+                    <div class="row mb-4">
                         <%
                             Segnalazione s = (Segnalazione)request.getSession().getAttribute("Segnalazione");
                             if (s.getStato().equals("inoltrata")){
                         %>
-                    <form class="form-group" action="approva" method="post" >
-                        <input type="hidden" name="id" value="${Segnalazione.id}">
-                        <input type="submit" name="approva" value="Approva">
-                    </form>
-                    <form class="form-group" action="rifiutoSegnalazione" method="post" >
-                        <input type="hidden" name="id" value="${Segnalazione.id}">
-                        <input type="submit" name="rifiuta" value="Rifiuta">
-                    </form>
+                        <form class="form-group" action="approva" method="post" >
+                            <input type="hidden" name="id" value="${Segnalazione.id}">
+                            <input type="submit" class="myBtnPink boldFont boxShadow" name="approva" value="Approva">
+                        </form>
+                        <form class="form-group" action="rifiutoSegnalazione" method="post" >
+                            <input type="hidden" name="id" value="${Segnalazione.id}">
+                            <input type="submit" class="myBtnPink boldFont boxShadow" name="rifiuta" value="Rifiuta">
+                        </form>
                         <%
-                            }else if (s.getStato().equals("approvata")){
+                        }else if (s.getStato().equals("approvata")){
                         %>
                         <form class="form-group" action="chiusuraSegnalazione" method="post">
                             <input type="hidden" name="id" value="${Segnalazione.id}">
-                            <input type="submit" name="chiudi" value="Chiudi">
+                            <input type="submit" class="myBtnPink boldFont boxShadow" name="chiudi" value="Chiudi">
                         </form>
                         <%
                             }
                         %>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
+</div>
 </div>
 </body>
 </html>
