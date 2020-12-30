@@ -23,7 +23,7 @@ public class ApprovaSegnalazione extends HttpServlet {
      * Il metodo svolge la funzione di approvazione
      * di una segnalazione. L'approvazione può essere fatta
      * solo se l'impiegato ha effettuato l'accesso e
-     * solo se la segnalazione ha come stato "inoltrata"
+     * solo se la segnalazione è nello stato "inoltrata"
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp  oggetto che contiene la risposta che la servlet
      * deve ritornare al cliente
