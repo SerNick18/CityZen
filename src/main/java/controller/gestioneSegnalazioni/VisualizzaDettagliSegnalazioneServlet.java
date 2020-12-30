@@ -57,7 +57,8 @@ public class VisualizzaDettagliSegnalazioneServlet extends HttpServlet {
         }
         req.getSession().setAttribute("Segnalazione", segnalazione);
         if (req.getSession().getAttribute("Cittadino") != null) {
-            ArrayList<Feedback> feedbacks = (ArrayList<Feedback>) service.getFeedbacksBySegnalazione(id);
+            ArrayList<Feedback> feedbacks = (ArrayList<Feedback>)
+                    service.getFeedbacksBySegnalazione(id);
             req.setAttribute("feedbacks", feedbacks);
             RequestDispatcher dispatcher =
                 req.getRequestDispatcher(

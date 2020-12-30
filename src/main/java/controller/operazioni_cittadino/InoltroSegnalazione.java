@@ -14,13 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 @WebServlet("/inoltroSegnalazione")
@@ -38,17 +33,20 @@ public class InoltroSegnalazione extends HttpServlet {
      * quando la servlet gestisce la richiesta
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req,resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doPost(req, resp);
     }
     /**
      * Il metodo gestisce l'inoltro di una segnalazione da parte del cittadino.
      * Il cittadino sottomette un form con i parametri di seguito indicati.
-     * Il metodo effettua la validazione dei campi, controlla e memorizza il file
-     * immagine caricato dal cittadino, crea una nuova segnalazione e la inserisce nel database.
+     * Il metodo effettua la validazione dei campi, controlla e memorizza
+     * il file immagine caricato dal cittadino, crea una nuova segnalazione e
+     * la inserisce nel database.
      * @param req request in cui si passano i campi sottomessi dal cittadino
      * @param resp response
-     * @throws ServletException per errori di validazione dei campi ed autorizzazioni di sicurezza
+     * @throws ServletException per errori di validazione dei campi ed
+     * autorizzazioni di sicurezza
      * @throws IOException per errori relativi all'I/O
      */
     @Override
@@ -76,9 +74,9 @@ public class InoltroSegnalazione extends HttpServlet {
             int civico;
 
             //controlli sui campi di input
-            if(oggetto == null || descrizione == null || via == null
+            if (oggetto == null || descrizione == null || via == null
                     || strCivico == null || oggetto.equals("")
-                    || descrizione.equals("") ||via.equals("")
+                    || descrizione.equals("") || via.equals("")
                     || strCivico.equals("")) {
                 throw new MyServletException(
                         "Compilare tutti i campi richiesti!");
@@ -94,7 +92,7 @@ public class InoltroSegnalazione extends HttpServlet {
                         "La descrizione deve essere lunga minimo 10 caratteri "
                                 + "e massimo 500");
             }
-            if (!Pattern.matches("([A-Za-z0-9]\\s*){2,200}",via)) {
+            if (!Pattern.matches("([A-Za-z0-9]\\s*){2,200}", via)) {
                 throw new MyServletException(
                         "La via deve essere lunga minimo 2 e massimo 200 "
                                 + "caratteri. Non può contenere caratteri "
@@ -102,13 +100,13 @@ public class InoltroSegnalazione extends HttpServlet {
             }
 
             //controllo se il civico è un numero
-            try{
+            try {
                 civico = Integer.parseInt(strCivico);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 throw new MyServletException("Il numero civico non è valido.");
             }
             //controllo se il civico è < 5000
-            if (civico>5000 || civico<0) {
+            if (civico > 5000 || civico < 0) {
                 throw new MyServletException("Il numero civico non è valido.");
             }
 
@@ -129,7 +127,7 @@ public class InoltroSegnalazione extends HttpServlet {
             } else {
                 segnalazione.setFoto(uploadImage(req));
             }
-            cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni()+1);
+            cittadino.setNumSegnalazioni(cittadino.getNumSegnalazioni() + 1);
             FacadeDAO service = new FacadeDAO();
             segnalazione.setCittadino(cittadino);
             segnalazione.setRiaperta(0);
@@ -140,45 +138,56 @@ public class InoltroSegnalazione extends HttpServlet {
 
             RequestDispatcher dispatcher = req.getRequestDispatcher(
                     "WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
-            dispatcher.forward(req,resp);
+            dispatcher.forward(req, resp);
         }
     }
 
     /**
      * Il metodo riceve una request, da cui estrae il file
-     * caricato dal cittadino. Si effettua un controllo sul formato accettato (jpg, png, jpeg),
-     * si memorizza il file nel server sotto la cartella /resources/images/ e si
-     * restituisce il nome del file.
+     * caricato dal cittadino. Si effettua un controllo
+     * sul formato accettato (jpg, png, jpeg), si memorizza il file nel server
+     * sotto la cartella /resources/images/ e si restituisce il nome del file.
      * @param request da cui estrarre i file caricati dal cliente
      * @return il nome del file caricato
-     * @throws MyServletException per gestire errori relativi al formato del file caricato,
-     * e per quanto riguarda la memorizzazione del file (se non viene memorizzato)
-     * @throws ServletException per gestire errori relativi al ciclo di vita della servlet
+     * @throws MyServletException per gestire errori relativi al formato
+     * del file caricato, e per quanto riguarda la memorizzazione del file
+     * (se non viene memorizzato)
+     * @throws ServletException per gestire errori relativi al ciclo
+     * di vita della servlet
      */
-    private String uploadImage(HttpServletRequest request) throws MyServletException, ServletException {
-        String fileName="";
+    private String uploadImage(HttpServletRequest request)
+            throws MyServletException, ServletException {
+        String fileName = "";
         try {
             Part filePart = request.getPart("foto");
-            fileName += Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            fileName += Paths.get(filePart.getSubmittedFileName())
+                    .getFileName().toString();
             String[] fileNameSplit = fileName.split("\\.");
-            if (!fileNameSplit[fileNameSplit.length-1].equals("png") && !fileNameSplit[fileNameSplit.length-1].equals("jpg")
-                                        && !fileNameSplit[fileNameSplit.length-1].equals("jpeg"))
-                throw new MyServletException("Formato della foto non accettato, I formati accettati sono .jpg, .jpeg, .jpg");
-
+            if (!fileNameSplit[fileNameSplit.length - 1].equals("png")
+                    && !fileNameSplit[fileNameSplit.length - 1].equals("jpg")
+                    && !fileNameSplit[fileNameSplit.length - 1]
+                    .equals("jpeg")) {
+                throw new MyServletException(
+                        "Formato della foto non accettato, "
+                                + "I formati accettati sono .png, .jpeg, .jpg");
+            }
             InputStream in = filePart.getInputStream();
             BufferedInputStream buf = new BufferedInputStream(in);
-            String parentPath = getServletContext().getRealPath("")+"/resources/images/";
+            String parentPath = getServletContext().getRealPath("")
+                    + "/resources/images/";
             File file = new File(parentPath);
-            filePart.write(parentPath+fileName);
+            filePart.write(parentPath + fileName);
 
             //controlla se il file esiste
-            file = new File(parentPath+fileName);
-            if (!file.exists())
-                throw new MyServletException("Errore nel caricamento della foto!");
+            file = new File(parentPath + fileName);
+            if (!file.exists()) {
+                throw new MyServletException(
+                        "Errore nel caricamento della foto!");
+            }
         } catch (IOException e) {
-            throw new MyServletException("Errore I/O nel caricamento della foto!");
+            throw new MyServletException(
+                    "Errore I/O nel caricamento della foto!");
         }
         return fileName;
     }
-
 }

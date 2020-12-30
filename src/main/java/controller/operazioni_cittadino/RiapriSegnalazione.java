@@ -189,10 +189,11 @@ public class RiapriSegnalazione extends HttpServlet {
             String[] fileNameSplit = fileName.split("\\.");
             if (!fileNameSplit[fileNameSplit.length - 1].equals("png")
                     && !fileNameSplit[fileNameSplit.length - 1].equals("jpg")
-                    && !fileNameSplit[fileNameSplit.length - 1].equals("jpeg")) {
+                    && !fileNameSplit[fileNameSplit.length - 1]
+                    .equals("jpeg")) {
                 throw new MyServletException("Formato della foto non "
                         + "accettato, I formati accettati "
-                        + "sono .jpg, .jpeg, .jpg");
+                        + "sono .png, .jpeg, .jpg");
             }
 
             InputStream in = filePart.getInputStream();

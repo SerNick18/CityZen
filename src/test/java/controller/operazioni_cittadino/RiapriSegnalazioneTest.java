@@ -116,7 +116,7 @@ class RiapriSegnalazioneTest extends RiapriSegnalazione {
         });
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(req,resp);});
-        assertEquals("Formato della foto non accettato, I formati accettati sono .jpg, .jpeg, .jpg"
+        assertEquals("Formato della foto non accettato, I formati accettati sono .png, .jpeg, .jpg"
                 ,exception.getMessage());
     }
     @AfterAll

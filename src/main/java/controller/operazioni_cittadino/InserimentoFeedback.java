@@ -83,10 +83,11 @@ public class InserimentoFeedback extends HttpServlet {
                            + "essere minore di 1 o maggiore di 5");
                 }
             } catch (NumberFormatException e) {
-                throw new MyServletException("Devi selezionare una valutazione.");
+                throw new MyServletException(
+                        "Devi selezionare una valutazione.");
             }
-
-            if (service.isCittadinoFeedbackSegnalazione(cittadino.getCF(), idSegnalazione)) {
+            if (service.isCittadinoFeedbackSegnalazione(cittadino.getCF(),
+                    idSegnalazione)) {
                 req.setAttribute("notificaErrore",
                         "Hai già inserito un feedback"
                         + " per questa segnalazione!");

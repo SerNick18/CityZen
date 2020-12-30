@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = req.getParameter("email");
         String pwd = req.getParameter("pwd");
-        if (email == null || pwd == null){
+        if (email == null || pwd == null) {
             throw new MyServletException("Si è verificato un errore");
         }
         FacadeDAO service = new FacadeDAO();
@@ -80,7 +80,8 @@ public class LoginServlet extends HttpServlet {
             if (cittadino != null) {
                 sn.setAttribute("Cittadino", cittadino);
                 RequestDispatcher dispatcher =
-                        req.getRequestDispatcher("/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+                        req.getRequestDispatcher(
+                                "/WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
                 dispatcher.forward(req, resp);
             } else {
                 throw new MyServletException("Email o password errati");

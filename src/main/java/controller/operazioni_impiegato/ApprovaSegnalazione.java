@@ -18,12 +18,17 @@ import java.io.IOException;
  */
 @WebServlet("/approva")
 public class ApprovaSegnalazione extends HttpServlet {
-    /**.
-     * Metodo per approvare una segnalazione
-     * @param req request
-     * @param resp response
-     * @throws ServletException Eccezione
-     * @throws IOException Eccezione
+    /**
+     * Il metodo svolge la funzione di approvazione
+     * di una segnalazione. L'approvazione può essere fatta
+     * solo se l'impiegato ha effettuato l'accesso e
+     * solo se la segnalazione ha come stato "inoltrata"
+     * @param req oggetto che contiene la richiesta da parte di un client
+     * @param resp  oggetto che contiene la risposta che la servlet
+     * deve ritornare al cliente
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     * quando la servlet gestisce la richiesta
      */
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

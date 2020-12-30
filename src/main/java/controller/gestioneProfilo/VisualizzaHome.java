@@ -26,17 +26,24 @@ public class VisualizzaHome extends HttpServlet {
      * quando la servlet gestisce la richiesta
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cittadino cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
-        Impiegato impiegato = (Impiegato) req.getSession().getAttribute("Impiegato");
-        if (cittadino!=null && impiegato==null){
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
-            dispatcher.forward(req,resp);
-        } else if (impiegato!=null && cittadino==null){
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/view/GuiImpiegato/gui-impiegato.jsp");
-            dispatcher.forward(req,resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        Cittadino cittadino =
+                (Cittadino) req.getSession().getAttribute("Cittadino");
+        Impiegato impiegato =
+                (Impiegato) req.getSession().getAttribute("Impiegato");
+        if (cittadino != null && impiegato == null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher(
+                    "WEB-INF/view/GuiCittadino/gui-cittadino.jsp");
+            dispatcher.forward(req, resp);
+        } else if (impiegato != null && cittadino == null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher(
+                    "WEB-INF/view/GuiImpiegato/gui-impiegato.jsp");
+            dispatcher.forward(req, resp);
         } else {
-            throw new MyServletException("Non sei autorizzato a visualizzare questa pagina, effettua prima il login.");
+            throw new MyServletException(
+                    "Non sei autorizzato a visualizzare questa pagina, "
+                            + "effettua prima il login.");
         }
     }
     /**
@@ -51,7 +58,8 @@ public class VisualizzaHome extends HttpServlet {
      * quando la servlet gestisce la richiesta
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doGet(req, resp);
     }
 }
