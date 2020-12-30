@@ -67,6 +67,7 @@ public class LoginServlet extends HttpServlet {
         } else if (email.contains("@scafati.it")) { //login impiegato
             Impiegato impiegato = service.loginImpiegato(email, pwd);
             if (impiegato != null) {
+                sn.removeAttribute("Cittadino");
                 sn.setAttribute("Impiegato", impiegato);
                 RequestDispatcher dispatcher =
                         req.getRequestDispatcher("WEB-INF/view/"
@@ -78,6 +79,7 @@ public class LoginServlet extends HttpServlet {
         } else { //login cittadino
             Cittadino cittadino = service.loginCittadino(email, pwd);
             if (cittadino != null) {
+                sn.removeAttribute("Impiegato");
                 sn.setAttribute("Cittadino", cittadino);
                 RequestDispatcher dispatcher =
                         req.getRequestDispatcher(
