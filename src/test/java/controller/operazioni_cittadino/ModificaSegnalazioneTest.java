@@ -56,7 +56,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
 
     @BeforeAll
-    static void setUp() {
+    static void setUpAll() {
         service = new FacadeDAO();
         cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
                 "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
@@ -138,50 +138,35 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.addPart(new Part() {
             @Override
-            public InputStream getInputStream() throws IOException {
-                return null;
-            }
-
+            public InputStream getInputStream() throws IOException { return null; }
             @Override
             public String getContentType() {
                 return "file";
             }
-
             @Override
             public String getName() {
                 return "foto";
             }
-
             @Override
             public String getSubmittedFileName() {
                 return "foto.exe";
             }
-
             @Override
             public long getSize() {
                 return 0;
             }
-
             @Override
-            public void write(String s) throws IOException {
-
-            }
-
+            public void write(String s) throws IOException { }
             @Override
-            public void delete() throws IOException {
-
-            }
-
+            public void delete() throws IOException { }
             @Override
             public String getHeader(String s) {
                 return null;
             }
-
             @Override
             public Collection<String> getHeaders(String s) {
                 return null;
             }
-
             @Override
             public Collection<String> getHeaderNames() {
                 return null;
@@ -193,54 +178,29 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 ,exception.getMessage());
     }
     @Test
-    void testModificaSegnalazionePass() throws IOException {
+    void testErroreCaricamentoFoto() throws IOException {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.addPart(new Part() {
             @Override
-            public InputStream getInputStream() throws IOException {
-                return new FileInputStream(new File("foto.png"));
-            }
-
+            public InputStream getInputStream() throws IOException { return new FileInputStream(new File("foto.png")); }
             @Override
-            public String getContentType() {
-                return "file";
-            }
-
+            public String getContentType() { return "file"; }
             @Override
-            public String getName() {
-                return "foto";
-            }
-
+            public String getName() { return "foto"; }
             @Override
-            public String getSubmittedFileName() {
-                return "foto.png";
-            }
-
+            public String getSubmittedFileName() { return "foto.png"; }
             @Override
-            public long getSize() {
-                return 0;
-            }
-
+            public long getSize() { return 0; }
             @Override
             public void write(String s) throws IOException {}
-
             @Override
             public void delete() throws IOException {}
-
             @Override
-            public String getHeader(String s) {
-                return null;
-            }
-
+            public String getHeader(String s) { return null; }
             @Override
-            public Collection<String> getHeaders(String s) {
-                return null;
-            }
-
+            public Collection<String> getHeaders(String s) { return null; }
             @Override
-            public Collection<String> getHeaderNames() {
-                return null;
-            }
+            public Collection<String> getHeaderNames() { return null; }
         });
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});

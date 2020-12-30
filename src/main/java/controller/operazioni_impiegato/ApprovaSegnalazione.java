@@ -64,7 +64,7 @@ public class ApprovaSegnalazione extends HttpServlet {
                         .forward(req, resp);
             } else {
                 throw new MyServletException(
-                        "Indicare una segnalazione correttamente");
+                        "Indicare una segnalazione inoltrata");
             }
         } else {
             throw new MyServletException("Indicare una segnalazione");
