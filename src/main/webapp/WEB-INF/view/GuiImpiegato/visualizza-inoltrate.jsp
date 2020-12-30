@@ -24,13 +24,13 @@
             <div class="row h-100">
                 <jsp:include page="header.jsp"></jsp:include>
                 <div class="col-10 align-self-start">
-                    <div class="row align-items-start">
+                    <div class="row mx-auto">
                         <div class="col"><a href="visualizza-segnalazioni-inoltrate">Inoltrate</a></div>
                         <div class="col"><a href="ListApprovate">Approvate</a></div>
                         <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
                     </div>
-                    <div class="row align-items-center mt-3">
-                        <table class="table">
+                    <div class="table-responsive align-items-center mt-3 panel panel-default">
+                        <table class="table rounded">
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Oggetto</th>
