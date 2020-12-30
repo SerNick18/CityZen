@@ -1,9 +1,7 @@
 package controller.operazioni_impiegato;
 
-import controller.gestioneUtenza.MyRuntimeException;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
-import model.gestioneDati.modelDataAccess.ConnectionPool;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 import model.gestioneDati.modelObjects.Segnalazione;
@@ -14,13 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ApprovaSegnalazioneTest extends ApprovaSegnalazione{
     ApprovaSegnalazione servlet;
@@ -36,13 +30,17 @@ public class ApprovaSegnalazioneTest extends ApprovaSegnalazione{
         servlet = new ApprovaSegnalazione();
         response = new MockHttpServletResponse();
         request = new MockHttpServletRequest();
-        request.getSession().setAttribute("Impiegato", new Impiegato("abc@scafati.it","MAT365",
-                "Cityzen10!","MPLGEL80A09H387H","Pippo","Pippo","mercato",1,"Fisciano",0,0));
+        impiegato = new Impiegato("abc@scafati.it","MAT365",
+                "Cityzen10!","MPLGEL80A09H387H","Pippo","Pippo","mercato",1,"Fisciano",0,0);
+        request.getSession().setAttribute("Impiegato", impiegato);
     }
 
     @BeforeAll
     static void setUpAll() {
         service = new FacadeDAO();
+        impiegato = new Impiegato("abc@scafati.it","MAT365",
+                "Cityzen10!","MPLGEL80A09H387H","Pippo","Pippo","mercato",1,"Fisciano",0,0);
+        service.inserisciImpiegato(impiegato);
         cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
                 "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
         service.registraCittadino(cittadino);
@@ -71,6 +69,20 @@ public class ApprovaSegnalazioneTest extends ApprovaSegnalazione{
                         + " questa operazione"
                 ,exception.getMessage());
     }
+    @Test
+    public void TestImpiegatoPass(){
+        request.addParameter("id", String.valueOf(segnalazione.getId()));
+        assertDoesNotThrow(() -> {servlet.doGet(request, response);});
+    }
+
+    @Test
+    void TestSegnalazioneNonPresente() {
+        request.setParameter("id", 65535+"");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Segnalazione non presente nel database"
+                ,exception.getMessage());
+    }
 
     @Test
     void TestSegnalazioneNonInoltrata(){
@@ -95,6 +107,7 @@ public class ApprovaSegnalazioneTest extends ApprovaSegnalazione{
     @AfterAll
     public static void clearDB(){
         try {
+            service.eliminaImpiegato(impiegato.getMatricola());
             service.eliminaCittadino(cittadino.getCF());
         } catch (MyServletException myServletException) {
             myServletException.printStackTrace();

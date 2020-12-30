@@ -140,9 +140,18 @@ public class FacadeDAO {
      *
      * @param impiegato
      */
-    public void modificaImpiegato(Impiegato impiegato) {
-        impiegatoDAO.doUpdate(impiegato);
-    }
+    public void inserisciImpiegato(Impiegato impiegato) { impiegatoDAO.doRegister(impiegato);}
+    /**
+     *
+     * @param impiegato
+     */
+    public void modificaImpiegato(Impiegato impiegato) { impiegatoDAO.doUpdate(impiegato); }
+
+    /**
+     *
+     * @param matricola
+     */
+    public void eliminaImpiegato(String matricola) throws MyServletException { impiegatoDAO.doDelete(matricola);}
     /**
      * Metodo riceve una segnalazione da inserire nel database e
      * richiama la funzionalità di inserimento di una segnalazione.

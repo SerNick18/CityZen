@@ -45,26 +45,30 @@ public class ApprovaSegnalazione extends HttpServlet {
             Segnalazione segnalazione =
                     new FacadeDAO().getSegnalazioneById(
                             Integer.parseInt(req.getParameter("id")));
-            if (segnalazione != null
-                    && segnalazione.getStato().equals("inoltrata")) {
-                segnalazione.setStato("approvata");
-                service.modificaSegnalazione(segnalazione);
-                impiegato.setNumSegnalazioniApp(
-                        impiegato.getNumSegnalazioniApp() + 1);
-                service.modificaImpiegato(impiegato);
-                service.inserisciLavorazione(impiegato, segnalazione);
+            if (segnalazione != null) {
+                if (segnalazione.getStato().equals("inoltrata")) {
+                    segnalazione.setStato("approvata");
+                    service.modificaSegnalazione(segnalazione);
+                    impiegato.setNumSegnalazioniApp(
+                            impiegato.getNumSegnalazioniApp() + 1);
+                    service.modificaImpiegato(impiegato);
+                    service.inserisciLavorazione(impiegato, segnalazione);
 
-                //aggiorna numero di segnalazini approvate del cittadino
-                Cittadino cittadino = service.getCittadinoByCf(segnalazione.getCittadino().getCF());
-                cittadino.setNumSegnApp(cittadino.getNumSegnApp()+1);
-                service.modificaCittadino(cittadino);
+                    //aggiorna numero di segnalazini approvate del cittadino
+                    Cittadino cittadino = service.getCittadinoByCf(segnalazione.getCittadino().getCF());
+                    cittadino.setNumSegnApp(cittadino.getNumSegnApp() + 1);
+                    service.modificaCittadino(cittadino);
 
-                req.getRequestDispatcher(
-                        "/WEB-INF/view/GuiImpiegato/gui-impiegato.jsp")
-                        .forward(req, resp);
+                    req.getRequestDispatcher(
+                            "/WEB-INF/view/GuiImpiegato/gui-impiegato.jsp")
+                            .forward(req, resp);
+                } else {
+                    throw new MyServletException(
+                            "Indicare una segnalazione inoltrata");
+                }
             } else {
                 throw new MyServletException(
-                        "Indicare una segnalazione inoltrata");
+                        "Segnalazione non presente nel database");
             }
         } else {
             throw new MyServletException("Indicare una segnalazione");

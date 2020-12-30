@@ -1,6 +1,8 @@
 package model.gestioneDati.modelDataAccess;
 
 import controller.gestioneUtenza.MyRuntimeException;
+import controller.gestioneUtenza.MyServletException;
+import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 
 import java.sql.Connection;
@@ -44,6 +46,29 @@ public class ImpiegatoDAO {
         return null;
     }
 
+    public void doRegister(Impiegato impiegato) {
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "insert into impiegato"
+                            + " values(?,?,?,?,sha1(?),?,?,?,?,0,0)");
+            statement.setString(1, impiegato.getMatricola());
+            statement.setString(2, impiegato.getCF());
+            statement.setString(3, impiegato.getNome());
+            statement.setString(4, impiegato.getCognome());
+            statement.setString(5, impiegato.getPwd());
+            statement.setString(6, impiegato.getVia());
+            statement.setInt(7, impiegato.getCivico());
+            statement.setString(8, impiegato.getCitta());
+            statement.setString(9, impiegato.getEmail());
+            if (statement.executeUpdate() != 1) {
+                throw new MyRuntimeException("C'è stato"
+                        + "un errore nella registrazione");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void doUpdate(Impiegato impiegato) {
         try(Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -68,6 +93,22 @@ public class ImpiegatoDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void doDelete(String matricola) throws MyServletException {
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement statement =
+                    connection.prepareStatement(
+                            "delete from impiegato where Matricola=?");
+            statement.setString(1, matricola);
+            if (statement.executeUpdate() != 1) {
+                throw new MyServletException("C'è stato"
+                        + " un errore nell'eliminazione dell'impiegato");
+            }
+        } catch (SQLException e) {
+            throw new MyServletException("C'è stato"
+                    + " un errore nell'eliminazione del profilo");
         }
     }
 }
