@@ -74,7 +74,7 @@ public class RegistrazioneServlet extends HttpServlet {
             }
 
             //controllo sul valore dell'email
-            cittadino = service.verificaEmail(email);
+            cittadino = service.verificaEmailCittadino(email);
             if (email.compareTo("") == 0
                     || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)
                     || email.contains("@scafati.it") || cittadino != null) {

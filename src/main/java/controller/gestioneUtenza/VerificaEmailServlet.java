@@ -42,7 +42,7 @@ public class VerificaEmailServlet extends HttpServlet {
         String email = req.getParameter("email");
         resp.setContentType("text/xml");
         if (email != null && email.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+")
-                && service.verificaEmail(email) == null) {
+                && service.verificaEmailCittadino(email) == null) {
             resp.getWriter().append("<ok/>");
         } else {
             resp.getWriter().append("<no/>");

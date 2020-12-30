@@ -2,6 +2,7 @@ package controller.gestioneProfilo;
 
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Impiegato;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -56,10 +57,18 @@ public class MandaEmail extends HttpServlet {
         String email = req.getParameter("email");
         PrintWriter out = resp.getWriter();
         FacadeDAO service = new FacadeDAO();
+        String utente="";
+        Impiegato impiegato=null;
+        Cittadino cittadino=null;
+        if(email.contains("@scafati.it")){
+            utente="impiegato";
+            impiegato=service.verificaEmailImpiegato(email);
+        }else {
+            utente = "cittadino";
+            cittadino = service.verificaEmailCittadino(email);
+        }
 
-        Cittadino cittadino = service.verificaEmail(email);
-
-        if (cittadino != null) {
+        if (cittadino != null || impiegato!=null) {
             //manda email
             String host = "smtp.gmail.com";
             String oggetto = "Reimposta la password";
@@ -73,6 +82,8 @@ public class MandaEmail extends HttpServlet {
                     + " value=\"" + email + "\" />\n"
                     + "    <input type=\"hidden\" name=\"provenienza\""
                     + " value=\"email\" />\n"
+                    + "    <input type=\"hidden\" name=\"utente\""
+                    + " value=\"" + utente + "\" />\n"
                     + "    <button>Reimposta Password</button>\n"
                     + "</form>";
 
@@ -96,7 +107,7 @@ public class MandaEmail extends HttpServlet {
             try {
                 mail.setFrom(new InternetAddress("no-reply@scafati.it"));
                 mail.addRecipients(Message.RecipientType.TO,
-                        cittadino.getEmail());
+                        email);
                 mail.setSubject(oggetto);
                 mail.setContent(testo, "text/html");
 

@@ -30,6 +30,7 @@
                     <small id="pwdHelper" class="form-text text-muted"></small>
                 </div>
                 <input type="hidden" name="email" value="<%=request.getParameter("email")%>">
+                <input type="hidden" name="utente" value="<%=request.getParameter("utente")%>">
                 <input type="hidden" name="provenienza" value="reimposta-password">
                 <button type="submit" class="btn btn-success">Reimposta</button>
             </form>

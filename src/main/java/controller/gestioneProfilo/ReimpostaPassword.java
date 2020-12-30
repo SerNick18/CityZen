@@ -63,12 +63,18 @@ public class ReimpostaPassword extends HttpServlet {
             String email = req.getParameter("email");
             String pwd = req.getParameter("pwd");
             String pwd2 = req.getParameter("pwd2");
+            String utente=req.getParameter("utente");
             FacadeDAO service = new FacadeDAO();
 
             if (pwd.equals(pwd2)
                     && Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                     + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
-                service.doUpdatePasswordByEmail(email, pwd);
+
+                if(utente.equals("cittadino"))
+                    service.doUpdatePasswordByEmail(email, pwd);
+                else
+                    service.doUpdatePasswordByEmailImpiegato(email, pwd);
+
                 RequestDispatcher dispatcher =
                         req.getRequestDispatcher("login.jsp");
                 dispatcher.forward(req, resp);

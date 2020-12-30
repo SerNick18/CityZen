@@ -111,4 +111,46 @@ public class ImpiegatoDAO {
                     + " un errore nell'eliminazione del profilo");
         }
     }
+
+    public void doUpdatePasswordByEmail(String email, String password) {
+        try (Connection con = ConnectionPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE impiegato SET pwd= SHA1(?) WHERE email=?");
+            ps.setString(1, password);
+            ps.setString(2, email);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("Errore"
+                        + "durante update password impiegato");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Impiegato doRetrieveByEmail(String email) {
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM impiegato WHERE email=?");
+            statement.setString(1, email);
+            ResultSet r = statement.executeQuery();
+            if (r.next()) {
+                Impiegato i = new Impiegato();
+                i.setMatricola(r.getString("Matricola"));
+                i.setCF(r.getString("CF"));
+                i.setNome(r.getString("Nome"));
+                i.setCognome(r.getString("Cognome"));
+                i.setPwd(r.getString("Pwd"));
+                i.setVia(r.getString("Via"));
+                i.setCivico(r.getInt("Civico"));
+                i.setCitta(r.getString("Città"));
+                i.setEmail(r.getString("Email"));
+                i.setNumSegnalazioniApp(r.getInt("numSegnalazioniApp"));
+                i.setNumSegnalazioniChiuse(r.getInt("numSegnalazioniChiuse"));
+                return i;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

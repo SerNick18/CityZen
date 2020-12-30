@@ -91,7 +91,7 @@ public class FacadeDAO {
      * @param email
      * @return cittadino
      */
-    public Cittadino verificaEmail(String email) {
+    public Cittadino verificaEmailCittadino(String email) {
         return cittadinoDAO.doRetrieveByEmail(email);
     }
     /**.
@@ -159,6 +159,24 @@ public class FacadeDAO {
      */
     public void inserisciSegnalazione(Segnalazione segnalazione) {
         segnalazioneDAO.doInsert(segnalazione);
+    }
+
+    /**
+     * Aggiorna la password dell'impiegato
+     * nel database
+     * @param email email dell'impiegato
+     * @param pwd nuova password dell'impiegato
+     */
+    public void doUpdatePasswordByEmailImpiegato(String email, String pwd) {
+        impiegatoDAO.doUpdatePasswordByEmail(email, pwd);
+    }
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public Impiegato verificaEmailImpiegato(String email) {
+        return impiegatoDAO.doRetrieveByEmail(email);
     }
     /**
      *
@@ -266,4 +284,5 @@ public class FacadeDAO {
        return feedbackDAO.isCittadinoFeedbackSegnalazione(cfCittadino,
                idSegnalazione);
     }
+
 }
