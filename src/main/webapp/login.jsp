@@ -37,7 +37,7 @@
                         <input class="appInput" id="pwd" name="pwd" type="password" placeholder="Password" oninput="validaPassword()">
                 </div>
                 <div class="row mb-3">
-                        <a href="" class="appLink">Password dimenticata?</a>
+                        <a href="recupera-password.html" class="appLink">Password dimenticata?</a>
                 </div>
                 <div class="row md-3">
                     <button type="submit" class="appButtonBlack" id="loginId" disabled>Login</button>

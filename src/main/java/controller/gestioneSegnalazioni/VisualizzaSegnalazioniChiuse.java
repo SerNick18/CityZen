@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**.
+ * Servlet che prende le segnalazioni chiuse
+ * e le mostra all'utente
+ */
 @WebServlet("/visualizzaChiuse")
 public class VisualizzaSegnalazioniChiuse extends HttpServlet {
     /**
@@ -64,8 +68,7 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
             dispatcher.forward(req, resp);
         } else {
             RequestDispatcher dispatcher =
-                    req.getRequestDispatcher("WEB-INF/view/GuiOspite"
-                            + "/gui-ospite.jsp");
+                    req.getRequestDispatcher("/index.jsp");
             dispatcher.forward(req, resp);
         }
     }

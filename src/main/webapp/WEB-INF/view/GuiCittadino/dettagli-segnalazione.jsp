@@ -35,64 +35,60 @@
                     </c:if>
                 </div>
             </div>
-            <div class="row mx-auto">
-                <div class="col-4 ml-3">
-                    <div class="row">
-                        <div class="row">
-                            <img src="./resources/images/${Segnalazione.foto}">
+            <div class="row align-items-start mt-3" style="margin-left: auto;">
+                <!--col of photo-->
+                <div class="col-md-11 col-sm-11 col-lg-4 col-xl-4 col-xxl-4 col-11">
+                    <div class="row boldFont">Foto</div>
+                    <div class="row m-3">
+                        <img class="boxShadow" src="./resources/images/${Segnalazione.foto}">
                     </div>
                 </div>
-                </div>
-                <div class="col-6">
-                        <div class="row">
-                            <label class="col-form-label">${Segnalazione.oggetto}</label>
+                <!--col of form-->
+                <div class="col-md-11 col-sm-11 col-lg-7 col-xl-7 col-xxl-7 col-11">
+                        <div class="row mb-3">
+                            <label for="oggetto" class="col-form-label boldFont">Oggetto</label>
+                            <input class="form-control boxShadow" type="text" name="oggetto" id="oggetto" placeholder="${Segnalazione.oggetto}" disabled>
                         </div>
-                        <div class="row">
-                            <label for="descrizione" class="col-form-label">Descrizione</label>
-                            <textarea type="text" name="descrizione" id="descrizione" rows="5" placeholder="${Segnalazione.descrizione}" disabled></textarea>
+                        <div class="row mb-3">
+                            <label for="descrizione" class="col-form-label boldFont">Descrizione</label>
+                            <textarea class="form-control boxShadow" type="text" name="descrizione" id="descrizione" rows="10" placeholder="${Segnalazione.descrizione}" disabled></textarea>
                         </div>
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col">
-                                <label class="col-form-label">Via: ${Segnalazione.via}</label>
+                                <label for="via" class="form-label boldFont">Via</label>
+                                <input class="form-control boxShadow" type="text" name="via" id="via" placeholder="${Segnalazione.via}" disabled>
                             </div>
                             <div class="col">
-                                <label  class="col-form-label">Civico: ${Segnalazione.civico}</label>
+                                <label for="civico" class="form-label boldFont">Civico</label>
+                                <input class="form-control boxShadow" type="text"  id="civico" placeholder="${Segnalazione.civico}" disabled>
                             </div>
                         </div>
-                        <div class="row">
-                            <label  class="col-form-label">Stato: ${Segnalazione.stato}</label>
+                        <div class="row mb-4">
+                                <%
+                                    Segnalazione s = (Segnalazione)request.getSession().getAttribute("Segnalazione");
+                                    if (s.getStato().equals("inoltrata")){
+                                %>
+                                <form class="form-group" action="modificaSegnalazione" method="post" >
+                                    <input type="hidden" name="id" value="${Segnalazione.id}">
+                                    <input type="submit" name="approva" value="Modifica">
+                                </form>
+                                <form class="form-group" action="eliminaSegnalazione" method="post" >
+                                    <input type="hidden" name="id" value="${Segnalazione.id}">
+                                    <input type="submit" name="elimina" value="Elimina">
+                                </form>
+                                <%
+                                }else if(s.getStato().equals("chiusa")){
+                                %>
+                                <form class="form-group" action="riapriSegnalazione" method="post" >
+                                    <input type="hidden" name="idSegnalazioneDaAprire" value="${Segnalazione.id}">
+                                    <input type="submit" name="riapri" value="Riapri">
+                                </form>
+                                <%
+                                    }
+                                %>
                         </div>
-                        <div class="row">
-                            <label class="col-form-label">Priorità: ${Segnalazione.priorita}</label>
-                        </div>
-                    <div class="row">
-                        <label  class="col-form-label">Numero Solleciti: ${Segnalazione.numSolleciti}</label>
-                    </div>
                 </div>
-                <div class="row">
-                    <%
-                        Segnalazione s = (Segnalazione)request.getSession().getAttribute("Segnalazione");
-                        if (s.getStato().equals("inoltrata")){
-                    %>
-                    <form class="form-group" action="modificaSegnalazione" method="post" >
-                        <input type="hidden" name="id" value="${Segnalazione.id}">
-                        <input type="submit" name="approva" value="Modifica">
-                    </form>
-                    <form class="form-group" action="eliminaSegnalazione" method="post" >
-                        <input type="hidden" name="id" value="${Segnalazione.id}">
-                        <input type="submit" name="elimina" value="Elimina">
-                    </form>
-                    <%
-                        }else if(s.getStato().equals("chiusa")){
-                    %>
-                    <form class="form-group" action="riapriSegnalazione" method="post" >
-                        <input type="hidden" name="idSegnalazioneDaAprire" value="${Segnalazione.id}">
-                        <input type="submit" name="riapri" value="Riapri">
-                    </form>
-                    <%
-                        }
-                    %>
-                </div>
+            </div>
                 <div class="row">
                     <c:if test='<%=s.getStato().equals("chiusa")%>'>
                         <h2>Feedback</h2>
