@@ -37,16 +37,16 @@ public class RifiutoSegnalazione extends HttpServlet {
         int idSegnalazione;
         HttpSession session = req.getSession();
         Impiegato impiegato = (Impiegato) session.getAttribute("Impiegato");
-        FacadeDAO service = new FacadeDAO();
         if (impiegato == null) {
             throw new MyServletException("Effettua il login per"
                     + " poter visualizzare questa pagina");
         } else {
+            FacadeDAO service = new FacadeDAO();
             try {
                 idSegnalazione = Integer.parseInt(req.getParameter("id"));
             } catch (NumberFormatException e) {
                 throw new MyServletException("id della segnalazione"
-                        + "non corretto");
+                        + " non corretto");
             }
 
             Segnalazione segnalazione =
@@ -54,7 +54,7 @@ public class RifiutoSegnalazione extends HttpServlet {
 
             if (segnalazione == null) {
                 throw new MyServletException("Non esiste nessuna"
-                        + "segnalazione con questo id");
+                        + " segnalazione con questo id");
             }
 
             if (segnalazione.getStato().equals("inoltrata")) {
