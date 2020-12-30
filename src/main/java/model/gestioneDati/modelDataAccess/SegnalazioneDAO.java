@@ -9,10 +9,7 @@ import model.gestioneDati.modelObjects.SegnalazioneInterface;
 import model.gestioneDati.modelObjects.SegnalazioneProxy;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,7 +148,8 @@ public class SegnalazioneDAO {
                     "insert into segnalazione (Via, Civico, Priorità,"
                             + "numSolleciti, Stato, DataSegnalazione, Oggetto,"
                             + "Descrizione, Foto, Cittadino, Riaperta)"
-                            + "values(?,?,?,?,?,?,?,?,?,?,?)");
+                            + "values(?,?,?,?,?,?,?,?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, segnalazione.getVia());
             statement.setInt(2, segnalazione.getCivico());
             statement.setInt(3, segnalazione.getPriorita());
@@ -170,6 +168,9 @@ public class SegnalazioneDAO {
                         "C'è stato un errore nell'inserimento della "
                                 + "segnalazione");
             }
+            ResultSet rs = statement.getGeneratedKeys();
+            rs.next();
+            segnalazione.setId(rs.getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();
         }

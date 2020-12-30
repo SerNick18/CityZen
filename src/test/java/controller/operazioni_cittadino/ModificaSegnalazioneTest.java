@@ -4,6 +4,7 @@ import controller.gestioneProfilo.ModificaPassword;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Segnalazione;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -11,14 +12,14 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.core.io.FileUrlResource;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockPart;
+import org.springframework.test.context.event.annotation.AfterTestMethod;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,32 +39,51 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     ModificaSegnalazione servlet;
     MockHttpServletRequest request;
     MockHttpServletResponse response;
+    static Segnalazione segnInoltrata, segnApprovata;
     static FacadeDAO service;
     static Cittadino cittadino;
 
-
     @BeforeEach
-    void setUp() {
+    void setUpEach () {
         servlet = new ModificaSegnalazione();
         response = new MockHttpServletResponse();
         request = new MockHttpServletRequest();
+        request.getSession().setAttribute("Cittadino", cittadino);
+        request.setParameter("oggetto","Senza luce");
+        request.setParameter("descrizione","non vi è corrente da tre giorni");
+        request.setParameter("via","roma");
+        request.setParameter("civico","12");
+    }
+
+    @BeforeAll
+    static void setUp() {
         service = new FacadeDAO();
         cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
                 "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
-        request.getSession().setAttribute("Cittadino", cittadino);
-        request.setParameter("oggetto","_");
-        request.setParameter("descrizione","_");
-        request.setParameter("via","_");
-        request.setParameter("civico","_");
+        service.registraCittadino(cittadino);
+        segnInoltrata = new Segnalazione();
+        segnInoltrata.setVia("roma");
+        segnInoltrata.setCivico(3);
+        segnInoltrata.setPriorita(0);
+        segnInoltrata.setNumSolleciti(0);
+        segnInoltrata.setStato("inoltrata");
+        segnInoltrata.setDataSegnalazione(new Date());
+        segnInoltrata.setDescrizione("grossa fuoriuscita d'acqua");
+        segnInoltrata.setOggetto("Perdita d'acqua");
+        segnInoltrata.setFoto("immagine.png");
+        segnInoltrata.setRiaperta(0);
+        segnApprovata = new Segnalazione(31, "Gramsci", 10, 0, 0, "approvata", new Date(), "Buca in strada",
+                "Buca al centro della carreggiata", "immagine2.jpg", null, 0);
+        segnInoltrata.setCittadino(cittadino);
+        segnApprovata.setCittadino(cittadino);
+        service.inserisciSegnalazione(segnInoltrata);
+        service.inserisciSegnalazione(segnApprovata);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void testOggettoNonValido() {
-        request.setParameter("id", "2");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("oggetto", "o!?()");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
@@ -71,8 +92,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
     @Test
     void testDescrizioneNonValida() {
-        request.setParameter("id", "2");
-        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("descrizione", "perdita");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
@@ -81,9 +101,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
     @Test
     void testViaNonValida() {
-        request.setParameter("id", "2");
-        request.setParameter("oggetto", "Perdita d'acqua");
-        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("via", "Via roma!%%");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
@@ -92,10 +110,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
     @Test
     void testRangeCivicoNonValido() {
-        request.setParameter("id", "2");
-        request.setParameter("oggetto", "Perdita d'acqua");
-        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
-        request.setParameter("via", "Via roma");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("civico", "-1");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
@@ -104,10 +119,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
     @Test
     void testFormatoCivicoNonValido() {
-        request.setParameter("id", "2");
-        request.setParameter("oggetto", "Perdita d'acqua");
-        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
-        request.setParameter("via", "Via roma");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("civico", "a");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
@@ -116,22 +128,14 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
     @Test
     void testSegnalazioneNonInoltrata() {
-        request.setParameter("id", "1");
-        request.setParameter("oggetto", "Perdita d'acqua");
-        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
-        request.setParameter("via", "Via roma");
-        request.setParameter("civico", "a");
+        request.setParameter("id", String.valueOf(segnApprovata.getId()));
         MyServletException exception =
-                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+                assertThrows(MyServletException.class, () -> { servlet.doPost(request,response);});
         assertEquals("La segnalazione non è nello stato inoltrata.",exception.getMessage());
     }
     @Test
     void testFormatoFotoNonValido() throws IOException {
-        request.setParameter("id", "2");
-        request.setParameter("oggetto", "Perdita d'acqua");
-        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
-        request.setParameter("via", "Via roma");
-        request.setParameter("civico", "3");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.addPart(new Part() {
             @Override
             public InputStream getInputStream() throws IOException {
@@ -190,11 +194,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     }
     @Test
     void testModificaSegnalazionePass() throws IOException {
-        request.setParameter("id", "2");
-        request.setParameter("oggetto", "Perdita d'acqua");
-        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
-        request.setParameter("via", "Via roma");
-        request.setParameter("civico", "3");
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.addPart(new Part() {
             @Override
             public InputStream getInputStream() throws IOException {
@@ -245,5 +245,14 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
+    }
+
+    @AfterAll
+    public static void clearDB(){
+        try {
+            service.eliminaCittadino(cittadino.getCF());
+        } catch (MyServletException myServletException) {
+            myServletException.printStackTrace();
+        }
     }
 }
