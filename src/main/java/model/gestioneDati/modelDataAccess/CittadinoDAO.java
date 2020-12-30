@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**.
  * Questa classe effettua il recupero, il salvataggio e le modifiche,
  * di un Cittadino, nel database.
@@ -70,7 +73,6 @@ public class CittadinoDAO {
             e.printStackTrace();
         }
     }
-
     /**
      *
      * @param email
@@ -193,5 +195,32 @@ public class CittadinoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Questo metodo recupera dal database
+     * una lista di cittadini ordinati per
+     * numero di segnalazioni approvate (in
+     * maniera decrescente)
+     * @return la lista ordinata di cittadini
+     */
+    public List<Cittadino> doRetrieveByMaxApprovate(){
+        List<Cittadino> cittadini = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM cittadino ORDER BY numSegnAppr DESC");
+            ResultSet r = statement.executeQuery();
+            while (r.next()) {
+                Cittadino c = new Cittadino(r.getString(1),
+                        r.getString(2), r.getString(3),
+                        r.getString(4), r.getString(5),
+                        r.getInt(6), r.getString(7),
+                        r.getString(8), r.getInt(9), r.getInt(10));
+                cittadini.add(c);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cittadini;
     }
 }

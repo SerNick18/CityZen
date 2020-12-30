@@ -2,6 +2,7 @@ package controller.operazioni_impiegato;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
+import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 import model.gestioneDati.modelObjects.Segnalazione;
 
@@ -52,6 +53,12 @@ public class ApprovaSegnalazione extends HttpServlet {
                         impiegato.getNumSegnalazioniApp() + 1);
                 service.modificaImpiegato(impiegato);
                 service.inserisciLavorazione(impiegato, segnalazione);
+
+                //aggiorna numero di segnalazini approvate del cittadino
+                Cittadino cittadino = service.getCittadinoByCf(segnalazione.getCittadino().getCF());
+                cittadino.setNumSegnApp(cittadino.getNumSegnApp()+1);
+                service.modificaCittadino(cittadino);
+
                 req.getRequestDispatcher(
                         "/WEB-INF/view/GuiImpiegato/gui-impiegato.jsp")
                         .forward(req, resp);
@@ -63,7 +70,6 @@ public class ApprovaSegnalazione extends HttpServlet {
             throw new MyServletException("Indicare una segnalazione");
         }
     }
-
     /**.
      * Metodo doPost che richiama semplicemente il doGet
      * @param req request

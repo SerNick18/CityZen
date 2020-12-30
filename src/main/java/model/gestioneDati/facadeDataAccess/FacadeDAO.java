@@ -114,6 +114,16 @@ public class FacadeDAO {
     public void modificaCittadino(Cittadino cittadino) {
         cittadinoDAO.doUpdate(cittadino);
     }
+    /**
+     * Questo metodo richiama la funzionalità
+     * di recupero di una lista di cittadini
+     * ordiniata in base al numero di
+     * segnalazioni approvate
+     * @return la lista ordinata di cittadini
+     */
+    public List<Cittadino> getCittadiniOrderedBySegnalazioniApp(){
+        return cittadinoDAO.doRetrieveByMaxApprovate();
+    }
 
 
     /**.
