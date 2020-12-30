@@ -208,7 +208,7 @@ public class CittadinoDAO {
         List<Cittadino> cittadini = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM cittadino ORDER BY numSegnAppr DESC limit 10");
+                    "SELECT * FROM cittadino ORDER BY numSegnAppr DESC limit 5");
             ResultSet r = statement.executeQuery();
             while (r.next()) {
                 Cittadino c = new Cittadino(r.getString(1),

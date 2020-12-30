@@ -28,9 +28,6 @@
     FacadeDAO service = new FacadeDAO();
     List<SegnalazioneInterface> chiuse =
             service.getSegnalazioniByStato("chiusa", 0);
-    //recupero i cattadini con maggiori segnalazioni approvate
-    ArrayList<Cittadino> cittadini = (ArrayList<Cittadino>) service.getCittadiniOrderedBySegnalazioniApp();
-    int posizioneClassifica = 1;
 %>
 
 <div class="container">
@@ -39,42 +36,7 @@
             <div class="row mt-5">
                 <h1 class="boldFont textAlignCenter">Benvenuto in CityZen</h1>
             </div>
-            <div class="row mb-3 mt-5">
-                <h3 class="boldFont" style="color: #F53478">Classifica cittandini più attivi</h3>
-            </div>
-            <!--classifica cittadini-->
-            <div class="row">
-                <div class="col-1">
-                    <p class="boldFont">#</p>
-                </div>
-                <div class="col-4">
-                    <p class="boldFont">Nome</p>
-                </div>
-                <div class="col-4">
-                    <p class="boldFont">Cognome</p>
-                </div>
-                <div class="col-2">
-                    <p class="boldFont">Approvate</p>
-                </div>
-            </div>
-            <c:forEach items="<%=cittadini%>" var="cittadino">
-                <c:if test="${cittadino.numSegnApp>0}">
-                    <div class="row">
-                        <div class="col-1">
-                            <p><%=posizioneClassifica++%></p>
-                        </div>
-                        <div class="col-4">
-                            <p>${cittadino.nome}</p>
-                        </div>
-                        <div class="col-4">
-                            <p>${cittadino.cognome}</p>
-                        </div>
-                        <div class="col-2">
-                            <p>${cittadino.numSegnApp}</p>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
+            <%@include file="classifica.jsp"%>
             <div class="row mt-5 boxShadow" id="rowAccessOspite">
                 <div class="col-11 col-sm-11 col-md-6 col-lg-6 col-xl-6 textAlignCenter">
                     <div class="row">

@@ -42,7 +42,7 @@
         <a href="#" class="noDecoration greyText collapsable">Calendario Raccolta Rifiuti</a>
     </div>
     <div class="row ml-3 mt-2">
-        <a href="#" class="noDecoration greyText collapsable">Visualizza Classifica</a>
+        <a href="visualizzaClassifica" class="noDecoration greyText collapsable">Visualizza Classifica</a>
     </div>
     <div class="row ml-3 mb-1 mb-md-1 mb-lg-5 mb-xl-5 mb-xxl-5 mt-2">
         <a href="#" class="greyText collapsable">Sito del comune</a>
