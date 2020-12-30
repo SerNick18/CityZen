@@ -34,11 +34,11 @@ public class CittadinoDAO {
             statement.setString(1, cf);
             if (statement.executeUpdate() != 1) {
                 throw new MyServletException("C'è stato"
-                        + "un errore nell'eliminazione del profilo");
+                        + " un errore nell'eliminazione del profilo");
             }
         } catch (SQLException e) {
             throw new MyServletException("C'è stato"
-                   + "un errore nell'eliminazione del profilo");
+                   + " un errore nell'eliminazione del profilo");
         }
     }
 
