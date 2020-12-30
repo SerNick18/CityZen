@@ -113,19 +113,24 @@ public class ModificaSegnalazione extends HttpServlet {
             }
 
             Segnalazione segnalazione = service.getSegnalazioneById(id);
-            if (segnalazione.getStato().equals("inoltrata")) {
-                segnalazione.setOggetto(oggetto);
-                segnalazione.setVia(via);
-                segnalazione.setCivico(civico);
-                segnalazione.setDescrizione(descrizione);
-                if ((uploadImage(req).equals(""))) {
-                    segnalazione.setFoto(segnalazione.getFoto());
+            if (segnalazione != null) {
+                if (segnalazione.getStato().equals("inoltrata")) {
+                    segnalazione.setOggetto(oggetto);
+                    segnalazione.setVia(via);
+                    segnalazione.setCivico(civico);
+                    segnalazione.setDescrizione(descrizione);
+                    if ((uploadImage(req).equals(""))) {
+                        segnalazione.setFoto(segnalazione.getFoto());
+                    } else {
+                        segnalazione.setFoto(uploadImage(req));
+                    }
                 } else {
-                    segnalazione.setFoto(uploadImage(req));
+                    throw new MyServletException("La segnalazione non è "
+                            + "nello stato inoltrata.");
                 }
             } else {
                 throw new MyServletException("La segnalazione non è "
-                        + "nello stato inoltrata.");
+                        + "presente nel database.");
             }
             service.modificaSegnalazione(segnalazione);
 

@@ -48,6 +48,8 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         servlet = new ModificaSegnalazione();
         response = new MockHttpServletResponse();
         request = new MockHttpServletRequest();
+        cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
+                "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
         request.getSession().setAttribute("Cittadino", cittadino);
         request.setParameter("oggetto","Senza luce");
         request.setParameter("descrizione","non vi è corrente da tre giorni");
@@ -79,7 +81,23 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         service.inserisciSegnalazione(segnInoltrata);
         service.inserisciSegnalazione(segnApprovata);
     }
-
+    @Test
+    void TestParameterApprovaDiversoDaNull() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("approva", "Modifica");
+        assertDoesNotThrow(() -> {servlet.doGet(request, response);});
+    }
+    @Test
+    void TestCittadinoNonLoggato() {
+        cittadino = null;
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.getSession().setAttribute("Cittadino", cittadino);
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Effettua il login per"
+                + " poter visualizzare questa pagina"
+                ,exception.getMessage());
+    }
 
     @Test
     void testOggettoNonValido() {
@@ -90,13 +108,33 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         assertEquals("L'oggetto deve essere lungo minimo 4 e massimo 25 caratteri. Non può contenere caratteri speciali."
                 ,exception.getMessage());
     }
+
     @Test
-    void testDescrizioneNonValida() {
+    void testOggettoVuoto() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("oggetto", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testDescrizioneTroppoCorta() {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("descrizione", "perdita");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
+                ,exception.getMessage());
+    }
+
+    @Test
+    void testDescrizioneVuoto() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("descrizione", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
                 ,exception.getMessage());
     }
     @Test
@@ -108,13 +146,33 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
         assertEquals("La via deve essere lunga minimo 2 e massimo 200 caratteri. Non può contenere caratteri speciali."
                 ,exception.getMessage());
     }
+
     @Test
-    void testRangeCivicoNonValido() {
+    void testViaVuoto() {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
-        request.setParameter("civico", "-1");
+        request.setParameter("via", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testRangeCivicoSuperiore() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("civico", "10000");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Il numero civico non è valido."
+                ,exception.getMessage());
+    }
+
+    @Test
+    void testCivicoVuoto() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("civico", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
                 ,exception.getMessage());
     }
     @Test
@@ -125,6 +183,14 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Il numero civico non è valido."
                 ,exception.getMessage());
+    }
+    @Test
+    void testSegnalazioneNonPresente() {
+        request.setParameter("id", 65535+"");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> { servlet.doPost(request,response);});
+        assertEquals("La segnalazione non è "
+                + "presente nel database.",exception.getMessage());
     }
     @Test
     void testSegnalazioneNonInoltrata() {
@@ -206,6 +272,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
     }
+
 
     @AfterAll
     public static void clearDB(){
