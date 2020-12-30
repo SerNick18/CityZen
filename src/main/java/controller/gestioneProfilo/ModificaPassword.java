@@ -3,6 +3,7 @@ package controller.gestioneProfilo;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Impiegato;
 
 
 import javax.servlet.RequestDispatcher;
@@ -31,7 +32,7 @@ public class ModificaPassword extends HttpServlet {
      * viene inoltrata la richiesta alla giusta pagina jsp.
      * Nel caso in cui nella request non sia presente un paramentro
      * "provenienza", il metodo si occupa di modificare la password
-     * del cittadino. Effettuando controlli sulle password e, in caso
+     * dell'utente registrato. Effettuando controlli sulle password e, in caso
      * di esito positivo, aggiornando la password nel database.
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
@@ -55,7 +56,9 @@ public class ModificaPassword extends HttpServlet {
                 HttpSession session = req.getSession();
                 Cittadino cittadino =
                         (Cittadino) session.getAttribute("Cittadino");
-                if (cittadino != null) {
+                Impiegato impiegato =
+                        (Impiegato) session.getAttribute("Impiegato");
+                if (cittadino != null && impiegato == null) {
                     String oldPass = req.getParameter("oldPass");
                     String newPass = req.getParameter("newPass");
                     String newPass2 = req.getParameter("newPass2");
@@ -97,11 +100,57 @@ public class ModificaPassword extends HttpServlet {
                             req.getRequestDispatcher("WEB-INF/view/"
                                    + "GuiCittadino/gui-cittadino.jsp");
                     dispatcher.forward(req, resp);
-                } else {
+                }
+                if (impiegato != null && cittadino == null) {
+                    String oldPass = req.getParameter("oldPass");
+                    String newPass = req.getParameter("newPass");
+                    String newPass2 = req.getParameter("newPass2");
+                    String passwordHash;
+                    try {
+                        MessageDigest digest =
+                                MessageDigest.getInstance("SHA-1");
+                        digest.reset();
+                        digest.update(oldPass.getBytes(StandardCharsets.UTF_8));
+                        passwordHash = String.format("%040x",
+                                new BigInteger(1, digest.digest()));
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (passwordHash != null) {
+                        String passwordAttuale = impiegato.getPwd();
+                        if (!passwordAttuale.equals(passwordHash)) {
+                            throw new MyServletException(
+                                    "La vecchia password non corrisponde "
+                                            + "con la password attuale");
+                        }
+                        if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
+                                + "(?=.*[A-Z])"
+                                + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
+                            throw new MyServletException("Le due password"
+                                    + " nuove non rispettano il formato ("
+                                    + "Almeno 8 caratteri, 1 lettera maiuscola,"
+                                    + " 1 minuscola, 1 numero"
+                                    + " ed 1 carattere speciale");
+                        }
+                        if (!newPass.equals(newPass2)) {
+                            throw new MyServletException("Le password nuove "
+                                    + "non corrispondono");
+                        }
+                        service.doUpdatePasswordByEmailImpiegato(
+                                impiegato.getEmail(), newPass);
+                    }
+                    RequestDispatcher dispatcher =
+                            req.getRequestDispatcher("WEB-INF/view/"
+                                    + "GuiImpiegato/gui-impiegato.jsp");
+                    dispatcher.forward(req, resp);
+                }
+                if ((impiegato == null && cittadino == null)
+                        || (impiegato != null && cittadino != null)) {
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("/index.jsp");
                     dispatcher.forward(req, resp);
                 }
+
             }
     }
 
