@@ -60,16 +60,16 @@
             <c:forEach items="<%=cittadini%>" var="cittadino">
                 <c:if test="${cittadino.numSegnApp>0}">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-1">
                             <p><%=posizioneClassifica++%></p>
                         </div>
-                        <div class="col">
+                        <div class="col-4">
                             <p>${cittadino.nome}</p>
                         </div>
-                        <div class="col">
+                        <div class="col-4">
                             <p>${cittadino.cognome}</p>
                         </div>
-                        <div class="col">
+                        <div class="col-2">
                             <p>${cittadino.numSegnApp}</p>
                         </div>
                     </div>
