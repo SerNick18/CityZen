@@ -55,9 +55,9 @@
                 <div class="col"><a href="visualizzaChiuse" class="greyText">Chiuse</a></div>
                 <div class="col"><a href="ListApprovate" class="greyText">Approvate</a></div>
             </div>
-            <div class="row align-items-center mt-3">
+            <div class="row align-items-center mt-3 justify-content-center">
                 <c:forEach items="<%=segnalazioni%>" var="s">
-                    <div class="col-11 col-sm-10 col-md-6 col-lg-4 col-xl-4 mt-3">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-3 textAlignCenter">
                         <div class="card">
                             <div class="card-body boxShadow cardSegnalazione">
                                 <h5 class="card-title boldFont">${s.oggetto}</h5>

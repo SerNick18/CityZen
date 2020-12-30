@@ -50,6 +50,28 @@ thead{
     background-color: #F53478;
     border-color: #F53478;
 }
+.myBtnGreen{
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #46B19F;
+    border-color: #46B19F;
+}
 .noDecoration{
     text-decoration: none;
 }
@@ -75,6 +97,15 @@ thead{
 }
 .cardSegnalazione{
     height: 250px;
+}
+.textAlignCenter{
+    text-align: center;
+}
+#rowAccessOspite{
+    background-color: white;
+    border-color: white;
+    border-radius: 24px;
+    padding: 100px;
 }
 #logoutLink{
     height: 30px;
@@ -118,5 +149,11 @@ thead{
     }
     .collapsable{
         text-align: center;
+    }
+    #rowAccessOspite{
+        background-color: white;
+        border-color: white;
+        border-radius: 24px;
+        padding: 30px;
     }
 }
