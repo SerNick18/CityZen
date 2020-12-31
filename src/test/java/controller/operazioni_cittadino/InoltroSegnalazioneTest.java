@@ -99,6 +99,17 @@ class InoltroSegnalazioneTest extends InoltroSegnalazione {
                 ,exception.getMessage());
     }
     @Test
+    void testRangeCivicoNonValido2() {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "5001");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Il numero civico non è valido."
+                ,exception.getMessage());
+    }
+    @Test
     void testFormatoCivicoNonValido() {
         request.setParameter("oggetto", "Perdita d'acqua");
         request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
@@ -231,5 +242,250 @@ class InoltroSegnalazioneTest extends InoltroSegnalazione {
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
+    }
+    //whitebox branch coverage tests
+    @Test
+    void testInoltroSegnalazioneJpg() throws IOException {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "3");
+        request.addPart(new Part() {
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(new File("foto.jpg"));
+            }
+
+            @Override
+            public String getContentType() {
+                return "file";
+            }
+
+            @Override
+            public String getName() {
+                return "foto";
+            }
+
+            @Override
+            public String getSubmittedFileName() {
+                return "foto.jpg";
+            }
+
+            @Override
+            public long getSize() {
+                return 0;
+            }
+
+            @Override
+            public void write(String s) throws IOException {
+
+            }
+
+            @Override
+            public void delete() throws IOException {
+
+            }
+
+            @Override
+            public String getHeader(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaders(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaderNames() {
+                return null;
+            }
+        });
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
+    }
+    @Test
+    void testInoltroSegnalazioneJpeg() throws IOException {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "3");
+        request.addPart(new Part() {
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new FileInputStream(new File("foto.jpeg"));
+            }
+
+            @Override
+            public String getContentType() {
+                return "file";
+            }
+
+            @Override
+            public String getName() {
+                return "foto";
+            }
+
+            @Override
+            public String getSubmittedFileName() {
+                return "foto.jpeg";
+            }
+
+            @Override
+            public long getSize() {
+                return 0;
+            }
+
+            @Override
+            public void write(String s) throws IOException {
+
+            }
+
+            @Override
+            public void delete() throws IOException {
+
+            }
+
+            @Override
+            public String getHeader(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaders(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaderNames() {
+                return null;
+            }
+        });
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
+    }
+    @Test
+    void testSessionCittadinoNull() {
+        request.getSession().removeAttribute("Cittadino");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Effettua il login per"
+                        + " poter visualizzare questa pagina"
+                ,exception.getMessage());
+    }
+    @Test
+    void testOggettoNull() {
+        request.removeAllParameters();
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testParameterFromGui() {
+        request.setParameter("fromGui","true");
+        assertDoesNotThrow(()->{servlet.doPost(request, response);});
+    }
+    @Test
+    void testParameterFromGui2() {
+        request.setParameter("fromGui","false");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("L'oggetto deve essere lungo minimo 4 e massimo 25 caratteri. Non può contenere caratteri speciali."
+                ,exception.getMessage());
+    }
+    @Test
+    void testOggettoVuoto() {
+        request.setParameter("oggetto", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testDescrizioneTroppoLunga() {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "3");
+        request.setParameter("descrizione", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
+                ,exception.getMessage());
+    }
+    @Test
+    void testDescrizioneVuoto() {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "3");
+        request.setParameter("descrizione", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testCivicoVuoto() {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("via", "Via roma");
+        request.setParameter("civico", "");
+        request.setParameter("descrizione", "aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testViaVuoto() {
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("via", "");
+        request.setParameter("civico", "3");
+        request.setParameter("descrizione", "aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testDescrizioneNull() {
+        request.removeAllParameters();
+        request.setParameter("oggetto", "Perdita d'acqua");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testViaNull() {
+        request.removeAllParameters();
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testCivicoNull() {
+        request.removeAllParameters();
+        request.setParameter("oggetto", "Perdita d'acqua");
+        request.setParameter("descrizione", "Perdita d’acqua in via roma, altezza supermercato, civico 3");
+        request.setParameter("via", "Via roma");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
     }
 }
