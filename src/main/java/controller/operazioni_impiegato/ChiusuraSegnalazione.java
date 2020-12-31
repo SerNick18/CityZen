@@ -51,28 +51,32 @@ public class ChiusuraSegnalazione extends HttpServlet {
             Segnalazione segnalazione =
                     new FacadeDAO().getSegnalazioneById(
                             Integer.parseInt(req.getParameter("id")));
-            if (segnalazione != null
-                    && (segnalazione.getStato().equals("approvata"))) {
-                segnalazione.setStato("chiusa");
-                service.modificaSegnalazione(segnalazione);
-                impiegato.setNumSegnalazioniChiuse(
-                        impiegato.getNumSegnalazioniChiuse() + 1);
-                service.modificaImpiegato(impiegato);
-                service.inserisciLavorazione(impiegato, segnalazione);
-                List<Impiegato> impiegati =
-                        service.getImpiegatiOsservatori(segnalazione.getId());
-                cittadino = segnalazione.getCittadino();
-                segnalazione.addObserver(cittadino);
-                for (Impiegato i: impiegati) {
-                    segnalazione.addObserver(i);
+            if (segnalazione != null) {
+                if (segnalazione.getStato().equals("approvata")) {
+                    segnalazione.setStato("chiusa");
+                    service.modificaSegnalazione(segnalazione);
+                    impiegato.setNumSegnalazioniChiuse(
+                            impiegato.getNumSegnalazioniChiuse() + 1);
+                    service.modificaImpiegato(impiegato);
+                    service.inserisciLavorazione(impiegato, segnalazione);
+                    List<Impiegato> impiegati =
+                            service.getImpiegatiOsservatori(segnalazione.getId());
+                    cittadino = segnalazione.getCittadino();
+                    segnalazione.addObserver(cittadino);
+                    for (Impiegato i : impiegati) {
+                        segnalazione.addObserver(i);
+                    }
+                    segnalazione.notifyObservers();
+                    RequestDispatcher dispatcher =
+                            req.getRequestDispatcher("WEB-INF/view/"
+                                    + "GuiImpiegato/gui-impiegato.jsp");
+                    dispatcher.forward(req, resp);
+                } else {
+                    throw new MyServletException("Segnalazione non approvata");
                 }
-                segnalazione.notifyObservers();
-                RequestDispatcher dispatcher =
-                        req.getRequestDispatcher("WEB-INF/view/"
-                                + "GuiImpiegato/gui-impiegato.jsp");
-                dispatcher.forward(req, resp);
             } else {
-                throw new MyServletException("Segnalazione non approvata");
+                throw new MyServletException(
+                        "Segnalazione non presente nel database");
             }
         } else {
             throw new MyServletException(("Indicare una segnalazione"));
