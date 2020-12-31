@@ -22,7 +22,7 @@
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
                 <input type="hidden" name="numeroButton" value="0">
             </div>
-            <div class="row align-items-center mt-3 panel panel-default">
+            <div class="table-responsive row align-items-center mt-3 panel panel-default">
                 <table class="table rounded">
                     <thead class="thead-dark">
                     <tr>
@@ -40,9 +40,9 @@
                             <td>${i.cittadino.nome}</td>
                             <td>
                                 <form class="form-group" action="inoltroSol" method="post">
-                                ${i.numSolleciti}
-                                    <button type="submit" name="id" value="${i.id}">+</button>
-                                </form> </td>
+                                    ${i.numSolleciti}
+                            <button class="btn-Sol" type="submit" name="id" value="${i.id}">+</button>
+                                </form>
                             <td>${i.priorita}</td>
                             <c:choose>
                                 <c:when test="${i.riaperta!=0}">

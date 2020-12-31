@@ -21,6 +21,33 @@ thead{
     font-family: "Times New Roman", Times, serif;
 }
 
+.btn-Sol{
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #FFFFFF;
+    background-color: #00cc9a;
+    margin-left: 10px;
+}
+
+#text{
+    margin-right: 50px;
+}
+
 
 .boldFont{
     font-weight: bold;
