@@ -28,7 +28,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         response = new MockHttpServletResponse();
         registrazioneServlet = new RegistrazioneServlet();
         service = new FacadeDAO();
-        cittadino = new Cittadino("SBAFNC98T26H703S","Francesco","Sabia","Password1!","via europa",12,"Salerno","asdf98@gmail.com",0,0);
+        cittadino = new Cittadino("SBAFNC98T26H703S","Francesco","Sabia","Password1!","via europa",12,"Salerno","abcd98@gmail.com",0,0);
     }
 
     @BeforeAll
@@ -127,11 +127,26 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals("Email errata!", exception.getMessage());
     }
 
-    @Test //test email non inserita
+    @Test
+    void testEmailError() {
+        request.addParameter("nome", "Francesco");
+        request.addParameter("cognome", "Sabia");
+        request.addParameter("email", "asdf00@gmail.com");
+        request.addParameter("cf", "");
+        request.addParameter("pwd1", "");
+        request.addParameter("pwd2", "");
+        request.addParameter("via", "");
+        request.addParameter("civico", "");
+        request.addParameter("citta", "");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
+        assertEquals("Email errata!", exception.getMessage());
+    }
+
+    @Test //test cf non inserito
     void testCfNull() {
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -146,7 +161,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCfFormatError() {
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "ASDFC98TH");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -161,7 +176,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCfFormatError2() {
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "ASDFC98TH7HYO12GYU");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -176,7 +191,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCfFormatError3(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "ASDF@!23TY4HY67Y");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -191,7 +206,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCfError(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd8@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H700M");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -206,7 +221,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testViaNull(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -221,7 +236,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testViaNoPattern(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -236,7 +251,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCivicoNull(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -251,7 +266,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCivicoNoPattern(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -266,7 +281,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCivicoNoPattern2(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -281,7 +296,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCittaNull(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -296,7 +311,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testCittaNoPattern(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -311,7 +326,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testPassword1NoPattern(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -329,7 +344,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testPassword1NoPattern2(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "Passw");
         request.addParameter("pwd2", "");
@@ -347,7 +362,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testPassword1NoPattern3(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "password1");
         request.addParameter("pwd2", "");
@@ -365,7 +380,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testPassword2NoMatch(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "Password1!");
         request.addParameter("pwd2", "");
@@ -380,7 +395,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testPassword2NoMatch2(){
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "Password1!");
         request.addParameter("pwd2", "passw");
@@ -396,7 +411,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     void testRegistrazioneOk() throws ServletException, IOException {
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "asdf98@gmail.com");
+        request.addParameter("email", "abcd98@gmail.com");
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "Password1!");
         request.addParameter("pwd2", "Password1!");
