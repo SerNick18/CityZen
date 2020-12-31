@@ -40,6 +40,12 @@ public class ReimpostaPasswordTest extends ReimpostaPassword{
     }
 
     @Test
+    void TestParameterApprovaDiversoDaNull() {
+        req.setParameter("provenienza", "email");
+        assertDoesNotThrow(() -> {servlet.doGet(req, resp);});
+    }
+
+    @Test
     void testEmailNull(){
         req.addParameter("utente","cittadino");
         req.addParameter("email", "");
