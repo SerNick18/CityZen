@@ -328,7 +328,7 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 ,exception.getMessage());
     }
     @Test
-    void testErroreCaricamentoFoto() throws IOException {
+    void testErroreCaricamentoFotoPng() throws IOException {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.addPart(new Part() {
             @Override
@@ -339,6 +339,66 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
             public String getName() { return "foto"; }
             @Override
             public String getSubmittedFileName() { return "foto.png"; }
+            @Override
+            public long getSize() { return 0; }
+            @Override
+            public void write(String s) throws IOException {}
+            @Override
+            public void delete() throws IOException {}
+            @Override
+            public String getHeader(String s) { return null; }
+            @Override
+            public Collection<String> getHeaders(String s) { return null; }
+            @Override
+            public Collection<String> getHeaderNames() { return null; }
+        });
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
+    }
+
+    @Test
+    void testErroreCaricamentoFotoJpg() throws IOException {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.addPart(new Part() {
+            @Override
+            public InputStream getInputStream() throws IOException { return new FileInputStream(new File("foto.jpg")); }
+            @Override
+            public String getContentType() { return "file"; }
+            @Override
+            public String getName() { return "foto"; }
+            @Override
+            public String getSubmittedFileName() { return "foto.jpg"; }
+            @Override
+            public long getSize() { return 0; }
+            @Override
+            public void write(String s) throws IOException {}
+            @Override
+            public void delete() throws IOException {}
+            @Override
+            public String getHeader(String s) { return null; }
+            @Override
+            public Collection<String> getHeaders(String s) { return null; }
+            @Override
+            public Collection<String> getHeaderNames() { return null; }
+        });
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Errore I/O nel caricamento della foto!" ,exception.getMessage());
+    }
+
+    @Test
+    void testErroreCaricamentoFotoJpeg() throws IOException {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.addPart(new Part() {
+            @Override
+            public InputStream getInputStream() throws IOException { return new FileInputStream(new File("foto.jpeg")); }
+            @Override
+            public String getContentType() { return "file"; }
+            @Override
+            public String getName() { return "foto"; }
+            @Override
+            public String getSubmittedFileName() { return "foto.jpeg"; }
             @Override
             public long getSize() { return 0; }
             @Override

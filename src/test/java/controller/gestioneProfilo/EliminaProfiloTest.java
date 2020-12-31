@@ -52,6 +52,7 @@ class EliminaProfiloTest extends EliminaProfilo {
     void testCittadinoLoggatoPresenteNelDb() {
         request.getSession().setAttribute("Cittadino", cittadino);
         assertDoesNotThrow(() -> {servlet.doGet(request, response);});
+        service.registraCittadino(cittadino);
     }
     @Test
     void testCittadinoLoggatoNonPresenteNelDb() {
@@ -61,10 +62,12 @@ class EliminaProfiloTest extends EliminaProfilo {
                 assertThrows(MyServletException.class, () -> { servlet.doGet(request, response); });
         assertEquals("C'è stato un errore nell'eliminazione del profilo",
                 myServletException.getMessage());
+        cittadino.setCF("CPNLLD11S19A489D");
     }
     @Test
     void TestPass() {
         assertDoesNotThrow(() -> {servlet.doGet(request, response);});
+        service.registraCittadino(cittadino);
     }
 
     @AfterAll
