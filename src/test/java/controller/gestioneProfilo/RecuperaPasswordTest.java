@@ -28,8 +28,11 @@ public class RecuperaPasswordTest extends MandaEmail{
         servlet = new MandaEmail();
         req = new MockHttpServletRequest();
         resp = new MockHttpServletResponse();
+    }
+    @BeforeAll
+    public static void setUpAll(){
         service = new FacadeDAO();
-        cittadino = new Cittadino("SBAFNC98T26H703K","Giovanni","Fresco","Prova123","Roma",123,"Scafati","Asdfgh99@gmail.com",0,0);
+        cittadino = new Cittadino("SBAFNC98T26H700G","Giovanni","Fresco","Prova123","Roma",123,"Scafati","ghy98@gmail.com",0,0);
         service.registraCittadino(cittadino);
     }
 
@@ -55,14 +58,14 @@ public class RecuperaPasswordTest extends MandaEmail{
 
     @Test
     void testEmailOK() throws ServletException, IOException {
-        req.addParameter("email","Asdfgh99@gmail.com");
+        req.addParameter("email","ghy98@gmail.com");
         assertDoesNotThrow( () -> servlet.doPost(req, resp));
     }
 
     @AfterAll
     public static void clearDB() {
         try {
-            service.eliminaCittadino("SBAFNC98T26H703K");
+            service.eliminaCittadino("SBAFNC98T26H700G");
         } catch (MyServletException myServletException) {
             myServletException.printStackTrace();
         }

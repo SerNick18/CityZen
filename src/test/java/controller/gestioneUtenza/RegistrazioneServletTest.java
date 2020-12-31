@@ -3,6 +3,7 @@ package controller.gestioneUtenza;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -18,6 +19,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     MockHttpServletResponse response;
     RegistrazioneServlet registrazioneServlet;
     static Cittadino cittadino;
+    static Cittadino cittadino2;
     static FacadeDAO service;
 
     @BeforeEach
@@ -27,6 +29,13 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         registrazioneServlet = new RegistrazioneServlet();
         service = new FacadeDAO();
         cittadino = new Cittadino("SBAFNC98T26H703S","Francesco","Sabia","Password1!","via europa",12,"Salerno","asdf98@gmail.com",0,0);
+    }
+
+    @BeforeAll
+    public static void setUp_V2(){
+        service = new FacadeDAO();
+        cittadino2 = new Cittadino("SBAFNC98T26H700M","Francesco","Sabia","Password1!","via europa",12,"Salerno","asdf00@gmail.com",0,0);
+        service.registraCittadino(cittadino2);
     }
 
     @Test //test tutti i parametri sono null
@@ -183,7 +192,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
         request.addParameter("email", "asdf98@gmail.com");
-        request.addParameter("cf", "SBAFNC98T26H703C");
+        request.addParameter("cf", "SBAFNC98T26H700M");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
         request.addParameter("via", "");
@@ -398,6 +407,15 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals(cittadino, request.getSession().getAttribute("Cittadino"));
         try {
             service.eliminaCittadino("SBAFNC98T26H703S");
+        } catch (MyServletException myServletException) {
+            myServletException.printStackTrace();
+        }
+    }
+
+    @AfterAll
+    public static void clearDB(){
+        try {
+            service.eliminaCittadino(cittadino2.getCF());
         } catch (MyServletException myServletException) {
             myServletException.printStackTrace();
         }
