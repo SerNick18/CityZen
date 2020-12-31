@@ -1,5 +1,6 @@
 package controller.gestioneProfilo;
 
+import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 /**.
  * Servlet per mandare una mail
@@ -57,6 +59,10 @@ public class MandaEmail extends HttpServlet {
         String email = req.getParameter("email");
         PrintWriter out = resp.getWriter();
         FacadeDAO service = new FacadeDAO();
+        if (email.compareTo("") == 0
+               || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)){
+            throw new MyServletException("Inserisci un email valida");
+        }
         String utente="";
         Impiegato impiegato=null;
         Cittadino cittadino=null;

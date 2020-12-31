@@ -394,7 +394,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         request.addParameter("via", "via europa");
         request.addParameter("civico", "12");
         request.addParameter("citta", "Salerno");
-        registrazioneServlet.doPost(request, response);
+        registrazioneServlet.doGet(request, response);
         assertEquals(cittadino, request.getSession().getAttribute("Cittadino"));
         try {
             service.eliminaCittadino("SBAFNC98T26H703S");
