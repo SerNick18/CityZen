@@ -90,18 +90,18 @@ public class RegistrazioneServlet extends HttpServlet {
                 throw new MyServletException("Codice fiscale errato!");
             }
 
-            //controllo sul valore del civico
-            if (civico.compareTo("") == 0
-                    || !Pattern.matches("^[0-9]{1,3}$", civico)) {
-                throw new
-                        MyServletException("Inserire un numero civico valido!");
-            }
-
             //controllo sul valore della via
             if (via.compareTo("") == 0
                     || !Pattern.matches("^([A-Za-z]\\s?)*$", via)) {
                 throw new
                         MyServletException("Inserire una via valida!");
+            }
+
+            //controllo sul valore del civico
+            if (civico.compareTo("") == 0
+                    || !Pattern.matches("^[0-9]{1,3}$", civico)) {
+                throw new
+                        MyServletException("Inserire un numero civico valido!");
             }
 
             //controllo sul valore della citta
