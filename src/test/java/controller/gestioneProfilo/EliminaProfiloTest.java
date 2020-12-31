@@ -1,11 +1,10 @@
 package controller.gestioneProfilo;
 
 import controller.gestioneUtenza.MyServletException;
+import controller.operazioni_cittadino.ModificaSegnalazione;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -16,51 +15,64 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EliminaProfiloTest extends EliminaProfilo {
     EliminaProfilo servlet;
-    MockHttpServletRequest req;
-    MockHttpServletResponse resp;
+    MockHttpServletRequest request;
+    MockHttpServletResponse response;
+    static Cittadino cittadino;
+    static FacadeDAO service;
 
     @BeforeEach
-    void setUp() {
+    void setUpEach () {
         servlet = new EliminaProfilo();
-        req = new MockHttpServletRequest();
-        resp = new MockHttpServletResponse();
+        response = new MockHttpServletResponse();
+        request = new MockHttpServletRequest();
+        cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
+                "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
+        request.getSession().setAttribute("Cittadino", cittadino);
+    }
+
+    @BeforeAll
+    static void setUpAll() {
+        service = new FacadeDAO();
+        cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
+                "via roma", 3, "Fisciano", "cattaneo@gmail.com", 0, 0);
+        service.registraCittadino(cittadino);
     }
     @Test
     void testNessunCittadinoLoggato() {
-        req.getSession().setAttribute("Cittadino", null);
+        cittadino = null;
+        request.getSession().setAttribute("Cittadino", cittadino);
         MyServletException myServletException =
-                Assertions.assertThrows(MyServletException.class, () -> {
-                    servlet.doPost(req, resp);
+                assertThrows(MyServletException.class, () -> {
+                    servlet.doPost(request, response);
                 });
-        Assertions.assertEquals("Effettua il Login per visualizzare questa pagina!",
+        assertEquals("Effettua il Login per visualizzare questa pagina!",
                 myServletException.getMessage());
     }
     @Test
     void testCittadinoLoggatoPresenteNelDb() {
-        FacadeDAO facadeDAO = new FacadeDAO();
-        Cittadino cittadino = facadeDAO.getCittadinoByCf("CPNLLD00S19A489D");
-        req.getSession().setAttribute("Cittadino", cittadino);
-        try {
-            servlet.doPost(req,resp);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertNull(facadeDAO.getCittadinoByCf(cittadino.getCF()));
-        facadeDAO.registraCittadino(cittadino);
+        request.getSession().setAttribute("Cittadino", cittadino);
+        assertDoesNotThrow(() -> {servlet.doGet(request, response);});
     }
     @Test
     void testCittadinoLoggatoNonPresenteNelDb() {
-        FacadeDAO facadeDAO = new FacadeDAO();
-        Cittadino cittadino = new Cittadino("cf", "nome", "cognome", "pwd1", "via",
-                3, "citta", "email", 0, 0);
-        req.getSession().setAttribute("Cittadino", cittadino);
+        cittadino.setCF("PPPPPP99P99P999P");
+        request.getSession().setAttribute("Cittadino", cittadino);
         MyServletException myServletException =
-                Assertions.assertThrows(MyServletException.class, () -> {
-                    servlet.doGet(req, resp);
-                });
-        Assertions.assertEquals("C'è stato un errore nell'eliminazione del profilo",
+                assertThrows(MyServletException.class, () -> { servlet.doGet(request, response); });
+        assertEquals("C'è stato un errore nell'eliminazione del profilo",
                 myServletException.getMessage());
+    }
+    @Test
+    void TestPass() {
+        assertDoesNotThrow(() -> {servlet.doGet(request, response);});
+    }
+
+    @AfterAll
+    public static void clearDB(){
+        try {
+            service.eliminaCittadino(cittadino.getCF());
+        } catch (MyServletException myServletException) {
+            myServletException.printStackTrace();
+        }
     }
 }

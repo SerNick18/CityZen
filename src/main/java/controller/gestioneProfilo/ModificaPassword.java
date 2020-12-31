@@ -73,29 +73,27 @@ public class ModificaPassword extends HttpServlet {
                     } catch (NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
-                    if (passwordHash != null) {
-                        String passwordAttuale = cittadino.getPwd();
-                        if (!passwordAttuale.equals(passwordHash)) {
-                            throw new MyServletException(
-                                    "La vecchia password non corrisponde "
-                                    + "con la password attuale");
-                        }
-                        if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
-                                       + "(?=.*[A-Z])"
-                                + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
-                            throw new MyServletException("Le due password"
-                                    + " nuove non rispettano il formato ("
-                                    + "Almeno 8 caratteri, 1 lettera maiuscola,"
-                                    + " 1 minuscola, 1 numero"
-                                    + " ed 1 carattere speciale");
-                        }
-                        if (!newPass.equals(newPass2)) {
-                            throw new MyServletException("Le password nuove "
-                                    + "non corrispondono");
-                        }
-                        service.doUpdatePasswordByEmail(
-                                cittadino.getEmail(), newPass);
+                    String passwordAttuale = cittadino.getPwd();
+                    if (!passwordAttuale.equals(passwordHash)) {
+                        throw new MyServletException(
+                                "La vecchia password non corrisponde "
+                                + "con la password attuale");
                     }
+                    if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
+                                   + "(?=.*[A-Z])"
+                            + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
+                        throw new MyServletException("Le due password"
+                                + " nuove non rispettano il formato ("
+                                + "Almeno 8 caratteri, 1 lettera maiuscola,"
+                                + " 1 minuscola, 1 numero"
+                                + " ed 1 carattere speciale");
+                    }
+                    if (!newPass.equals(newPass2)) {
+                        throw new MyServletException("Le password nuove "
+                                + "non corrispondono");
+                    }
+                    service.doUpdatePasswordByEmail(
+                            cittadino.getEmail(), newPass);
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("WEB-INF/view/"
                                    + "GuiCittadino/gui-cittadino.jsp");
@@ -116,29 +114,27 @@ public class ModificaPassword extends HttpServlet {
                     } catch (NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
-                    if (passwordHash != null) {
-                        String passwordAttuale = impiegato.getPwd();
-                        if (!passwordAttuale.equals(passwordHash)) {
-                            throw new MyServletException(
-                                    "La vecchia password non corrisponde "
-                                            + "con la password attuale");
-                        }
-                        if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
-                                + "(?=.*[A-Z])"
-                                + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
-                            throw new MyServletException("Le due password"
-                                    + " nuove non rispettano il formato ("
-                                    + "Almeno 8 caratteri, 1 lettera maiuscola,"
-                                    + " 1 minuscola, 1 numero"
-                                    + " ed 1 carattere speciale");
-                        }
-                        if (!newPass.equals(newPass2)) {
-                            throw new MyServletException("Le password nuove "
-                                    + "non corrispondono");
-                        }
-                        service.doUpdatePasswordByEmailImpiegato(
-                                impiegato.getEmail(), newPass);
+                    String passwordAttuale = impiegato.getPwd();
+                    if (!passwordAttuale.equals(passwordHash)) {
+                        throw new MyServletException(
+                                "La vecchia password non corrisponde "
+                                        + "con la password attuale");
                     }
+                    if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
+                            + "(?=.*[A-Z])"
+                            + "(?=.*[a-zA-Z]).{8,}$", newPass)) {
+                        throw new MyServletException("Le due password"
+                                + " nuove non rispettano il formato ("
+                                + "Almeno 8 caratteri, 1 lettera maiuscola,"
+                                + " 1 minuscola, 1 numero"
+                                + " ed 1 carattere speciale");
+                    }
+                    if (!newPass.equals(newPass2)) {
+                        throw new MyServletException("Le password nuove "
+                                + "non corrispondono");
+                    }
+                    service.doUpdatePasswordByEmailImpiegato(
+                            impiegato.getEmail(), newPass);
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("WEB-INF/view/"
                                     + "GuiImpiegato/gui-impiegato.jsp");
