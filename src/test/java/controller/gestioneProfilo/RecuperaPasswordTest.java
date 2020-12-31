@@ -3,6 +3,7 @@ package controller.gestioneProfilo;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Impiegato;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ public class RecuperaPasswordTest extends MandaEmail{
     MockHttpServletRequest req;
     MockHttpServletResponse resp;
     static Cittadino cittadino;
+    static Impiegato impiegato;
     static FacadeDAO service;
 
     @BeforeEach
@@ -34,6 +36,8 @@ public class RecuperaPasswordTest extends MandaEmail{
         service = new FacadeDAO();
         cittadino = new Cittadino("SBAFNC98T26H700G","Giovanni","Fresco","Prova123","Roma",123,"Scafati","ghy98@gmail.com",0,0);
         service.registraCittadino(cittadino);
+        impiegato = new Impiegato("asdf@scafati.it","155","Password1!","AGBC67DTU87YUHS6","Antonio","Sabato","europa",12,"Scafati",0,0);
+        service.inserisciImpiegato(impiegato);
     }
 
     @Test
@@ -62,10 +66,17 @@ public class RecuperaPasswordTest extends MandaEmail{
         assertDoesNotThrow( () -> servlet.doPost(req, resp));
     }
 
+    @Test
+    void testEmailOKImp() throws ServletException, IOException {
+        req.addParameter("email","asdf@scafati.it");
+        assertDoesNotThrow( () -> servlet.doPost(req, resp));
+    }
+
     @AfterAll
     public static void clearDB() {
         try {
-            service.eliminaCittadino("SBAFNC98T26H700G");
+            service.eliminaCittadino(cittadino.getCF());
+            service.eliminaImpiegato(impiegato.getMatricola());
         } catch (MyServletException myServletException) {
             myServletException.printStackTrace();
         }

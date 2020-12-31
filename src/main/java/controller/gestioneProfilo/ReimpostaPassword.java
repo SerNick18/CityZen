@@ -72,19 +72,11 @@ public class ReimpostaPassword extends HttpServlet {
                      || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)) {
                 throw new MyServletException("Inserisci un email valida");
             }
-            if (pwd.compareTo("") == 0
-                    || !Pattern.matches(
-                    "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])"
-                            + "(?=.*[a-zA-Z]).{8,}$", pwd)) {
-                throw new MyServletException(
-                        "La password deve contenere almeno 8 caratteri, "
-                                + "almeno una lettera maiuscola, "
-                                + "una lettera minuscola,\n"
-                                + " * un numero ed un carattere speciale.");
-            }
-            if (pwd.equals(pwd2)
+
+            if (pwd.equals(pwd2)  && pwd.compareTo("") != 0
                     && Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
-                    + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
+                    + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)
+                         ) {
 
                 if (utente.equals("cittadino")) {
                     Cittadino c = service.verificaEmailCittadino(email);
@@ -107,6 +99,8 @@ public class ReimpostaPassword extends HttpServlet {
             } else {
                 throw new MyServletException("Le password non corrispondono");
             }
+        } else {
+            throw new MyServletException("Errore");
         }
     }
 }

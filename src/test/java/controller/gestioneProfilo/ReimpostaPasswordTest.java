@@ -40,13 +40,27 @@ public class ReimpostaPasswordTest extends ReimpostaPassword{
     }
 
     @Test
-    void TestParameterApprovaDiversoDaNull() {
+    void TestParameterProvenienzaDiversoDaNull() {
         req.setParameter("provenienza", "email");
         assertDoesNotThrow(() -> {servlet.doGet(req, resp);});
     }
 
     @Test
+    void TestParameterProvenienza() {
+        req.setParameter("provenienza", "prova");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Errore", exception.getMessage());
+    }
+
+    @Test
     void testEmailNull(){
+        req.addParameter("utente","cittadino");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Inserisci un email valida", exception.getMessage());
+    }
+
+    @Test
+    void testEmailNull2(){
         req.addParameter("utente","cittadino");
         req.addParameter("email", "");
         MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
@@ -69,10 +83,15 @@ public class ReimpostaPasswordTest extends ReimpostaPassword{
         req.addParameter("email", "ghy98@gmail.com");
         req.addParameter("pwd", "");
         MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
-        assertEquals("La password deve contenere almeno 8 caratteri, "
-                + "almeno una lettera maiuscola, "
-                + "una lettera minuscola,\n"
-                + " * un numero ed un carattere speciale.", exception.getMessage());
+        assertEquals("Le password non corrispondono", exception.getMessage());
+    }
+
+    @Test
+    void testEmailFormatError2(){
+        req.addParameter("utente","cittadino");
+        req.addParameter("email", "asdf");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Inserisci un email valida", exception.getMessage());
     }
 
     @Test
@@ -86,11 +105,51 @@ public class ReimpostaPasswordTest extends ReimpostaPassword{
     }
 
     @Test
+    void testPwdNull2(){
+        req.addParameter("utente","cittadino");
+        req.addParameter("email", "ghy98@gmail.com");
+        req.addParameter("pwd", "");
+        req.addParameter("pwd2","prova");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Le password non corrispondono", exception.getMessage());
+    }
+
+    @Test
+    void testPwd2NoMatch(){
+        req.addParameter("utente","cittadino");
+        req.addParameter("email", "ghy98@gmail.com");
+        req.addParameter("pwd", "prova");
+        req.addParameter("pwd2","prova");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Le password non corrispondono", exception.getMessage());
+    }
+
+    @Test
+    void testPwdNoMatch(){
+        req.addParameter("utente","cittadino");
+        req.addParameter("email", "ghy98@gmail.com");
+        req.addParameter("pwd", "");
+        req.addParameter("pwd2","");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Le password non corrispondono", exception.getMessage());
+    }
+
+    @Test
     void testPwd2NotMatch(){
         req.addParameter("utente","cittadino");
         req.addParameter("email", "ghy98@gmail.com");
         req.addParameter("pwd", "Prova123");
         req.addParameter("pwd2","asdf");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
+        assertEquals("Le password non corrispondono", exception.getMessage());
+    }
+
+    @Test
+    void testPwd1FormatError(){
+        req.addParameter("utente","cittadino");
+        req.addParameter("email", "ghy98@gmail.com");
+        req.addParameter("pwd", "passw");
+        req.addParameter("pwd2","");
         MyServletException exception = assertThrows(MyServletException.class, () -> {servlet.doPost(req, resp);});
         assertEquals("Le password non corrispondono", exception.getMessage());
     }
