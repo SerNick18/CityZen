@@ -41,24 +41,29 @@ public class EliminaSegnalazione extends HttpServlet {
         }
         FacadeDAO service = new FacadeDAO();
         int id = Integer.parseInt(req.getParameter("id"));
-        Segnalazione segnalazione = service.getSegnalazioneById(id);
-        if (segnalazione.getStato().equals("inoltrata")) {
-            if (req.getParameter("approva") == null) {
-                service.eliminaSegnalazione(segnalazione.getId());
-                cittadino.setNumSegnalazioni(
-                        cittadino.getNumSegnalazioni() - 1);
-                service.modificaCittadino(cittadino);
-                RequestDispatcher dispatcher =
-                        req.getRequestDispatcher("WEB-INF/view/"
-                                + "GuiCittadino/gui-cittadino.jsp");
-                dispatcher.forward(req, resp);
+        Segnalazione segnalazione;
+        if ((segnalazione = service.getSegnalazioneById(id)) != null) {
+            if (segnalazione.getStato().equals("inoltrata")) {
+                if (req.getParameter("approva") == null) {
+                    service.eliminaSegnalazione(segnalazione.getId());
+                    cittadino.setNumSegnalazioni(
+                            cittadino.getNumSegnalazioni() - 1);
+                    service.modificaCittadino(cittadino);
+                    RequestDispatcher dispatcher =
+                            req.getRequestDispatcher("WEB-INF/view/"
+                                    + "GuiCittadino/gui-cittadino.jsp");
+                    dispatcher.forward(req, resp);
+                } else {
+                    throw new MyServletException("La segnalazione è"
+                            + " già stata approvata");
+                }
             } else {
-                throw new MyServletException("La segnalazione è"
-                        + " già stata approvata");
+                throw new MyServletException("La segnalazione non è"
+                        + " nello stato inoltrata");
             }
         } else {
             throw new MyServletException("La segnalazione non è"
-                    + " nello stato inoltrata");
+                    + "presente nel database");
         }
     }
     /**
