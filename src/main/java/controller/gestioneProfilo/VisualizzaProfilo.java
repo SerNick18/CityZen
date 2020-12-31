@@ -50,12 +50,12 @@ public class VisualizzaProfilo extends HttpServlet {
         HttpSession session = req.getSession();
         Impiegato impiegato = (Impiegato) session.getAttribute("Impiegato");
         Cittadino cittadino = (Cittadino) session.getAttribute("Cittadino");
-        if (cittadino != null) {
+        if (cittadino != null && impiegato == null) {
             address = "WEB-INF/view/GuiCittadino/profilo.jsp";
-        } else if (impiegato != null) {
+        } else if (impiegato != null && cittadino == null) {
             address = "WEB-INF/view/GuiImpiegato/profilo.jsp";
-        } else if (cittadino == null && impiegato == null) {
-             throw new MyServletException("Effettua il Login per"
+        } else {
+             throw new MyServletException("Effettua il Login per "
                     + "visualizzare questa pagina!");
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher(address);

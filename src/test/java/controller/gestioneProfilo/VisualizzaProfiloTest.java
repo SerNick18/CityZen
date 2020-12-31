@@ -28,13 +28,13 @@ class VisualizzaProfiloTest extends VisualizzaProfilo {
     @Test
     void testConImpiegato() {
         req.getSession().setAttribute("Impiegato", new Impiegato());
-        req.getSession().setAttribute("Cittadino", null);
+        req.getSession().removeAttribute("Cittadino");
         assertDoesNotThrow(()->{servlet.doGet(req, resp);});
     }
 
     @Test
     void testConCittadino() {
-        req.getSession().setAttribute("Impiegato", null);
+        req.getSession().removeAttribute("Impiegato");
         req.getSession().setAttribute("Cittadino", new Cittadino());
         assertDoesNotThrow(()->{servlet.doGet(req, resp);});
     }
@@ -44,14 +44,15 @@ class VisualizzaProfiloTest extends VisualizzaProfilo {
         req.getSession().setAttribute("Impiegato", null);
         req.getSession().setAttribute("Cittadino", null);
         MyServletException exception=assertThrows(MyServletException.class, ()->{servlet.doGet(req, resp);});
-        assertEquals(exception.getMessage(), "Effettua il Login per visualizzare questa pagina");
+        assertEquals(exception.getMessage(), "Effettua il Login per visualizzare questa pagina!");
     }
 
     @Test
     void testConTuttiEDue() {
         req.getSession().setAttribute("Impiegato", new Impiegato());
         req.getSession().setAttribute("Cittadino", new Cittadino());
-        assertDoesNotThrow(()->{servlet.doGet(req, resp);});
+        MyServletException exception=assertThrows(MyServletException.class, ()->{servlet.doGet(req, resp);});
+        assertEquals(exception.getMessage(), "Effettua il Login per visualizzare questa pagina!");
     }
 
 }
