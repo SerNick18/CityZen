@@ -119,9 +119,36 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 ,exception.getMessage());
     }
     @Test
+    void testOggettoNull() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("oggetto", (String) null);
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
     void testDescrizioneTroppoCorta() {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("descrizione", "perdita");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
+                ,exception.getMessage());
+    }
+    @Test
+    void testDescrizioneTroppoLunga() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("descrizione", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
@@ -138,9 +165,39 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 ,exception.getMessage());
     }
     @Test
+    void testDescrizioneNull() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("descrizione", (String) null);
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
     void testViaNonValida() {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("via", "Via roma!%%");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La via deve essere lunga minimo 2 e massimo 200 caratteri. Non può contenere caratteri speciali."
+                ,exception.getMessage());
+    }
+    @Test
+    void testViaTroppoCorta() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("via", "a");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La via deve essere lunga minimo 2 e massimo 200 caratteri. Non può contenere caratteri speciali."
+                ,exception.getMessage());
+    }
+    @Test
+    void testViaTroppoLunga() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("via", "Viaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("La via deve essere lunga minimo 2 e massimo 200 caratteri. Non può contenere caratteri speciali."
@@ -157,9 +214,27 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
                 ,exception.getMessage());
     }
     @Test
+    void testViaNull() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("via", (String) null);
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
     void testRangeCivicoSuperiore() {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("civico", "10000");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Il numero civico non è valido."
+                ,exception.getMessage());
+    }
+    @Test
+    void testRangeCivicoInferiore() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("civico", "-1");
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Il numero civico non è valido."
@@ -170,6 +245,15 @@ class ModificaSegnalazioneTest extends ModificaSegnalazione {
     void testCivicoVuoto() {
         request.setParameter("id", String.valueOf(segnInoltrata.getId()));
         request.setParameter("civico", "");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Compilare tutti i campi richiesti!"
+                ,exception.getMessage());
+    }
+    @Test
+    void testCivicoNull() {
+        request.setParameter("id", String.valueOf(segnInoltrata.getId()));
+        request.setParameter("civico", (String) null);
         MyServletException exception =
                 assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Compilare tutti i campi richiesti!"
