@@ -29,7 +29,7 @@ public class VisualizzaClassifica extends HttpServlet {
      * quando la servlet gestisce la richiesta
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cittadino cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
         Impiegato impiegato = (Impiegato) req.getSession().getAttribute("Impiegato");
         String address="";
@@ -55,7 +55,7 @@ public class VisualizzaClassifica extends HttpServlet {
      * quando la servlet gestisce la richiesta
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 }
