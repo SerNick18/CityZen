@@ -16,12 +16,33 @@ body{
 
 thead{
     border-style: hidden !important;
-    background-color: #00cc9a;
     color: #FFFFFF;
     font-family: "Times New Roman", Times, serif;
 }
-
-
+table{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: 0px;
+    background-color: white;
+}
+th{
+    color: white;
+}
+.table-wrap {
+    height: 800px;
+    overflow-y: auto;
+}
+.myTableRow{
+    --bs-table-bg: #46B19F;
+    --bs-table-striped-bg: #46B19F;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #46B19F;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #46B19F;
+    --bs-table-hover-color: #000;
+    color: #000;
+    border-color: #46B19F;
+}
 .boldFont{
     font-weight: bold;
 }
@@ -100,6 +121,17 @@ thead{
 }
 .textAlignCenter{
     text-align: center;
+}
+.myProgressBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #F53478;
+    transition: width .6s ease;
 }
 #rowAccessOspite{
     background-color: white;

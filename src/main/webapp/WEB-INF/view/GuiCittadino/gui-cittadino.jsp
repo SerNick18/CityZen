@@ -31,7 +31,8 @@
         throw new MyServletException("Non sei autorizzato a visualizzare questa pagina");
     FacadeDAO facadeDAO = new FacadeDAO();
     ArrayList<SegnalazioneInterface> arrayList= new ArrayList<>();
-    ArrayList<SegnalazioneInterface> segnalazioni = (ArrayList<SegnalazioneInterface>) facadeDAO.getSegnalazioniInoltrate(0);
+    //ArrayList<SegnalazioneInterface> segnalazioni = (ArrayList<SegnalazioneInterface>) facadeDAO.getSegnalazioniInoltrate(0);
+    ArrayList<SegnalazioneInterface> segnalazioni = (ArrayList<SegnalazioneInterface>) facadeDAO.getSegnalazioniByStato("approvata",0);
     for (SegnalazioneInterface s: segnalazioni){
         if (s.getCittadino().equals(cittadino))
               arrayList.add(s);
@@ -54,11 +55,11 @@
                 </c:when>
             </c:choose>
             <div class="row align-items-start">
-                <h1 class="boldFont">SEGNALAZIONI</h1>
+                <h1 class="boldFont">SEGNALAZIONI APPROVATE</h1>
             </div>
             <div class="row align-items-start">
                 <div class="col"><a href="visualizzaChiuse" class="greyText">Chiuse</a></div>
-                <div class="col"><a href="ListApprovate" class="greyText">Approvate</a></div>
+                <div class="col"><a href="visualizza-segnalazioni" class="greyText">Le mie segnalazioni</a></div>
             </div>
             <div class="row align-items-center mt-3">
                 <c:forEach items="<%=arrayList%>" var="s">

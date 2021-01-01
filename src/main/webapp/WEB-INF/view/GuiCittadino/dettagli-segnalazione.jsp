@@ -89,7 +89,25 @@
                         </div>
                 </div>
             </div>
-                <div class="row">
+            <div class="row mb-1">
+                <p class="boldFont">Stato della segnalazione</p>
+            </div>
+            <c:if test='<%=s.getStato().equals("inoltrata")%>'>
+                <div class="progress">
+                    <div class="myProgressBar" role="progressbar" style="width: 33%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Inoltrata</div>
+                </div>
+            </c:if>
+            <c:if test='<%=s.getStato().equals("approvata")%>'>
+                <div class="progress">
+                    <div class="myProgressBar" role="progressbar" style="width: 66%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Approvata</div>
+                </div>
+            </c:if>
+            <c:if test='<%=s.getStato().equals("chiusa")%>'>
+                <div class="progress">
+                    <div class="myProgressBar" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Chiusa</div>
+                </div>
+            </c:if>
+                <div class="row mt-2">
                     <c:if test='<%=s.getStato().equals("chiusa")%>'>
                         <h2>Feedback</h2>
                         <c:choose>

@@ -36,7 +36,7 @@
         <a href="profilo" class="noDecoration greyText collapsable">Profilo</a>
     </div>
     <div class="row ml-3 mt-2">
-        <a href="#" class="noDecoration greyText collapsable">Inoltrate</a>
+        <a href="visualizza-segnalazioni" class="noDecoration greyText collapsable">Inoltrate</a>
     </div>
     <div class="row ml-3 mt-2">
         <a href="#" class="noDecoration greyText collapsable">Calendario Raccolta Rifiuti</a>
