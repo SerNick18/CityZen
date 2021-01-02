@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Servlet per riaprire una segnalazione
+ * Servlet per riaprire una segnalazione.
  */
 @WebServlet("/riapriSegnalazione")
 @MultipartConfig
@@ -171,7 +171,8 @@ public class RiapriSegnalazione extends HttpServlet {
      * si memorizza il file nel server sotto la cartella
      * /resources/images/ e si
      * restituisce il nome del file.
-     * @param request da cui estrarre i file caricati dal cliente
+     * @param request da cui estrarre i file caricati dal cliente -
+     * Precondizione request containsKey("foto")
      * @return il nome del file caricato
      * @throws MyServletException per gestire errori relativi
      * al formato del file caricato,

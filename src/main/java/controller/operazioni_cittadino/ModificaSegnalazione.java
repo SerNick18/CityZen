@@ -145,7 +145,8 @@ public class ModificaSegnalazione extends HttpServlet {
      * caricato dal cittadino. Si effettua un controllo sul formato accettato
      * (jpg, png, jpeg), si memorizza il file nel server sotto la cartella
      * /resources/images/ e si restituisce il nome del file.
-     * @param request da cui estrarre i file caricati dal cliente
+     * @param request da cui estrarre i file caricati dal cliente -
+     * Precondizione request containsKey("foto")
      * @return il nome del file caricato
      * @throws MyServletException per gestire errori relativi al formato del
      * file caricato, e per quanto riguarda la memorizzazione del file
