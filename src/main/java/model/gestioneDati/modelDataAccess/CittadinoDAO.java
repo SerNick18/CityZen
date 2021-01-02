@@ -22,7 +22,8 @@ public class CittadinoDAO {
      * l'operazione di eliminazione del cittadino dal database.
      * Se si rileva un errore si lancia un'eccezione
      * con il relativo messaggio informativo.
-     * @param cf del cittadino da eliminare
+     * @param cf codice fiscale del cittadino da eliminare
+     * precondizione: cf != null
      * @throws MyServletException se si verifica un errore
      * nell'eliminazione del cittadino
      */
@@ -43,8 +44,15 @@ public class CittadinoDAO {
     }
 
     /**
-     *
-     * @param cittadino
+     *Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione di aggiornamento del cittadino nel database.
+     * Se si rileva un errore si lancia un'eccezione
+     * con il relativo messaggio informativo.
+     * @param cittadino oggetto che rappresenta il cittadino
+     * precondizione: cittadino != null
+     * @throws MyServletException se si verifica un errore
+     * nella modifica del cittadino
      */
     public void doUpdate(Cittadino cittadino) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -74,10 +82,19 @@ public class CittadinoDAO {
         }
     }
     /**
-     *
-     * @param email
-     * @param pwd
-     * @return cittadino
+     *Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione che permette l'accesso al sistema controllando
+     * se il cittadino è presente nel database
+     * tramite la sua email e password.
+     * Se si rileva un errore si lancia un'eccezione
+     * con il relativo messaggio informativo.
+     * @param email email del cittadino
+     * @param pwd password del cittadino
+     * precondizione: email != null && pwd != null
+     * @return cittadino ogetto che identifica il cittadino
+     * @throws MyServletException se si verifica un errore
+     * nel login del cittadino
      */
     public Cittadino doLogin(String email, String pwd) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -102,8 +119,15 @@ public class CittadinoDAO {
     }
 
     /**
-     *
-     * @param cittadino
+     *Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione di registrazione al sistema.
+     * Se si rileva un errore si lancia un'eccezione
+     * con il relativo messaggio informativo.
+     * @param cittadino oggetto che identifica un cittaidno.
+     * precondizione: cittadino != null
+     * @throws MyRuntimeException se si verifica un errore
+     * nella registrazione del cittadino
      */
     public void doRegister(Cittadino cittadino) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -128,9 +152,15 @@ public class CittadinoDAO {
     }
 
     /**
-     *
-     * @param email
-     * @return cittadino
+     *Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione che permette di trovare un cittadino nel database
+     * tramite la sua email.
+     * @param email email del cittadino.
+     * precondizione: email != null
+     * @return cittadino ogetto che identifica il cittadino
+     * @throws RuntimeException se si verifica un errore
+     * nel database.
      */
     public Cittadino doRetrieveByEmail(String email) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -153,9 +183,17 @@ public class CittadinoDAO {
     }
 
     /**
-     *
-     * @param cf
-     * @return cittadino
+     *Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione che permette di trovare un cittadino nel database
+     * tramite il su codice fiscale.
+     * Se si rileva un errore si lancia un'eccezione
+     * con il relativo messaggio informativo.
+     * @param cf codice fiscale del cittadino.
+     * precondizione: cf != null
+     * @return cittadino ogetto che identifica il cittadino
+     * @throws RuntimeException se si verifica un errore
+     * nel database.
      */
     public Cittadino doRetrieveByCF(String cf) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -178,9 +216,18 @@ public class CittadinoDAO {
     }
 
     /**
-     *
-     * @param email
-     * @param password
+     * Il metodo si connette col database, crea un comando
+     * SQL in cui si specifica e si esegue
+     * l'operazione che permette la modifica della password di un
+     * cittadino nel database
+     * tramite la sua email.
+     * Se si rileva un errore si lancia un'eccezione
+     * con il relativo messaggio informativo.
+     * @param email email del cittadino
+     * @param password nuova password
+     * precondizione: email != null && password != null
+     * @throws RuntimeException se si verifica un errore
+     * durante l'update del cittadino.
      */
     public void doUpdatePasswordByEmail(String email, String password) {
         try (Connection con = ConnectionPool.getConnection()) {
@@ -197,18 +244,21 @@ public class CittadinoDAO {
         }
     }
 
-    /**
+    /**.
      * Questo metodo recupera dal database
      * una lista di cittadini ordinati per
      * numero di segnalazioni approvate (in
-     * maniera decrescente)
-     * @return la lista ordinata di cittadini
+     * maniera decrescente).
+     * @return List<Cittadino> la lista ordinata di cittadini
+     * @throws RuntimeException se si verifica un errore
+     * nel database.
      */
-    public List<Cittadino> doRetrieveByMaxApprovate(){
+    public List<Cittadino> doRetrieveByMaxApprovate() {
         List<Cittadino> cittadini = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM cittadino ORDER BY numSegnAppr DESC limit 5");
+                    "SELECT * FROM cittadino ORDER BY numSegnAppr"
+                            + " DESC limit 5");
             ResultSet r = statement.executeQuery();
             while (r.next()) {
                 Cittadino c = new Cittadino(r.getString(1),
