@@ -2,28 +2,28 @@ package model.gestioneDati.modelObjects;
 
 import java.util.Date;
 
-/**.
- * Questa classe rappresenta un feedback
+/**
+ * Questa classe rappresenta un feedback.
  */
 public class Feedback {
     /**
-     *
+     * Cittadino che deve scrivere il feedback.
      */
     private Cittadino cittadino;
     /**
-     *
+     * Segnalazione a cui deve riferirsi il feedback.
      */
     private Segnalazione segnalazione;
     /**
-     *
+     * Descrizione del feedback.
      */
     private String descrizione;
     /**
-     *
+     * Valutazione alla risoluzione del feedback.
      */
     private int valutazione;
     /**
-     *
+     * Data in cui è stato sottomesso il feedback.
      */
     private Date dataFeedback;
 
@@ -35,10 +35,15 @@ public class Feedback {
     /**.
      * Costruttori con parametri
      * @param cittadino Cittadino che ha scritto il feedback
+     * - Precondizione: cittadino != null
      * @param segnalazione Segnalazione a cui si riferisce il feedback
+     * - Precondizione: segnalazione != null
      * @param descrizione Descrizione del feedback
+     * - Precondizione: descrizione != null
      * @param valutazione Valutazione della risoluzione della segnalazione
+     * - Precondizione: valutazione != null
      * @param dataFeedback Data in cui è stato sottomesso il feedback
+     * - Precondizione: dataFeedback != null
      */
     public Feedback(Cittadino cittadino, Segnalazione segnalazione,
                     String descrizione, int valutazione, Date dataFeedback) {
@@ -58,13 +63,13 @@ public class Feedback {
     /**.
      * Questo metodo sostituisce l'attuale cittadino che ha scritto il feedback
      * con il cittadino passato come parametro esplicito
-     * @param cittadino nuovo cittadino
+     * @param cittadino - Postcondizione: nuovo cittadino
      */
     public void setCittadino(Cittadino cittadino) {
         this.cittadino = cittadino;
     }
     /**.
-     * Questo metodo restituiscela segnalazione a cui è riferito il feedback
+     * Questo metodo restituisce la segnalazione a cui è riferito il feedback
      * @return segnalazione a cui è riferito il feedback
      */
     public Segnalazione getSegnalazione() {
@@ -75,7 +80,7 @@ public class Feedback {
      * Questo metodo sostituisce l'attuale
      * segnalazione a cui è riferito il feedback
      * con la segnalazione passata come parametro esplicito
-     * @param segnalazione nuova segnalazione
+     * @param segnalazione - Postcondizione: nuova segnalazione
      */
     public void setSegnalazione(Segnalazione segnalazione) {
         this.segnalazione = segnalazione; }
@@ -88,14 +93,14 @@ public class Feedback {
     /**.
      * Questo metodo sostituisce l'attuale descrizione del feedback
      * con la descrizione passata come parametro esplicito
-     * @param descrizione nuova descrizione
+     * @param descrizione - Postcondizione: nuova descrizione
      */
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione; }
     /**.
      * Questo metodo restituisce la valutazione
      * sulla risoluzione della segnalazione
-     * @return int
+     * @return un numero che rappresenta la valutazione
      */
     public int getValutazione() {
         return valutazione; }
@@ -103,7 +108,7 @@ public class Feedback {
      * Questo metodo sostituisce l'attuale valutazione
      * sulla risoluzione della segnalazione
      * con la valutazione passata come parametro esplicito
-     * @param valutazione nuova valutazione
+     * @param valutazione - PostCondizione: nuova valutazione
      */
     public void setValutazione(int valutazione) {
         this.valutazione = valutazione; }
@@ -117,7 +122,7 @@ public class Feedback {
      * Questo metodo sostituisce l'attuale data
      * in cui è stato sottomesso il feedback
      * con la data passata come parametro esplicito
-     * @param dataFeedback nuova data
+     * @param dataFeedback - Postcondizione: nuova data
      */
     public void setDataFeedback(Date dataFeedback) {
         this.dataFeedback = dataFeedback;
@@ -125,7 +130,7 @@ public class Feedback {
 
     /**
      *
-     * @return
+     * @return dati in formato stringa di un feedback
      */
     @Override
     public String toString() {
