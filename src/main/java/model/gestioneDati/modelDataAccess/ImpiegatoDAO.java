@@ -2,7 +2,6 @@ package model.gestioneDati.modelDataAccess;
 
 import controller.gestioneUtenza.MyRuntimeException;
 import controller.gestioneUtenza.MyServletException;
-import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 
 import java.sql.Connection;
@@ -12,13 +11,16 @@ import java.sql.SQLException;
 
 public class ImpiegatoDAO {
     /**
-     *
-     * @param email
-     * @param pwd
-     * @return Impiegato.
+     * Il metodo, dopo aver stabilito una connessione con il database,
+     * crea una query SQL per recuperare un impiegato dal database.
+     * @param email email dell'impiegato da recuperare dal database.
+     * @param pwd password dell'impiegato da recuperare dal database.
+     * Precondizione: email != null  && pwd != null
+     * @return i impiegato con email e password passati come parametri.
+     * Postcondizione: i.email == email oppure i == null.
      */
     public Impiegato doLogin(String email, String pwd) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement =
                     connection.prepareStatement("select * from impiegato "
                                     + "where email = ? and pwd = SHA1(?)");
@@ -46,6 +48,16 @@ public class ImpiegatoDAO {
         return null;
     }
 
+    /**
+     * Il metodo, dopo aver stabilito una connessione con il database,
+     * crea una query SQL per inserire un impiegato nel database.
+     * @param impiegato oggetto che identifica l'impiegato da inserire
+     *                  nel database.
+     * Precondizione: impiegato != null
+     * Postcondizione: ImpiegatoDAO.doRetrieveByEmail(impiegato.email)!=null.
+     * @throws MyServletException si verifica un errore nella
+     * registrazione dell'impiegato
+     */
     public void doRegister(Impiegato impiegato) {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -69,8 +81,18 @@ public class ImpiegatoDAO {
         }
     }
 
+    /**
+     *
+     * Il metodo, dopo aver stabilito una connessione con il database,
+     * crea una query SQL per aggiornare un impiegato nel database.
+     * @param impiegato oggetto che identifica l'impiegato da inserire
+     *                  nel database.
+     * Precondizione: impiegato != null
+     * @throws MyServletException si verifica un errore
+     * durante l'aggiornamento dell'impiegato.
+     */
     public void doUpdate(Impiegato impiegato) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE impiegato SET "
                             + "Nome=?, Cognome=?, Pwd=?,"
@@ -96,6 +118,14 @@ public class ImpiegatoDAO {
         }
     }
 
+    /**
+     * Il metodo, dopo aver stabilito una connessione con il database,
+     * crea una query SQL per eliminare un impiegato dal database.
+     * @param matricola matricola dell'impiegato da eliminare.
+     * Precondizione: matricola != null.
+     * @throws MyServletException si verifica un errore durante
+     * l'eliminazione di un impiegato.
+     */
     public void doDelete(String matricola) throws MyServletException {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement =
@@ -112,6 +142,18 @@ public class ImpiegatoDAO {
         }
     }
 
+    /**
+     * Il metodo, dopo aver stabilito una connessione con il database,
+     * crea una query SQL per aggiornare la password di un impiegato
+     * nel database.
+     * @param email email dell'impiegato di cui si deve aggiornare la password.
+     * @param password nuova password dell'impiegato.
+     * Precondizione: email != null  && password != null.
+     * Postcondizione:
+     * ImpiegatoDAO.doRetrieveByEmail(email).getPwd()==password.
+     * @throws MyServletException si verifica un errore durante
+     * l'aggiornamento della password dell'impiegato.
+     */
     public void doUpdatePasswordByEmail(String email, String password) {
         try (Connection con = ConnectionPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -127,6 +169,15 @@ public class ImpiegatoDAO {
         }
     }
 
+    /**
+     * Il metodo, dopo aver stabilito una connessione con il database,
+     * crea una query SQL per recuperare un impiegato dal database
+     * tramite la sua email.
+     * @param email email dell'impiegato.
+     * Precondizione: email != null.
+     * @return i impiegato con l' email passata come parametro.
+     * Postcondizione i.email == email oppure i == null.
+     */
     public Impiegato doRetrieveByEmail(String email) {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
