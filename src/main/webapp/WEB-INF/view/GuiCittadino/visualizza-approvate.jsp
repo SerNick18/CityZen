@@ -22,15 +22,16 @@
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
                 <input type="hidden" name="numeroButton" value="0">
             </div>
-            <div class="row align-items-center mt-3 panel panel-default">
+            <div class="table-responsive row align-items-center mt-3 panel panel-default">
                 <table class="table rounded">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">Oggetto</th>
                         <th scope="col">Segnalato da</th>
-                        <th scope="col">Numero Solleciti</th>
                         <th scope="col">Priorità</th>
                         <th scope="col">Riaperto da</th>
+                        <th scope="col">Numero Solleciti</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,11 +39,6 @@
                         <tr>
                             <td><a href="dettagli?id=${i.id}">${i.oggetto}</a></td>
                             <td>${i.cittadino.nome}</td>
-                            <td>
-                                <form class="form-group" action="inoltroSol" method="post">
-                                ${i.numSolleciti}
-                                    <button type="submit" name="id" value="${i.id}">+</button>
-                                </form> </td>
                             <td>${i.priorita}</td>
                             <c:choose>
                                 <c:when test="${i.riaperta!=0}">
@@ -52,6 +48,12 @@
                                     <td>Nessuno</td>
                                 </c:otherwise>
                             </c:choose>
+                            <td> ${i.numSolleciti} </td>
+                            <td>
+                                <form class="form-group" action="inoltroSol" method="post">
+                                    <button class="btn-Sol" type="submit" name="id" value="${i.id}">+</button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
