@@ -7,15 +7,13 @@ import java.util.TimeZone;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
-
+/**
+ * Classe per connettere il database.
+ */
 public class ConnectionPool {
-    /**
-     *
-     */
     private static DataSource dataSource;
 
     /**
-     *
      * @return connection
      * @throws SQLException
      */
