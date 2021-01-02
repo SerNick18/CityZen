@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Classe che permette l'eliminazione
+ * del profilo del cittadino loggato.
+ */
 @WebServlet("/elimina-profilo-servlet")
 public class EliminaProfilo extends HttpServlet {
     /**

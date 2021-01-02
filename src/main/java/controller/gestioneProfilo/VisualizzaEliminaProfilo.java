@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Classe che reindirizza l'utente verso
+ * la pagina di eliminazione del suo
+ * profilo.
+ */
 @WebServlet("/elimina-profilo")
 public class VisualizzaEliminaProfilo extends HttpServlet {
     /**

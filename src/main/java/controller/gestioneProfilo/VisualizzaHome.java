@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Classe che reindirizza l'utente cittadino o
+ * impiegato verso la sua homepage.
+ */
 @WebServlet("/guiCittadino")
 public class VisualizzaHome extends HttpServlet {
     /**
