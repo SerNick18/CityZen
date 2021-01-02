@@ -12,15 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Pattern;
 /**
- *In questa servlet viene gestità la registrazione.
- **/
+ * In questa servlet viene gestità la registrazione.
+ */
 @WebServlet("/register")
 public class RegistrazioneServlet extends HttpServlet {
     /**
+     * Metodo che doGet che semplicemente richiama il metodo doPost
      * @param req request
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,7 +37,7 @@ public class RegistrazioneServlet extends HttpServlet {
      * quale l'utente può registrarsi.
      * Effettua controlli sugli appositi parametri e
      * memorizza il Cittadino nel database.
-     *
+     * @
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita

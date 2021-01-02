@@ -14,15 +14,15 @@ import java.io.IOException;
  * Questa servlet viene chiamata in fase di registrazione
  * tramite una chiamata AJAX che controlla se esiste nel databse
  * un Cittadino con la stessa email.
- *
  */
 @WebServlet("/VerificaEmail")
 public class VerificaEmailServlet extends HttpServlet {
     /**
+     * Metodo doPost che semplicemente richiama il metodo doGet
      * @param req request
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -30,7 +30,7 @@ public class VerificaEmailServlet extends HttpServlet {
     }
     /**
      * In questo metodo avviene il controllo nel database.
-     *
+     * Controlla se esiste nel databse un Cittadino con la stessa email.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita
@@ -48,5 +48,4 @@ public class VerificaEmailServlet extends HttpServlet {
             resp.getWriter().append("<no/>");
         }
     }
-
 }

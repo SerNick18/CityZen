@@ -17,14 +17,14 @@ import java.util.regex.Pattern;
 /**
  * Servlet per l'autenticazione.
  */
-
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     /**
+     * Metodo doGet che richiama semplicemente il metodo doPost
      * @param req request
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

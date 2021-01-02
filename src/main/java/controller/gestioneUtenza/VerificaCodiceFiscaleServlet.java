@@ -20,8 +20,8 @@ public class VerificaCodiceFiscaleServlet extends HttpServlet {
     /**
      * @param req request
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -29,7 +29,8 @@ public class VerificaCodiceFiscaleServlet extends HttpServlet {
     }
     /**
      * In questo metodo avviene il controllo nel database.
-     *
+     * Viene controllato se nel database esiste
+     * un Cittadino con lo stesso codice fiscale.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita

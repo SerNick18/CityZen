@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ *
+ */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     /**.
-     * Metodo per invalidare la sessione
+     * Metodo usato per effettuare il logout
+     * Semplicemente questo metodo invalida la sessione
      * @param req
      * @param resp
      * @throws ServletException
@@ -29,7 +33,7 @@ public class LogoutServlet extends HttpServlet {
     }
 
     /**.
-     * Metodo doPost che chiama semplicemente il doGet
+     * Metodo doPost che richiama semplicemente il doGet
      * @param req request
      * @param resp response
      * @throws ServletException eccezione
