@@ -73,7 +73,7 @@ public class RifiutoSegnalazione extends HttpServlet {
             }
         }
     }
-    /**.
+    /**
      * Si forza il flusso di esecuzione sul metodo doPost:
      * anche se si riceve una richiesta di tipo GET, si richiama il
      * metodo che gestisce le richieste di tipo POST

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-/**.
+/**
  * Servlet per chiudere una segnalazione
  */
 @WebServlet("/chiusuraSegnalazione")
@@ -33,8 +33,8 @@ public class ChiusuraSegnalazione extends HttpServlet {
      * delle segnalazioni chiuse
      * @param req request
      * @param resp response
-     * @throws ServletException eccezione
-     * @throws IOException eccezione
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -87,8 +87,8 @@ public class ChiusuraSegnalazione extends HttpServlet {
      * Metodo doGet che richiama il metodo doPost
      * @param req request
      * @param resp response
-     * @throws ServletException eccezione
-     * @throws IOException eccezione
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

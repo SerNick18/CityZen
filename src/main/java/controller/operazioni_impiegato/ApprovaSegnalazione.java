@@ -29,7 +29,6 @@ public class ApprovaSegnalazione extends HttpServlet {
      * deve ritornare al cliente
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
-     * quando la servlet gestisce la richiesta
      */
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -74,12 +73,12 @@ public class ApprovaSegnalazione extends HttpServlet {
             throw new MyServletException("Indicare una segnalazione");
         }
     }
-    /**.
+    /**
      * Metodo doPost che richiama semplicemente il doGet
      * @param req request
      * @param resp response
-     * @throws ServletException eccezione
-     * @throws IOException eccezione
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
