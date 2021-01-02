@@ -90,7 +90,7 @@ public class SegnalazioneDAO {
      * @param id identificativo della segnalazione - precondizione:
      *           id > 0
      * @return s segnalazione con l'id passato come parametro
-     * - postcondizione: s.id = id
+     * - postcondizione: s.id = id || s==null
      */
     public Segnalazione doRetrieveById(int id) {
         try (Connection connection = ConnectionPool.getConnection()) {
