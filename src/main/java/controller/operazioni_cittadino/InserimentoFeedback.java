@@ -109,9 +109,9 @@ public class InserimentoFeedback extends HttpServlet {
         }
     }
 
-    /** .
-     * Si forza il flusso di esecuzione sul metodo doGet:
-     * anche se si riceve una richiesta di tipo POST, si richiama il
+    /**
+     * Si forza il flusso di esecuzione sul metodo doGet.
+     * Anche se si riceve una richiesta di tipo POST, si richiama il
      * metodo che gestisce le richieste di tipo GET
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp  oggetto che contiene la risposta che la servlet

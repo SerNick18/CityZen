@@ -26,10 +26,10 @@ public class EliminaSegnalazione extends HttpServlet {
      * in questo caso elimina la segnalazione e
      * aggiorna il numero di segnalazioni inoltrate del cittadino,
      * in caso contrario lancia un'eccezione
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req request
+     * @param resp response
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -68,10 +68,10 @@ public class EliminaSegnalazione extends HttpServlet {
     }
     /**
      * Metodo doGet che richiama il metodo doPost.
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req request
+     * @param resp response
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**.
- * Servlet per approvare una segnalazione
+/**
+ * Servlet per approvare una segnalazione.
  */
 @WebServlet("/approva")
 public class ApprovaSegnalazione extends HttpServlet {
@@ -54,7 +54,9 @@ public class ApprovaSegnalazione extends HttpServlet {
                     service.inserisciLavorazione(impiegato, segnalazione);
 
                     //aggiorna numero di segnalazini approvate del cittadino
-                    Cittadino cittadino = service.getCittadinoByCf(segnalazione.getCittadino().getCF());
+                    Cittadino cittadino = service
+                            .getCittadinoByCf(segnalazione
+                                    .getCittadino().getCF());
                     cittadino.setNumSegnApp(cittadino.getNumSegnApp() + 1);
                     service.modificaCittadino(cittadino);
 
@@ -74,7 +76,7 @@ public class ApprovaSegnalazione extends HttpServlet {
         }
     }
     /**
-     * Metodo doPost che richiama semplicemente il doGet
+     * Metodo doPost che richiama semplicemente il doGet.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita

@@ -27,13 +27,13 @@ public class Feedback {
      */
     private Date dataFeedback;
 
-    /**.
-     * Costruttore vuoto
+    /**
+     * Costruttore vuoto.
      */
     public Feedback() { }
 
-    /**.
-     * Costruttori con parametri
+    /**
+     * Costruttori con parametri.
      * @param cittadino Cittadino che ha scritto il feedback
      * - Precondizione: cittadino != null
      * @param segnalazione Segnalazione a cui si riferisce il feedback
@@ -53,75 +53,75 @@ public class Feedback {
         this.valutazione = valutazione;
         this.dataFeedback = dataFeedback;
     }
-    /**.
-     * Questo metodo restiuisce il cittadino che ha scritto il feedback
+    /**
+     * Questo metodo restiuisce il cittadino che ha scritto il feedback.
      * @return cittadino che ha scritto il feedback
      */
     public Cittadino getCittadino() {
         return cittadino;
     }
-    /**.
+    /**
      * Questo metodo sostituisce l'attuale cittadino che ha scritto il feedback
-     * con il cittadino passato come parametro esplicito
+     * con il cittadino passato come parametro esplicito.
      * @param cittadino - Postcondizione: nuovo cittadino
      */
     public void setCittadino(Cittadino cittadino) {
         this.cittadino = cittadino;
     }
-    /**.
-     * Questo metodo restituisce la segnalazione a cui è riferito il feedback
+    /**
+     * Questo metodo restituisce la segnalazione a cui è riferito il feedback.
      * @return segnalazione a cui è riferito il feedback
      */
     public Segnalazione getSegnalazione() {
         return segnalazione;
     }
 
-    /**.
+    /**
      * Questo metodo sostituisce l'attuale
      * segnalazione a cui è riferito il feedback
-     * con la segnalazione passata come parametro esplicito
+     * con la segnalazione passata come parametro esplicito.
      * @param segnalazione - Postcondizione: nuova segnalazione
      */
     public void setSegnalazione(Segnalazione segnalazione) {
         this.segnalazione = segnalazione; }
-    /**.
-     * Questo metodo restituisce la descrizione del feedback
+    /**
+     * Questo metodo restituisce la descrizione del feedback.
      * @return descrizione del feedback
      */
     public String getDescrizione() {
         return descrizione; }
-    /**.
+    /**
      * Questo metodo sostituisce l'attuale descrizione del feedback
-     * con la descrizione passata come parametro esplicito
+     * con la descrizione passata come parametro esplicito.
      * @param descrizione - Postcondizione: nuova descrizione
      */
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione; }
-    /**.
+    /**
      * Questo metodo restituisce la valutazione
-     * sulla risoluzione della segnalazione
+     * sulla risoluzione della segnalazione.
      * @return un numero che rappresenta la valutazione
      */
     public int getValutazione() {
         return valutazione; }
-    /**.
+    /**
      * Questo metodo sostituisce l'attuale valutazione
-     * sulla risoluzione della segnalazione
+     * sulla risoluzione della segnalazione.
      * con la valutazione passata come parametro esplicito
      * @param valutazione - PostCondizione: nuova valutazione
      */
     public void setValutazione(int valutazione) {
         this.valutazione = valutazione; }
-    /**.
-     * Questo metodo restituisce la data in cui è stato sottomesso il feedback
+    /**
+     * Questo metodo restituisce la data in cui è stato sottomesso il feedback.
      * @return data in cui è stato sottomesso il feedback
      */
     public Date getDataFeedback() {
         return dataFeedback; }
-    /**.
+    /**
      * Questo metodo sostituisce l'attuale data
      * in cui è stato sottomesso il feedback
-     * con la data passata come parametro esplicito
+     * con la data passata come parametro esplicito.
      * @param dataFeedback - Postcondizione: nuova data
      */
     public void setDataFeedback(Date dataFeedback) {

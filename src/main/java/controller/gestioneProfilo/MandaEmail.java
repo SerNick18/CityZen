@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-/**.
+/**
  * Servlet per mandare una mail
  * in caso l'utente voglia recuperare la sua password.
  */

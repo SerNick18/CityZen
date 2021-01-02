@@ -2,7 +2,7 @@ package model.gestioneDati.modelObjects;
 
 import java.util.Date;
 
-/**.
+/**
  * Questa classe rappresenta una segnalazione.
  */
 public class Segnalazione extends AbstractSegnalazione
@@ -56,8 +56,8 @@ public class Segnalazione extends AbstractSegnalazione
      * si fa riferimento (può essere nullo).
      */
     private int riaperta;
-    /**.
-     * Costruttore con parametri
+    /**
+     * Costruttore con parametri.
      * @param id identificativo della segnalazione
      *           - precondizione: id>0
      * @param via via di dove si è presentato il problema

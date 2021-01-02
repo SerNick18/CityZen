@@ -22,8 +22,8 @@ public class FeedbackDAO {
      * @param feedback feedback da memorizzare
      *                 Precondizione: feedback != null
      */
-    public void doInsertFeedback(Feedback feedback){
-        try(Connection connection = ConnectionPool.getConnection()) {
+    public void doInsertFeedback(Feedback feedback) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "insert into feedback (Cittadino, Segnalazione, "
                             + "Descrizione, valutazione, DataFeedback)"
@@ -54,16 +54,16 @@ public class FeedbackDAO {
      * Postcondizione: id == feedback.Segnalazione
      */
     public List<Feedback> doRetrieveFeedBackBySegnalazione(int id) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             ArrayList<Feedback> feedbacks = new ArrayList<>();
             CittadinoDAO cittadinoDAO = new CittadinoDAO();
-            SegnalazioneDAO segnalazioneDAO=new SegnalazioneDAO();
+            SegnalazioneDAO segnalazioneDAO = new SegnalazioneDAO();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM feedback WHERE feedback.Segnalazione=?;");
             statement.setInt(1, id);
             ResultSet r = statement.executeQuery();
             while (r.next()) {
-                Feedback f=new Feedback();
+                Feedback f = new Feedback();
                 f.setSegnalazione(
                         segnalazioneDAO.doRetrieveById(
                                 r.getInt("Segnalazione")));
@@ -91,12 +91,12 @@ public class FeedbackDAO {
      */
     public boolean isCittadinoFeedbackSegnalazione(String cFCittadino,
                                                    int idSegnalazione) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM feedback AS f WHERE f.cittadino=? "
                             + "AND f.segnalazione=?");
             statement.setString(1, cFCittadino);
-            statement.setInt(2,idSegnalazione);
+            statement.setInt(2, idSegnalazione);
             ResultSet r = statement.executeQuery();
             return r.next();
         } catch (SQLException e) {

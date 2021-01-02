@@ -18,7 +18,7 @@ import java.io.IOException;
 @WebServlet("/VerificaEmail")
 public class VerificaEmailServlet extends HttpServlet {
     /**
-     * Metodo doPost che semplicemente richiama il metodo doGet
+     * Metodo doPost che semplicemente richiama il metodo doGet.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita

@@ -34,7 +34,7 @@ public class ReimpostaPassword extends HttpServlet {
             throws ServletException, IOException {
         doGet(req, resp);
     }
-    /**.
+    /**
      * Il metodo svolge una duplice funzione.
      *  Nel caso in cui nella request il parametro "provienienza"
      *  sia impostato ad email, significa che la servlet è stata richiamata
@@ -65,11 +65,11 @@ public class ReimpostaPassword extends HttpServlet {
             String email = req.getParameter("email");
             String pwd = req.getParameter("pwd");
             String pwd2 = req.getParameter("pwd2");
-            String utente=req.getParameter("utente");
+            String utente = req.getParameter("utente");
             FacadeDAO service = new FacadeDAO();
 
             if (email == null || email.compareTo("") == 0
-                     || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)) {
+                    || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)) {
                 throw new MyServletException("Inserisci un email valida");
             }
 
@@ -87,9 +87,9 @@ public class ReimpostaPassword extends HttpServlet {
                     }
                 } else {
                     Impiegato imp = service.verificaEmailImpiegato(email);
-                    if(imp != null) {
+                    if (imp != null) {
                         service.doUpdatePasswordByEmailImpiegato(email, pwd);
-                    }else {
+                    } else {
                         throw new MyServletException("Non sei registrato");
                     }
                 }

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**.
+/**
  * Servlet che cerca le segnalazioni di
- * un Cittadino, il cui id è passato nella request
+ * un Cittadino, il cui id è passato nella request.
  */
 @WebServlet("/visualizza-segnalazioni")
 public class VisualizzaProprieSegnalazioni extends HttpServlet {

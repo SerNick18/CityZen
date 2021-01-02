@@ -16,13 +16,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-/**.
+/**
  * Questa classe effettua il recupero, il salvataggio e le modifiche,
  * di una segnalazione, nel database.
  */
 public class SegnalazioneDAO {
-    /**.
-     * Metodo che ritorna la lista di SegnalazioneProxy inoltrate
+    /**
+     * Metodo che ritorna la lista di SegnalazioneProxy inoltrate.
      * @param offset numero di riga dal quale iniziare
      *  a prendere le segnalazioni - precondizione: offset > 0
      * @return listaSegnalazioni lista di SegnalazioneProxy inoltrate
@@ -53,8 +53,8 @@ public class SegnalazioneDAO {
         }
     }
 
-    /**.
-     * Metodo che ritorna la lista delle segnalazioni per stato
+    /**
+     * Metodo che ritorna la lista delle segnalazioni per stato.
      * @param stato stato della segnalazione - precondizione:
      *              stato=="inoltrata" || stato=="approvata"
      *              || stato=="chiusa" || stato=="rifiutata"
@@ -88,8 +88,8 @@ public class SegnalazioneDAO {
             throw new RuntimeException(e);
         }
     }
-    /**.
-     * Metodo per ricercare una segnalazione dato un id
+    /**
+     * Metodo per ricercare una segnalazione dato un id.
      * @param id identificativo della segnalazione - precondizione:
      *           id > 0
      * @return s segnalazione con l'id passato come parametro
@@ -203,7 +203,7 @@ public class SegnalazioneDAO {
             e.printStackTrace();
         }
     }
-    /**.
+    /**
      * Metodo per modificare una segnalazione.
      * @param segnalazione segnalazione modificata che sostituirà
      *                     quella già presente nel database.

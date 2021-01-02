@@ -20,8 +20,8 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
-/**.
- * Servlet per la modifica di una segnalazione
+/**
+ * Servlet per la modifica di una segnalazione.
  */
 @WebServlet("/modificaSegnalazione")
 @MultipartConfig
@@ -30,15 +30,15 @@ public class ModificaSegnalazione extends HttpServlet {
      * Metodo doGet che semplicemente chiama il metodo doPost
      * @param req request in cui si passano i campi sottomessi dal cittadino
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         doPost(req, resp);
     }
-    /**.
+    /**
      * Il metodo gestisce la modifica di una segnalazione inoltrata da parte
      * del cittadino. Il cittadino sottomette un form con i parametri
      * di seguito indicati. Il metodo effettua la validazione dei campi,

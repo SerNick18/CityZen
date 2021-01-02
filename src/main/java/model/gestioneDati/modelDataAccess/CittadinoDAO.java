@@ -11,12 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**.
+/**
  * Questa classe effettua il recupero, il salvataggio e le modifiche,
  * di un Cittadino, nel database.
  */
 public class CittadinoDAO {
-    /**.
+    /**
      * Il metodo si connette col database, crea un comando
      * SQL in cui si specifica e si esegue
      * l'operazione di eliminazione del cittadino dal database.
@@ -247,7 +247,7 @@ public class CittadinoDAO {
         }
     }
 
-    /**.
+    /**
      * Questo metodo recupera dal database
      * una lista di cittadini ordinati per
      * numero di segnalazioni approvate (in

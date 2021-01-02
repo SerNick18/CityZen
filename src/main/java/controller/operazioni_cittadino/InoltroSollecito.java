@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 
 /**
- * Servlet per inoltrare un sollecito
+ * Servlet per inoltrare un sollecito.
  */
 @WebServlet("/inoltroSol")
 public class InoltroSollecito extends HttpServlet {
@@ -27,8 +27,8 @@ public class InoltroSollecito extends HttpServlet {
      * Metodo doGet che chiama il metodo doPost
      * @param req request in cui si passano i campi sottomessi dal cittadino
      * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

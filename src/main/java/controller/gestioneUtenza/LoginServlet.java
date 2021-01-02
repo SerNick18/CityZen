@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     /**
-     * Metodo doGet che richiama semplicemente il metodo doPost
+     * Metodo doGet che richiama semplicemente il metodo doPost.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita
@@ -31,8 +31,8 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         doPost(req, resp);
     }
-    /**.
-     * Metodo usato per effettuare il login
+    /**
+     * Metodo usato per effettuare il login.
      * Controlla se l'utente ha già effettuato il login e se è loggato lancia
      * un'eccezione. Riceve in input una email e una password ed effettua
      * controlli sulla correttezza dei campi. L'email può contenere lettere e

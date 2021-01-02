@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**.
+/**
  * Servlet che prende le segnalazioni chiuse
  * e le mostra all'utente
  */
@@ -28,7 +28,7 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
      * deve ritornare al client
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
-     *      quando la servlet gestisce la richiesta
+     * quando la servlet gestisce la richiesta
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -46,7 +46,7 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
      * deve ritornare al client
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
-     *      quando la servlet gestisce la richiesta
+     * quando la servlet gestisce la richiesta
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @WebServlet("/register")
 public class RegistrazioneServlet extends HttpServlet {
     /**
-     * Metodo che doGet che semplicemente richiama il metodo doPost
+     * Metodo che doGet che semplicemente richiama il metodo doPost.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita

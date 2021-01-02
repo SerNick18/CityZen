@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**.
+/**
  * Questa classe effettua il recupero, il salvataggio e le modifiche,
  * di un impiegato, nel database.
  */

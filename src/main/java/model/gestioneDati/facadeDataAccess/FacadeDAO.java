@@ -52,7 +52,7 @@ public class FacadeDAO {
         impiegatoDAO = new ImpiegatoDAO();
     }
     //Facade per model cittadino
-    /**.
+    /**
      *  Il metodo riceve in input la email e la password di
      *  un cittadino e controlla se quel cittadino è presente
      *  nel database, in caso affermativo restituisce il bean
@@ -94,7 +94,7 @@ public class FacadeDAO {
     public Cittadino verificaCodiceFiscale(String cf) {
         return cittadinoDAO.doRetrieveByCF(cf);
     }
-    /**.
+    /**
      * Aggiorna la password del cittadino nel database.
      * @param email email del cittadino
      * @param password nuova password del cittadino
@@ -113,7 +113,7 @@ public class FacadeDAO {
     public Cittadino verificaEmailCittadino(String email) {
         return cittadinoDAO.doRetrieveByEmail(email);
     }
-    /**.
+    /**
      * Il metodo richiama la funzione di
      * eliminazione del cittadino con codice
      * fiscale 'cf' dal database.
@@ -144,7 +144,7 @@ public class FacadeDAO {
         return cittadinoDAO.doRetrieveByMaxApprovate();
     }
     //Facade per model impiegato
-    /**.
+    /**
      *  Il metodo riceve in ingresso una email e una password di
      *  un impiegato e controlla se quel'impiegato è presente
      *  nel database, in caso affermativo restituisce il bean
@@ -226,7 +226,7 @@ public class FacadeDAO {
                                                                   int offset) {
         return segnalazioneDAO.doRetrieveByCittadino(cf, offset);
     }
-    /**.
+    /**
      * Il metodo riceve in input un offset
      * e restituisce la lista delle ultime segnalazioni
      * inoltrate dai cittadini.

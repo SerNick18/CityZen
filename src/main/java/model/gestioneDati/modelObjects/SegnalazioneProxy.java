@@ -39,8 +39,8 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
      * attributo che contiene il riferimento all'oggetto FacadeDAO.
      */
     private FacadeDAO facadeDAO;
-    /**.
-     * Costruttore con parametri
+    /**
+     * Costruttore con parametri.
      * @param id identificativo della segnalazione
      *           - precondizione: id>0
      * @param priorita priorità del problema segnalato

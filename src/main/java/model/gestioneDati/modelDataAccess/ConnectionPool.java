@@ -11,11 +11,15 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
  * Classe per connettere il database.
  */
 public class ConnectionPool {
+    /**
+     * datasource.
+     */
     private static DataSource dataSource;
 
     /**
      * @return connection
-     * @throws SQLException
+     * @throws SQLException se si verifica un errore nella
+     * connessione al database
      */
     public static Connection getConnection() throws SQLException {
         if (dataSource == null) {

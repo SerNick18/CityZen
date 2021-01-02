@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Servlet per chiudere una segnalazione
+ * Servlet per chiudere una segnalazione.
  */
 @WebServlet("/chiusuraSegnalazione")
 public class ChiusuraSegnalazione extends HttpServlet {
@@ -60,7 +60,8 @@ public class ChiusuraSegnalazione extends HttpServlet {
                     service.modificaImpiegato(impiegato);
                     service.inserisciLavorazione(impiegato, segnalazione);
                     List<Impiegato> impiegati =
-                            service.getImpiegatiOsservatori(segnalazione.getId());
+                            service.getImpiegatiOsservatori(segnalazione
+                                    .getId());
                     cittadino = segnalazione.getCittadino();
                     segnalazione.addObserver(cittadino);
                     for (Impiegato i : impiegati) {
@@ -83,8 +84,8 @@ public class ChiusuraSegnalazione extends HttpServlet {
         }
     }
 
-    /**.
-     * Metodo doGet che richiama il metodo doPost
+    /**
+     * Metodo doGet che richiama il metodo doPost.
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita
