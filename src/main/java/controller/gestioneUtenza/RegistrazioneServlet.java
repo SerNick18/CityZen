@@ -37,7 +37,6 @@ public class RegistrazioneServlet extends HttpServlet {
      * quale l'utente può registrarsi.
      * Effettua controlli sugli appositi parametri e
      * memorizza il Cittadino nel database.
-     * @
      * @param req request
      * @param resp response
      * @throws ServletException se la richiesta non può essere gestita

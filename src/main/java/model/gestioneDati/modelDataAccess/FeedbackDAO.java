@@ -20,12 +20,13 @@ public class FeedbackDAO {
      * Il metodo riceve un feedback e lo memorizza nel
      * database.
      * @param feedback feedback da memorizzare
+     *                 Precondizione: feedback != null
      */
     public void doInsertFeedback(Feedback feedback){
         try(Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "insert into feedback (Cittadino, Segnalazione, Descrizione,"
-                            + "valutazione, DataFeedback)"
+                    "insert into feedback (Cittadino, Segnalazione, "
+                            + "Descrizione, valutazione, DataFeedback)"
                             + "values(?,?,?,?,?)");
             statement.setString(1, feedback.getCittadino().getCF());
             statement.setInt(2, feedback.getSegnalazione().getId());
@@ -47,8 +48,10 @@ public class FeedbackDAO {
     /**
      * Il metodo riceve l'id di una segnalazione e restituisce tutti
      * i feedback ad essa collegati.
-     * @param id id sella segnalazione.
-     * @return restituisce una lista di feedback.
+     * @param id id sella segnalazione
+     *           Precondizione: id > 0
+     * @return restituisce una lista di feedback
+     * Postcondizione: id == feedback.Segnalazione
      */
     public List<Feedback> doRetrieveFeedBackBySegnalazione(int id) {
         try(Connection connection = ConnectionPool.getConnection()) {
@@ -61,8 +64,11 @@ public class FeedbackDAO {
             ResultSet r = statement.executeQuery();
             while (r.next()) {
                 Feedback f=new Feedback();
-                f.setSegnalazione(segnalazioneDAO.doRetrieveById(r.getInt("Segnalazione")));
-                f.setCittadino(cittadinoDAO.doRetrieveByCF(r.getString("Cittadino")));
+                f.setSegnalazione(
+                        segnalazioneDAO.doRetrieveById(
+                                r.getInt("Segnalazione")));
+                f.setCittadino(
+                        cittadinoDAO.doRetrieveByCF(r.getString("Cittadino")));
                 f.setDescrizione(r.getString("Descrizione"));
                 f.setDataFeedback(r.getDate("DataFeedback"));
                 f.setValutazione(r.getInt("Valutazione"));
@@ -78,7 +84,8 @@ public class FeedbackDAO {
      * Il metodo verifica se un cittadino ha già inserito
      * un feedback per una determinata segnalazione.
      * @param cFCittadino codice fiscale cittadino
-     * @param idSegnalazione id segnalazione
+     * Precondizione: cFCittadino != null
+     * @param idSegnalazione id segnalazione - Precondizione: id > 0
      * @return true - se il cittadino ha già inserito un feedback
      * false - se il cittadino non ha inserito nessun feedback
      */

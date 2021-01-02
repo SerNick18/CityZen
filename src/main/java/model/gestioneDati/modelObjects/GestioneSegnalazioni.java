@@ -8,28 +8,32 @@ import java.util.Date;
  */
 public class GestioneSegnalazioni {
     /**
-     *
+     * Impiegato che effettua una lavorazione
      */
     private Impiegato impiegato;
     /**
-     *
+     * Segnalazione che subisce la lavorazione
      */
     private Segnalazione segnalazione;
     /**
-     *
+     * Tipo di lavorazione effettuata dall'impiegato
      */
     private String tipoLavorazione;
     /**
-     *
+     * Data di effettuazione lavorazione
      */
     private Date dataLavorazione;
     /**.
      * Costruttore con parametri
      * @param impiegato Impiegato che ha lavorato la segnalazione
+     * Precondizione: impiegato != null
      * @param segnalazione Segnalazione lavorata
+     * Precondizione: segnalazione != null
      * @param tipoLavorazione Tipo di lavoro
-     *                        effettuato dall'impiegato sulla segnalazione
+     * effettuato dall'impiegato sulla segnalazione
+     * Precondizione: tipoLavorazione != null
      * @param data Data della lavorazione
+     * Precondizione: data != null
      */
     public GestioneSegnalazioni(Impiegato impiegato, Segnalazione segnalazione,
                                 String tipoLavorazione, Date data) {
