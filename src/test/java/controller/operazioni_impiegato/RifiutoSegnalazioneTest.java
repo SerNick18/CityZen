@@ -38,6 +38,9 @@ class RifiutoSegnalazioneTest extends RifiutoSegnalazione {
         cittadino = new Cittadino("SCRGNN80A01I483A", "Giovanni", "Scorti", "fa6bdd241d66911a0f121904b968f19ab3a80dd2",
                 "Roma",2,"Scafati","scorti@gmail.com",0,0);
         service.registraCittadino(cittadino);
+
+        impiegato = new Impiegato("Massimiliano@scafati.it","mat120","fa6bdd241d66911a0f121904b968f19ab3a80dd2","SCRMSS80A01I483A","Massimiliano","Fresco","Roma",8,"Scafati",0,0);
+        service.inserisciImpiegato(impiegato);
         segnalazione = new Segnalazione();
         segnalazione.setOggetto("Buca in strada");
         segnalazione.setVia("roma");
@@ -76,7 +79,6 @@ class RifiutoSegnalazioneTest extends RifiutoSegnalazione {
         servlet = new RifiutoSegnalazione();
         response = new MockHttpServletResponse();
         request = new MockHttpServletRequest();
-        impiegato = new Impiegato("Massimiliano@scafati.it","mat120","fa6bdd241d66911a0f121904b968f19ab3a80dd2","SCRMSS80A01I483A","Massimiliano","Fresco","Roma",8,"Scafati",0,0);
         request.getSession().setAttribute("Impiegato",impiegato);
     }
     @Test //test impiegato non loggato
@@ -121,6 +123,7 @@ class RifiutoSegnalazioneTest extends RifiutoSegnalazione {
     public static void clearDB(){
         try {
             service.eliminaCittadino(cittadino.getCF());
+            service.eliminaImpiegato("mat120");
             //eliminando il cittadino si cancella anche la segnalazione
         } catch (MyServletException myServletException) {
             myServletException.printStackTrace();

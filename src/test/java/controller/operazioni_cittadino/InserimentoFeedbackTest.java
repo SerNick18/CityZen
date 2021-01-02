@@ -62,33 +62,147 @@ class InserimentoFeedbackTest extends InserimentoFeedback {
         response = new MockHttpServletResponse();
         request = new MockHttpServletRequest();
         request.getSession().setAttribute("Cittadino", cittadino);
-        request.setParameter("id", String.valueOf(idSegnalazione));
+
     }
 
     @Test
-    void testDescrizioneNonValida() {
-        request.setParameter("descrizione", "bravi");
+    public void provenienzaPresente(){
+        request.addParameter("provenienza", "listaChiuse");
+        assertDoesNotThrow(() -> {servlet.doPost(request, response);});
+    }
+    @Test
+    public void provenienzaNonDaChiuse(){
+        request.addParameter("provenienza", "lista");
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "Bravi avete risolto il problema");
+        request.addParameter("valutazione", "5");
+        assertDoesNotThrow(() -> {servlet.doPost(request, response);});
+    }
+    @Test
+    public void provenienzaNonPresente(){
+        request.addParameter("provenienza",(String) null);
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "Bravi avete risolto il problema");
+        request.addParameter("valutazione", "5");
+        assertDoesNotThrow(() -> {servlet.doPost(request, response);});
+    }
+
+    @Test
+    public void idSegnalazioneNonValido(){
+        request.addParameter("id", "5i");
         MyServletException exception =
-                assertThrows(MyServletException.class, () -> {servlet.doGet(request,response);});
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("id della segnalazione non valido"
+                ,exception.getMessage());
+    }
+    @Test
+    public void segnalazioneNonPresente(){
+        request.addParameter("id", "1000");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La segnalazione cercata non esiste"
+                ,exception.getMessage());
+    }
+
+    @Test
+    public void cittadinoLoggato(){
+        request.setParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "Bravi avete risolto il problema");
+        request.addParameter("valutazione", "5");
+        assertDoesNotThrow(() -> {servlet.doPost(request, response);});
+    }
+    @Test
+    void testDescrizioneTroppoCorta() {
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "bravi");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
+                ,exception.getMessage());
+    }
+    @Test
+    void testDescrizioneTroppoLunga() {
+        request.setParameter("id", String.valueOf(idSegnalazione));
+        request.setParameter("descrizione", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
                 ,exception.getMessage());
     }
 
     @Test
-    void testValutazioneNonValida() {
-        request.setParameter("descrizione", "bravi, problema risolto!");
-        request.setParameter("valutazione","");
+    void testDescrizioneVuoto() {
+        request.setParameter("id", String.valueOf(idSegnalazione));
+        request.setParameter("descrizione", "");
         MyServletException exception =
-                assertThrows(MyServletException.class, () -> {servlet.doGet(request,response);});
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La descrizione deve essere lunga minimo 10 caratteri e massimo 500"
+                ,exception.getMessage());
+    }
+
+
+
+    @Test
+    void testValutazioneNonValida() {
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "bravi, problema risolto!");
+        request.addParameter("valutazione","");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
         assertEquals("Devi selezionare una valutazione."
                 ,exception.getMessage());
     }
 
     @Test
+    void testValutazioneMinoreDiUno() {
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "bravi, problema risolto!");
+        request.addParameter("valutazione","0");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La valutazione non può essere minore di 1 o maggiore di 5"
+                ,exception.getMessage());
+    }
+
+    @Test
+    void testValutazioneMaggioreDiCinque() {
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "bravi, problema risolto!");
+        request.addParameter("valutazione","6");
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("La valutazione non può essere minore di 1 o maggiore di 5"
+                ,exception.getMessage());
+    }
+
+    @Test
     void testInserimentoFeedbackPass() {
-        request.setParameter("descrizione", "bravi, problema risolto!");
-        request.setParameter("valutazione","5");
-        assertDoesNotThrow(() -> {servlet.doGet(request, response);});
+        request.addParameter("id", String.valueOf(idSegnalazione));
+        request.addParameter("descrizione", "bravi, problema risolto!");
+        request.addParameter("valutazione","5");
+        assertDoesNotThrow(() -> {servlet.doPost(request, response);});
+    }
+
+    @Test //test cittadino non loggato
+    public void cittadinoNonLoggato(){
+        cittadino=null;
+        request.getSession().setAttribute("Cittadino",cittadino);
+        MyServletException exception =
+                assertThrows(MyServletException.class, () -> {servlet.doPost(request,response);});
+        assertEquals("Effettua il login per poter inserire un feedback"
+                ,exception.getMessage());
+       cittadino = new Cittadino("SCRGNN80A01I483A", "Giovanni", "Scorti", "fa6bdd241d66911a0f121904b968f19ab3a80dd2",
+                "Roma",2,"Scafati","scorti@gmail.com",0,0);
+        request.getSession().setAttribute("Cittadino",cittadino);
     }
 
     @AfterAll

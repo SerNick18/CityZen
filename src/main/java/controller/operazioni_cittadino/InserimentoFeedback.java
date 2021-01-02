@@ -69,7 +69,6 @@ public class InserimentoFeedback extends HttpServlet {
                        + " cercata non esiste");
             }
             String descrizione = req.getParameter("descrizione");
-
             if (descrizione.length() > 500 || descrizione.length() < 10) {
                 throw new MyServletException("La descrizione deve"
                         + " essere lunga minimo 10 caratteri e massimo 500");
@@ -80,7 +79,7 @@ public class InserimentoFeedback extends HttpServlet {
                         Integer.parseInt(req.getParameter("valutazione"));
                 if (valutazione < 1 || valutazione > 5) {
                     throw new MyServletException("La valutazione non può"
-                           + "essere minore di 1 o maggiore di 5");
+                           + " essere minore di 1 o maggiore di 5");
                 }
             } catch (NumberFormatException e) {
                 throw new MyServletException(
