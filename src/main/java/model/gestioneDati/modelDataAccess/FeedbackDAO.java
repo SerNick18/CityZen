@@ -89,10 +89,12 @@ public class FeedbackDAO {
      * @return true - se il cittadino ha già inserito un feedback
      * false - se il cittadino non ha inserito nessun feedback
      */
-    public boolean isCittadinoFeedbackSegnalazione (String cFCittadino, int idSegnalazione){
-        try(Connection connection = ConnectionPool.getConnection()){
+    public boolean isCittadinoFeedbackSegnalazione(String cFCittadino,
+                                                   int idSegnalazione) {
+        try(Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM feedback AS f WHERE f.cittadino=? AND f.segnalazione=?");
+                    "SELECT * FROM feedback AS f WHERE f.cittadino=? "
+                            + "AND f.segnalazione=?");
             statement.setString(1, cFCittadino);
             statement.setInt(2,idSegnalazione);
             ResultSet r = statement.executeQuery();
@@ -100,6 +102,5 @@ public class FeedbackDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
