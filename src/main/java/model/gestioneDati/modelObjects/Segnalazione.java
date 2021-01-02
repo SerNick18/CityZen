@@ -67,6 +67,7 @@ public class Segnalazione extends AbstractSegnalazione
      * @param priorita priorità del problema segnalato
      *                 - precondizione: priorità>0 && priorità<5
      * @param numSolleciti numero di solleciti effettuato dai cittadini
+     *                     -precondizione: numSolleciti >= 0
      * @param stato stato della segnalazione
      *              - precondizione: stato=="inoltrata"
      *              || stato=="approvata" || stato=="chiusa"

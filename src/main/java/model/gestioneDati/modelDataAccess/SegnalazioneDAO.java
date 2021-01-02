@@ -16,7 +16,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+/**.
+ * Questa classe effettua il recupero, il salvataggio e le modifiche,
+ * di una segnalazione, nel database.
+ */
 public class SegnalazioneDAO {
     /**.
      * Metodo che ritorna la lista di SegnalazioneProxy inoltrate

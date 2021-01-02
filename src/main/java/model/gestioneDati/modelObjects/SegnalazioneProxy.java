@@ -5,11 +5,11 @@ import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import java.util.Date;
 
 /**
- *
+ * Classe per il design pattern proxy.
  */
 public class SegnalazioneProxy implements SegnalazioneInterface {
     /**
-     *attributo che contiene l'id di una segnalazione.
+     * attributo che contiene l'id di una segnalazione.
      */
     private int id;
     /**
@@ -17,17 +17,17 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
      */
     private String oggetto;
     /**
-     *attributo che contiene la priorità
+     * attributo che contiene la priorità
      * (alta,media,bassa) di una segnalazione.
      */
     private int priorita;
     /**
-     *attributo che contiene il Cittadino
+     * attributo che contiene il Cittadino
      * che ha effettuato la segnalazione.
      */
     private Cittadino c;
     /**
-     *attributo che contiene il numero di
+     * attributo che contiene il numero di
      * solleciti di una segnalazione.
      */
     private int numSolleciti;
@@ -36,17 +36,21 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
      */
     private Segnalazione segnalazione;
     /**
-     *
+     * attributo che contiene il riferimento all'oggetto FacadeDAO.
      */
     private FacadeDAO facadeDAO;
-
-    /**
-     *
-     * @param id
-     * @param oggetto
-     * @param priorita
-     * @param c
-     * @param numSolleciti
+    /**.
+     * Costruttore con parametri
+     * @param id identificativo della segnalazione
+     *           - precondizione: id>0
+     * @param priorita priorità del problema segnalato
+     *                 - precondizione: priorità>0 && priorità<5
+     * @param numSolleciti numero di solleciti effettuato dai cittadini
+     *                - precondizione: numSolleciti >= 0
+     * @param oggetto oggetto della segnalazione
+     *                - precondizione: oggetto!=null
+     * @param c cittadino della segnalazione
+     *                - precondizione: c != null
      */
     public SegnalazioneProxy(int id, String oggetto,
                              int priorita, Cittadino c, int numSolleciti) {
@@ -59,8 +63,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per prendere lo stato di una
-     * segnalazione.
+     * Metodo per prendere lo stato di una segnalazione.
      * @return stato
      */
     public String getStato() {
@@ -71,9 +74,10 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per cambaire lo stato
-     * di una segnalazione.
-     * @param stato
+     * Questo metodo sostituisce l'attuale stato della segnalazione
+     * con lo stato passato come parametro esplicito.
+     * @param stato nuovo stato - precondizione: stato=="inoltrata"
+     * || stato=="approvata" || stato=="chiusa" || stato=="rifiutata".
      */
     public void setStato(String stato) {
         if (segnalazione == null) {
@@ -94,8 +98,9 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per cambiare la data di una segnalazione.
-     * @param dataSegnalazione
+     * Questo metodo sostituisce l'attuale data inoltro della segnalazione
+     * con la data passata come parametro esplicito.
+     * @param dataSegnalazione nuova data - precondizione: data!=null
      */
     public void setDataSegnalazione(Date dataSegnalazione) {
         if (segnalazione == null) {
@@ -117,9 +122,9 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare la descrizione
-     * di una segnalazione.
-     * @param descrizione
+     * Questo metodo sostituisce l'attuale descrizione del problema segnalato
+     * con la descrizione passata come parametro esplicito.
+     * @param descrizione nuova descrizione - precondizione: descrizione!=null.
      */
     public void setDescrizione(String descrizione) {
         if (segnalazione == null) {
@@ -140,8 +145,9 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare la foto di una segnalazione.
-     * @param foto
+     * Questo metodo sostituisce l'attuale foto del problema segnalato
+     * con la foto passata come parametro esplicito.
+     * @param foto nuova foto - precondizione: foto!=null.
      */
     public void setFoto(String foto) {
         if (segnalazione == null) {
@@ -163,9 +169,10 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare il Cittadino a una
-     * determinata segnalazione.
-     * @param cittadino
+     * Questo metodo sostituisce l'attuale cittadino
+     * che ha inoltrato la segnalazione
+     * con il cittadino passato come parametro esplicito.
+     * @param cittadino nuovo cittadino - precondizione: cittadino!=null.
      */
     public void setCittadino(Cittadino cittadino) {
         if (segnalazione == null) {
@@ -177,7 +184,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     /**
      * Metodo per verificare se una
      * segnalazione è stata riaperta o no.
-     * @return int 0 non riaperta 1 riaperta.
+     * @return identificativo della segnalazione chiusa
      */
     public int getRiaperta() {
         if (segnalazione == null) {
@@ -187,10 +194,10 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare la riapertura
-     * della segnalazione.
-     * 0 non riaperta 1 riaperta.
-     * @param riaperta
+     * Questo metodo sostituisce l'attuale identificativo
+     * della segnalazione chiusa
+     * con l'identificativo passato come parametro esplicito.
+     * @param riaperta nuovo identificativo - precondizione: riaperta>0
      */
     public void setRiaperta(int riaperta) {
         if (segnalazione == null) {
@@ -201,7 +208,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
 
     /**
      * Metodo per prendere l'id di una segnalazione.
-     * @return
+     * @return identificativo della segnalazione
      */
     @Override
     public int getId() {
@@ -209,8 +216,9 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare l'id di una segnalazione.
-     * @param id
+     * Questo metodo sostituisce l'attuale identificativo della segnalazione
+     * con l'identificativo passato come parametro esplicito.
+     * @param id nuovo identificativo - precondizione: id>0
      */
     public void setId(int id) {
         this.id = id;
@@ -218,7 +226,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
 
     /**
      * Metodo per prendere l'oggetto della segnalazione.
-     * @return
+     * @return oggetto della segnalazione
      */
     @Override
     public String getOggetto() {
@@ -226,8 +234,9 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare l'oggetto di una segnalazione.
-     * @param oggetto
+     * Questo metodo sostituisce l'attuale oggetto della segnalazione.
+     * con l'oggetto passato come parametro esplicito.
+     * @param oggetto nuovo oggetto - precondizione: oggetto!=null.
      */
     public void setOggetto(String oggetto) {
         this.oggetto = oggetto;
@@ -253,8 +262,9 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare la priorità.
-     * @param priorita
+     * Questo metodo sostituisce l'attuale priorità del problema segnalato
+     * con la priorità passata come parametro esplicito.
+     * @param priorita nuova priorità - precondizione: priorità>0 && priorità<5
      */
     public void setPriorita(int priorita) {
         this.priorita = priorita;
@@ -270,9 +280,10 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare un Cittadino ad una
-     * determinata segnalazione.
-     * @param c
+     * Questo metodo sostituisce l'attuale cittadino
+     * che ha inoltrato la segnalazione
+     * con il cittadino passato come parametro esplicito.
+     * @param c nuovo cittadino - precondizione: cittadino!=null.
      */
     public void setC(Cittadino c) {
         this.c = c;
@@ -280,7 +291,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
 
     /**
      * Metodo per prendere il numero di solleciti.
-     * @return
+     * @return numero solleciti
      */
     @Override
     public int getNumSolleciti() {
@@ -290,7 +301,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     /**
      * Metodo per prendere la via di una
      * determinata segnalazione.
-     * @return
+     * @return via della segnalazione
      */
     @Override
     public String getVia() {
@@ -303,7 +314,7 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     /**
      * Metodo per prendere il numero civico
      * di una determinata segnalazione.
-     * @return
+     * @return civico della segnalazione
      */
     @Override
     public int getCivico() {
@@ -314,9 +325,10 @@ public class SegnalazioneProxy implements SegnalazioneInterface {
     }
 
     /**
-     * Metodo per settare il numero
-     * di solleciti.
-     * @param numSolleciti
+     * Questo metodo sostituisce l'attuale numero di
+     * solleciti effettuato dai cittadini
+     * con il numero passato come parametro esplicito.
+     * @param numSolleciti nuovo numero di solleciti
      */
     public void setNumSolleciti(int numSolleciti) {
         this.numSolleciti = numSolleciti;

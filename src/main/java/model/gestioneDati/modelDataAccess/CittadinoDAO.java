@@ -14,7 +14,7 @@ import java.util.List;
 /**.
  * Questa classe effettua il recupero, il salvataggio e le modifiche,
  * di un Cittadino, nel database.
- * */
+ */
 public class CittadinoDAO {
     /**.
      * Il metodo si connette col database, crea un comando
