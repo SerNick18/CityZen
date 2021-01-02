@@ -18,6 +18,9 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+/**
+ * Servlet per inoltrare una segnalazione
+ */
 @WebServlet("/inoltroSegnalazione")
 @MultipartConfig
 public class InoltroSegnalazione extends HttpServlet {

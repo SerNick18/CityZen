@@ -22,6 +22,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Servlet per riaprire una segnalazione
+ */
 @WebServlet("/riapriSegnalazione")
 @MultipartConfig
 public class RiapriSegnalazione extends HttpServlet {

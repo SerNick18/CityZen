@@ -18,6 +18,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
 
+/**
+ * Servlet per inoltrare un sollecito
+ */
 @WebServlet("/inoltroSol")
 public class InoltroSollecito extends HttpServlet {
     /**.
