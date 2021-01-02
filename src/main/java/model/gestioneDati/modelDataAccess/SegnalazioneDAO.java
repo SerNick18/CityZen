@@ -20,11 +20,14 @@ import java.util.List;
 public class SegnalazioneDAO {
     /**.
      * Metodo che ritorna la lista di SegnalazioneProxy inoltrate
-     * @param offset numero di segnalazioni da mostrare
-     * @return lista di SegnalazioneProxy inoltrate
+     * @param offset numero di riga dal quale iniziare
+     *  a prendere le segnalazioni - precondizione: offset > 0
+     * @return listaSegnalazioni lista di SegnalazioneProxy inoltrate
+     * forEach(s:listaSegnalazioni) s.stato="inoltrata"
+     * || listaSegnalazioni==null
      */
     public List<SegnalazioneInterface> doRetrieveInoltrateProxy(int offset) {
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
             FacadeDAO facadeDAO = new FacadeDAO();
             PreparedStatement statement = connection.prepareStatement(
@@ -49,9 +52,14 @@ public class SegnalazioneDAO {
 
     /**.
      * Metodo che ritorna la lista delle segnalazioni per stato
-     * @param stato stato della segnalazione
-     * @param offset numero di segnalazioni da mostrare
-     * @return offset segnalazioni per stato
+     * @param stato stato della segnalazione - precondizione:
+     *              stato=="inoltrata" || stato=="approvata"
+     *              || stato=="chiusa" || stato=="rifiutata"
+     * @param offset numero di riga dal quale iniziare
+     *  a prendere le segnalazioni - precondizione: offset > 0
+     * @return listaSegnalazioni lista di segnalazioni - postcondizione:
+     * forEach(s:listaSegnalazioni) s.stato=stato
+     * || listaSegnalazioni==null
      */
     public List<SegnalazioneInterface> doRetrieveByStato(
             String stato, int offset) {
@@ -79,8 +87,10 @@ public class SegnalazioneDAO {
     }
     /**.
      * Metodo per ricercare una segnalazione dato un id
-     * @param id identificativo della segnalazione
-     * @return segnalazione con l'id passato come parametro
+     * @param id identificativo della segnalazione - precondizione:
+     *           id > 0
+     * @return s segnalazione con l'id passato come parametro
+     * - postcondizione: s.id = id
      */
     public Segnalazione doRetrieveById(int id) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -110,12 +120,18 @@ public class SegnalazioneDAO {
     }
 
     /**
-     *
-     * @param cf
-     * @param offset
-     * @return
+     *  Metodo che restituisce una lista di segnalazioni
+     *  appartenenti ad uno specifico cittadino.
+     * @param cf del cittadino - precondizione: cf != null
+     * @param offset numero di riga dal quale iniziare
+     *  a prendere le segnalazioni - precondizione offset > 0
+     * @return listaSegnalazioni lista di segnalazioni appartenenti
+     * al cittadino specificato - postcondizione:
+     * forEach(s:listaSegnalazioni) s.cittadino.cf==cf
+     * || listaSegnalazioni == null
      */
-    public List<SegnalazioneInterface> doRetrieveByCittadino(String cf, int offset) {
+    public List<SegnalazioneInterface> doRetrieveByCittadino(String cf,
+                                                             int offset) {
         ArrayList<SegnalazioneInterface> segnalazioni = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection()) {
             FacadeDAO facadeDAO = new FacadeDAO();
@@ -126,9 +142,12 @@ public class SegnalazioneDAO {
             statement.setInt(2, offset);
             ResultSet r = statement.executeQuery();
             while (r.next()) {
-                Segnalazione s = new Segnalazione(r.getInt("ID"),r.getString("Via"),
-                        r.getInt("Civico"), r.getInt("Priorità"), r.getInt("numSolleciti"),
-                        r.getString("Stato"), r.getDate("DataSegnalazione"), r.getString("Oggetto"),
+                Segnalazione s = new Segnalazione(r.getInt("ID"),
+                        r.getString("Via"),
+                        r.getInt("Civico"), r.getInt("Priorità"),
+                        r.getInt("numSolleciti"),
+                        r.getString("Stato"), r.getDate("DataSegnalazione"),
+                        r.getString("Oggetto"),
                         r.getString("Descrizione"), r.getString("Foto"),
                         facadeDAO.getCittadinoByCf(r.getString("Cittadino")),
                         r.getInt("Riaperta"));
@@ -144,9 +163,11 @@ public class SegnalazioneDAO {
      * Il metodo ha il compito di memorizzare nel database una segnalazione.
      * Riceve la segnalazione sotto forma di oggetto, estrapola tutti i suoi
      * campi, e li inserisce in una query da eseguire sul database.
-     * @param segnalazione da inserire nel database
+     * @param segnalazione da inserire nel database - precondizione:
+     * segnalazione!=null - postcondizione:
+     * SegnalazioneDAO.doRetrieveById(segnalazione.id)!=null
      */
-    public void doInsert(Segnalazione segnalazione){
+    public void doInsert(Segnalazione segnalazione) {
         try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "insert into segnalazione (Via, Civico, Priorità,"
@@ -180,8 +201,13 @@ public class SegnalazioneDAO {
         }
     }
     /**.
-     * Metodo per modificare una segnalazione
-     * @param segnalazione segnalazione modificata
+     * Metodo per modificare una segnalazione.
+     * @param segnalazione segnalazione modificata che sostituirà
+     *                     quella già presente nel database.
+     *                     - precondizione:
+     *                     segnalazione!=null
+     *                     - postcondizione:
+     * SegnalazioneDAO.doRetrieveById(segnalazione.id)==segnalazione
      */
     public void doUpdate(Segnalazione segnalazione) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -216,19 +242,26 @@ public class SegnalazioneDAO {
     }
 
     /**
-     * Metodo per eliminare una segnalazione
-     * @param ID
-     * @throws MyServletException
+     * Metodo per eliminare una segnalazione.
+     * @param ID della segnalazione da eliminare - precondizione:
+     *           id>0
+     *           - postcondizione:
+     *           SegnalazioneDAO.doRetrieveById(ID)==null
+     * @throws MyServletException in caso di errore in fase
+     * di eliminazione
      */
-    public void doDelete(int ID) throws MyServletException{
+    public void doDelete(int ID) throws MyServletException {
         try (Connection connection = ConnectionPool.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM segnalazione WHERE ID=?");
+            PreparedStatement statement =
+                    connection.prepareStatement("DELETE FROM segnalazione WHERE ID=?");
             statement.setInt(1, ID);
             if (statement.executeUpdate() != 1) {
-                throw new MyServletException("C'è stato un errore nell'eliminazione della segnalazione");
+                throw new MyServletException("C'è stato un errore "
+                        + "nell'eliminazione della segnalazione");
             }
         } catch (SQLException e) {
-            throw new MyServletException("C'è stato un errore nell'eliminazione della segnalazione");
+            throw new MyServletException("C'è stato un errore "
+                    + "nell'eliminazione della segnalazione");
         }
     }
 }
