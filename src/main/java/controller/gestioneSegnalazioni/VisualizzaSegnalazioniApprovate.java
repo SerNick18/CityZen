@@ -13,16 +13,21 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *Servlet che prende le segnalazioni
+ * Servlet che prende le segnalazioni
  * con lo stato approvata e le mostra all'utente.
  */
 @WebServlet("/ListApprovate")
 public class VisualizzaSegnalazioniApprovate extends HttpServlet {
     /**
-     * @param req request
-     * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * Si forza il flusso di esecuzione sul metodo doPost.
+     * Anche se si riceve una richiesta di tipo GET, si richiama il
+     * metodo che gestisce le richieste di tipo POST
+     * @param req oggetto che contiene la richiesta da parte di un client
+     * @param resp oggetto che contiene la risposta che la servlet
+     * deve ritornare al client
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     * quando la servlet gestisce la richiesta
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -31,12 +36,14 @@ public class VisualizzaSegnalazioniApprovate extends HttpServlet {
     }
 
     /**
-     *Metodo per poter prendere le segnalazioni
-     * nello stato approvata e mostrarle all'utente.
-     * @param req request
-     * @param resp response
-     * @throws ServletException
-     * @throws IOException
+     * Metodo che recupera le segnalazioni
+     * nello stato approvata e le mostra all'utente.
+     * @param req oggetto che contiene la richiesta da parte di un client
+     * @param resp oggetto che contiene la risposta che la servlet
+     * deve ritornare al client
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     * quando la servlet gestisce la richiesta
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -1,6 +1,5 @@
 package controller.gestioneSegnalazioni;
 
-import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Impiegato;
 
@@ -12,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet che visualizza la classifica.
+ */
 @WebServlet("/visualizzaClassifica")
 public class VisualizzaClassifica extends HttpServlet {
     /**
@@ -23,21 +25,24 @@ public class VisualizzaClassifica extends HttpServlet {
      * giusta pagina.
      * @param req oggetto request che contiene l'utente loggato
      * @param resp oggetto che contiene la risposta che la servlet
-     * deve ritornare al cliente
+     * deve ritornare al client
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      * quando la servlet gestisce la richiesta
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cittadino cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
-        Impiegato impiegato = (Impiegato) req.getSession().getAttribute("Impiegato");
-        String address="";
-        if (cittadino!=null && impiegato==null){
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        Cittadino cittadino = (Cittadino)
+                req.getSession().getAttribute("Cittadino");
+        Impiegato impiegato = (Impiegato)
+                req.getSession().getAttribute("Impiegato");
+        String address = "";
+        if (cittadino != null && impiegato == null) {
             address = "/WEB-INF/view/GuiCittadino/visualizza-classifica.jsp";
-        }else if (cittadino==null && impiegato!=null) {
+        } else if (cittadino == null && impiegato != null) {
             address = "/WEB-INF/view/GuiImpiegato/visualizza-classifica.jsp";
-        }else {
+        } else {
             address = "./index.jsp";
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher(address);
@@ -49,13 +54,14 @@ public class VisualizzaClassifica extends HttpServlet {
      * metodo che gestisce le richieste di tipo POST
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
-     * deve ritornare al cliente
+     * deve ritornare al client
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      * quando la servlet gestisce la richiesta
      */
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         doGet(req, resp);
     }
 }

@@ -25,6 +25,7 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
      * metodo che gestisce le richieste di tipo GET.
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
+     * deve ritornare al client
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      *      quando la servlet gestisce la richiesta
@@ -42,6 +43,7 @@ public class VisualizzaSegnalazioniChiuse extends HttpServlet {
      * In caso contrario lancia un eccezione con un messaggio di errore.
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
+     * deve ritornare al client
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
      *      quando la servlet gestisce la richiesta
