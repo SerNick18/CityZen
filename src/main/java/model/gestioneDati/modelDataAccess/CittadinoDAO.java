@@ -92,7 +92,8 @@ public class CittadinoDAO {
      * @param email email del cittadino
      * @param pwd password del cittadino
      * precondizione: email != null && pwd != null
-     * @return cittadino ogetto che identifica il cittadino
+     * @return c ogetto che identifica il cittadino
+     * poscondizione: c != null || c == null
      * @throws MyServletException se si verifica un errore
      * nel login del cittadino
      */
@@ -158,7 +159,8 @@ public class CittadinoDAO {
      * tramite la sua email.
      * @param email email del cittadino.
      * precondizione: email != null
-     * @return cittadino ogetto che identifica il cittadino
+     * @return c ogetto che identifica il cittadino
+     * postcondizione: c != null || c == null
      * @throws RuntimeException se si verifica un errore
      * nel database.
      */
@@ -191,7 +193,8 @@ public class CittadinoDAO {
      * con il relativo messaggio informativo.
      * @param cf codice fiscale del cittadino.
      * precondizione: cf != null
-     * @return cittadino ogetto che identifica il cittadino
+     * @return c ogetto che identifica il cittadino
+     * postcondizione: c != null || c == null
      * @throws RuntimeException se si verifica un errore
      * nel database.
      */
@@ -249,7 +252,8 @@ public class CittadinoDAO {
      * una lista di cittadini ordinati per
      * numero di segnalazioni approvate (in
      * maniera decrescente).
-     * @return List<Cittadino> la lista ordinata di cittadini
+     * @return cittadini la lista ordinata di cittadini
+     * postcondizione: cittadini.size >= 0
      * @throws RuntimeException se si verifica un errore
      * nel database.
      */
