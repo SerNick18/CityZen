@@ -27,7 +27,7 @@ public class VisualizzaSegnalazioniInoltrate extends HttpServlet {
      * @param resp oggetto che contiene la risposta che la servlet
      * @throws ServletException se la richiesta non può essere gestita
      * @throws IOException se viene rilevato un errore di input o output
-     *      quando la servlet gestisce la richiesta
+     * quando la servlet gestisce la richiesta
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
