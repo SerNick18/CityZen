@@ -1,74 +1,82 @@
 package model.gestioneDati.modelObjects;
 
-import javax.mail.*;
+import javax.mail.Session;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Authenticator;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Objects;
 import java.util.Properties;
 
 /**.
- * Questa classe rappresenta un cittadino
+ * Questa classe rappresenta un cittadino.
  */
 public class Cittadino implements Observer {
     /**
-     *
+     * Codice Fiscale del cittadino.
      */
     private String CF;
     /**
-     *
+     * Nome del cittadino.
      */
     private String nome;
     /**
-     *
+     * Cognome del cittadino.
      */
     private String cognome;
     /**
-     *
+     * Password del cittadino.
      */
     private String pwd;
     /**
-     *
+     * Via del cittadino.
      */
     private String via;
     /**
-     *
+     * Civico del cittadino.
      */
     private int civico;
     /**
-     *
+     * Città del cittadino.
      */
     private String citta;
     /**
-     *
+     * Email del cittadino.
      */
     private String email;
     /**
-     *
+     * Numero di segnalazioni effettuate dal cittadino.
      */
     private int numSegnalazioni;
     /**
-     *
+     * Numero di segnalazione approvate del cittadino.
      */
     private int numSegnApp;
 
-    /**.
-     * Costruttore vuoto
+    /**
+     * Costruttore vuoto.
      */
     public Cittadino() {
     }
 
-    /**.
-     * Costruttore con parametri
-     * @param CF codice fiscale
-     * @param nome nome del cittadino
-     * @param cognome cognome del cittadino
-     * @param pwd password
-     * @param via via
-     * @param civico numero civico
-     * @param citta citta
-     * @param email email
-     * @param numSegnalazioni numero di segnalazioni inoltrate
-     * @param numSegnApp numero di segnalazioni approvate
+    /**
+     * Costruttore con parametri.
+     * @param CF codice fiscale del cittadino - precondizione: CF != null
+     * @param nome nome del cittadino - precondizione: nome != null
+     * @param cognome cognome del cittadino - precondizione: cognome != null
+     * @param pwd password del cittadino - precondizione: pwd != null
+     * @param via via del cittadino - precondizione: via != null
+     * @param civico numero civico del cittadino
+     * precondizione: civico > 0 && civico < 5000
+     * @param citta citta del cittadino - precondizione: citta != null
+     * @param email email del cittadino
+     * precondizione: email != null
+     * @param numSegnalazioni numero di segnalazioni inoltrate dal cittadino
+     * precondizione: numSegnalazioni >= 0
+     * @param numSegnApp numero di segnalazioni approvate del cittadino
+     * precondizione: numSegnApp >= 0
      */
     public Cittadino(String CF, String nome,
                      String cognome, String pwd, String via, int civico,
@@ -276,7 +284,7 @@ public class Cittadino implements Observer {
                 && Objects.equals(email, cittadino.email);
     }
     /**.
-     * Sovrascrittura metodo hashCode di Object
+     * Sovrascrittura del metodo hashCode di Object
      * @return valore hash per il cittadino
      */
     @Override
@@ -286,8 +294,10 @@ public class Cittadino implements Observer {
     }
 
     /**
-     *
-     * @param s
+     * Il metodo manda un email al cittadino
+     * sull'eventuale cambiamento di stato della segnalazione
+     * da lui precedentemente inoltrata.
+     * @param s segnalazione del cittadino
      */
     @Override
     public void update(AbstractSegnalazione s) {
@@ -303,13 +313,13 @@ public class Cittadino implements Observer {
         p.put("mail.smtp.host", host);
         p.put("mail.smtp.port", port);
         Session sessione = Session.getDefaultInstance(p,
-                new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("progettoC04@gmail.com",
-                                "TestProgetto4");
-                    }
-                });
+            new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(
+                            "progettoC04@gmail.com", "TestProgetto4");
+                }
+            });
         MimeMessage mail = new MimeMessage(sessione);
         try {
             mail.setFrom(new InternetAddress("no-reply@scafati.it"));
