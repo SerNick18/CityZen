@@ -2,6 +2,7 @@ package controller.gestioneProfilo;
 
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
+import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
 
 import javax.servlet.RequestDispatcher;
@@ -44,10 +45,9 @@ public class VisualizzaProprieSegnalazioni extends HttpServlet {
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
-
-        if (req.getSession().getAttribute("Cittadino") != null) {
-            String cf = req.getParameter("cf");
+        Cittadino cittadino = (Cittadino) req.getSession().getAttribute("Cittadino");
+        if (cittadino != null) {
+            String cf = cittadino.getCF();
             FacadeDAO service = new FacadeDAO();
             List<SegnalazioneInterface> lista =
                     service.getSegnalazioneByCittadino(cf, 0);
