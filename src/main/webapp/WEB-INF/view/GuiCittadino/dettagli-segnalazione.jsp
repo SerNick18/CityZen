@@ -1,4 +1,6 @@
-<%@ page import="model.gestioneDati.modelObjects.Segnalazione" %><%--
+<%@ page import="model.gestioneDati.modelObjects.Segnalazione" %>
+<%@ page import="model.gestioneDati.modelObjects.Cittadino" %>
+<%@ page import="controller.gestioneUtenza.MyServletException" %><%--
   Created by IntelliJ IDEA.
   User: Francesco Sabia
   Date: 23/12/2020
@@ -8,6 +10,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+    Cittadino c = (Cittadino) request.getSession().getAttribute("Cittadino");
+    if( c == null)
+        throw new MyServletException("Non sei loggato");
+%>
 <html>
 <head>
     <title>CityZen-Segnalazione</title>
@@ -66,7 +73,7 @@
                         <div class="row mb-4">
                                 <%
                                     Segnalazione s = (Segnalazione)request.getSession().getAttribute("Segnalazione");
-                                    if (s.getStato().equals("inoltrata")){
+                                    if (s.getStato().equals("inoltrata") && s.getCittadino().equals(c)){
                                 %>
                                 <form class="form-group" action="modificaSegnalazione" method="post" >
                                     <input type="hidden" name="id" value="${Segnalazione.id}">
