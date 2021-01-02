@@ -107,7 +107,7 @@ class InoltroSollecitoTest extends InoltroSollecito {
     }
 
     @Test //test con cittadino che ha effettuato solleciti ad altre segnalazioni (quindi con più occorenze nel file)
-    void testCittadinoConPiùSolleciti() throws IOException {
+    void testCittadinoConPiuSolleciti() throws IOException {
         request.setParameter("id", String.valueOf(idSegnalazione));
         FileWriter f=new FileWriter(solleciti);
         f.write("SCRGNN80A01I483A,"+111000+"\n");
