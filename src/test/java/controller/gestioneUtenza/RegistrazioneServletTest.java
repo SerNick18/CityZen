@@ -38,6 +38,12 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         service.registraCittadino(cittadino2);
     }
 
+    @Test
+    void testCittadinoNull() {
+        request.getSession().setAttribute("Cittadino", new Cittadino());
+        assertDoesNotThrow(() -> {registrazioneServlet.doGet(request, response);});
+    }
+
     @Test //test tutti i parametri sono null
     void testAllNull() {
         request.addParameter("nome", "");
@@ -110,6 +116,54 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         request.addParameter("citta", "");
         MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
         assertEquals("Email errata!", exception.getMessage());
+    }
+
+    @Test
+    void testEmailNoPattern() {
+        request.addParameter("nome", "Francesco");
+        request.addParameter("cognome", "Sabia");
+        request.addParameter("email", "abc@abc@abc.it");
+        request.addParameter("cf", "");
+        request.addParameter("pwd1", "");
+        request.addParameter("pwd2", "");
+        request.addParameter("via", "");
+        request.addParameter("civico", "");
+        request.addParameter("citta", "");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
+        assertEquals("Email errata!", exception.getMessage());
+    }
+
+    @Test
+    void testEmailImpiegato() {
+        request.addParameter("nome", "Francesco");
+        request.addParameter("cognome", "Sabia");
+        request.addParameter("email", "abc@scafati.it");
+        request.addParameter("cf", "");
+        request.addParameter("pwd1", "");
+        request.addParameter("pwd2", "");
+        request.addParameter("via", "");
+        request.addParameter("civico", "");
+        request.addParameter("citta", "");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
+        assertEquals("Email errata!", exception.getMessage());
+    }
+    @Test
+    void testEmailGiaPresente() throws MyServletException {
+        Cittadino cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
+                "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
+        service.registraCittadino(cittadino);
+        request.addParameter("nome", "Francesco");
+        request.addParameter("cognome", "Sabia");
+        request.addParameter("email", "cattaneo@gmail.com");
+        request.addParameter("cf", "");
+        request.addParameter("pwd1", "");
+        request.addParameter("pwd2", "");
+        request.addParameter("via", "");
+        request.addParameter("civico", "");
+        request.addParameter("citta", "");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
+        assertEquals("Email errata!", exception.getMessage());
+        service.eliminaCittadino(cittadino.getCF());
     }
 
     @Test //test email errato - non rispetta pattern
