@@ -14,17 +14,19 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </head>
     <body bgcolor="#008b8b">
-        <div id="ErrorContainer" class="container">
-            <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-8">
-                <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
-            </div>
-            <div class="col-lg-1 col-md-1">
-                <hr class="solid d-lg-none d-md-none">
-                <div class="separator"></div>
-            </div>
-            <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
-                <h1 class="appTitle"><%= exception.getMessage() %></h1>
-                <a onclick="history.go(-1)">Clicca qui per tornare alla pagina precedente</a>
+        <div id="loginContainer" class="container">
+            <div id="loginRow" class="row justify-content-center">
+                <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-8">
+                    <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
+                </div>
+                <div class="col-lg-1 col-md-1">
+                    <hr class="solid d-lg-none d-md-none">
+                    <div class="separator"></div>
+                </div>
+                <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
+                    <h1 class="appTitle"><%= exception.getMessage() %></h1>
+                    <a onclick="history.go(-1)">Clicca qui per tornare alla pagina precedente</a>
+                </div>
             </div>
         </div>
     </body>
