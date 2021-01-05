@@ -19,7 +19,9 @@ public class ImpiegatoDAO {
      * crea una query SQL per recuperare un impiegato dal database.
      * @param email email dell'impiegato da recuperare dal database.
      * @param pwd password dell'impiegato da recuperare dal database.
-     * Precondizione: email != null  && pwd != null
+     * Precondizione: email != null
+     *                && pwd != null
+     *                && ImpiegatoDAO.doRetrieveByEmail(impiegato.email)!=null
      * @return i impiegato con email e password passati come parametri.
      * Postcondizione: i.email == email oppure i == null.
      */
@@ -58,6 +60,7 @@ public class ImpiegatoDAO {
      * @param impiegato oggetto che identifica l'impiegato da inserire
      *                  nel database.
      * Precondizione: impiegato != null
+     *               && ImpiegatoDAO.doRetrieveByEmail(impiegato.email)==null
      * Postcondizione: ImpiegatoDAO.doRetrieveByEmail(impiegato.email)!=null.
      * @throws MyServletException si verifica un errore nella
      * registrazione dell'impiegato
@@ -92,6 +95,7 @@ public class ImpiegatoDAO {
      * @param impiegato oggetto che identifica l'impiegato da inserire
      *                  nel database.
      * Precondizione: impiegato != null
+     *                && ImpiegatoDAO.doRetrieveByEmail(impiegato.email)!=null
      * @throws MyServletException si verifica un errore
      * durante l'aggiornamento dell'impiegato.
      */
@@ -126,7 +130,9 @@ public class ImpiegatoDAO {
      * Il metodo, dopo aver stabilito una connessione con il database,
      * crea una query SQL per eliminare un impiegato dal database.
      * @param matricola matricola dell'impiegato da eliminare.
-     * Precondizione: matricola != null.
+     * Precondizione: matricola != null
+     *                && ImpiegatoDAO.doRetrieveByEmail(impiegato.email)!=null.
+     * Postcondizione: ImpiegatoDAO.doRetrieveByEmail(impiegato.email)==null.
      * @throws MyServletException si verifica un errore durante
      * l'eliminazione di un impiegato.
      */
@@ -152,9 +158,10 @@ public class ImpiegatoDAO {
      * nel database.
      * @param email email dell'impiegato di cui si deve aggiornare la password.
      * @param password nuova password dell'impiegato.
-     * Precondizione: email != null  && password != null.
+     * Precondizione: email != null && password != null
+     *                &&  ImpiegatoDAO.doRetrieveByEmail(email)!=null
      * Postcondizione:
-     * ImpiegatoDAO.doRetrieveByEmail(email).getPwd()==password.
+     *     ImpiegatoDAO.doRetrieveByEmail(email).getPwd()==password.
      * @throws MyServletException si verifica un errore durante
      * l'aggiornamento della password dell'impiegato.
      */

@@ -23,7 +23,10 @@ public class CittadinoDAO {
      * Se si rileva un errore si lancia un'eccezione
      * con il relativo messaggio informativo.
      * @param cf codice fiscale del cittadino da eliminare
-     * precondizione: cf != null
+     * Precondizione: cf != null
+     *                && CittadinoDAO.doRetrieveByEmail(cittadino.email)!=null
+     * Postcondizione:
+     *           CittadinoDAO.doRetrieveByEmail(cittadino.email)==null
      * @throws MyServletException se si verifica un errore
      * nell'eliminazione del cittadino
      */
@@ -50,7 +53,10 @@ public class CittadinoDAO {
      * Se si rileva un errore si lancia un'eccezione
      * con il relativo messaggio informativo.
      * @param cittadino oggetto che rappresenta il cittadino
-     * precondizione: cittadino != null
+     * Precondizione: cittadino != null
+     *                && CittadinoDAO.doRetrieveByEmail(cittadino.email)!=null
+     * Postcondizione:
+     *               CittadinoDAO.doRetrieveByEmail(cittadino.email)==cittadino
      * @throws MyServletException se si verifica un errore
      * nella modifica del cittadino
      */
@@ -91,7 +97,9 @@ public class CittadinoDAO {
      * con il relativo messaggio informativo.
      * @param email email del cittadino
      * @param pwd password del cittadino
-     * precondizione: email != null && pwd != null
+     * Precondizione: email != null
+     *                && pwd != null
+     *                && CittadinoDAO.doRetrieveByEmail(cittadino.email)!=null
      * @return c ogetto che identifica il cittadino
      * poscondizione: c != null || c == null
      * @throws MyServletException se si verifica un errore
@@ -126,7 +134,9 @@ public class CittadinoDAO {
      * Se si rileva un errore si lancia un'eccezione
      * con il relativo messaggio informativo.
      * @param cittadino oggetto che identifica un cittaidno.
-     * precondizione: cittadino != null
+     * Precondizione: cittadino != null
+     *               && CittadinoDAO.doRetrieveByEmail(cittadino.email)==null
+     * Postcondizione: CittadinoDAO.doRetrieveByEmail(cittadino.email)!=null.
      * @throws MyRuntimeException se si verifica un errore
      * nella registrazione del cittadino
      */
@@ -228,7 +238,10 @@ public class CittadinoDAO {
      * con il relativo messaggio informativo.
      * @param email email del cittadino
      * @param password nuova password
-     * precondizione: email != null && password != null
+     * Precondizione: email != null && password != null
+     *                && CittadinoDAO.doRetrieveByEmail(cittadino.email)!=null
+     * Postcondizione:
+     *     CittadinoDAO.doRetrieveByEmail(cittadino.email).getPwd()==password.
      * @throws RuntimeException se si verifica un errore
      * durante l'update del cittadino.
      */

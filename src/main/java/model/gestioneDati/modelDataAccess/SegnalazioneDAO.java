@@ -166,8 +166,9 @@ public class SegnalazioneDAO {
      * Il metodo ha il compito di memorizzare nel database una segnalazione.
      * Riceve la segnalazione sotto forma di oggetto, estrapola tutti i suoi
      * campi, e li inserisce in una query da eseguire sul database.
-     * @param segnalazione da inserire nel database - precondizione:
-     * segnalazione!=null - postcondizione:
+     * @param segnalazione da inserire nel database
+     * - precondizione: segnalazione!=null
+     * - postcondizione:
      * SegnalazioneDAO.doRetrieveById(segnalazione.id)!=null
      */
     public void doInsert(Segnalazione segnalazione) {
@@ -207,10 +208,9 @@ public class SegnalazioneDAO {
      * Metodo per modificare una segnalazione.
      * @param segnalazione segnalazione modificata che sostituirà
      *                     quella già presente nel database.
-     *                     - precondizione:
-     *                     segnalazione!=null
-     *                     - postcondizione:
-     * SegnalazioneDAO.doRetrieveById(segnalazione.id)==segnalazione
+     * - precondizione: SegnalazioneDAO.doRetrieveById(segnalazione.id)!=null
+     * - postcondizione:
+     *          SegnalazioneDAO.doRetrieveById(segnalazione.id)==segnalazione
      */
     public void doUpdate(Segnalazione segnalazione) {
         try (Connection connection = ConnectionPool.getConnection()) {
@@ -247,7 +247,7 @@ public class SegnalazioneDAO {
     /**
      * Metodo per eliminare una segnalazione.
      * @param ID della segnalazione da eliminare - precondizione:
-     *           id>0
+     *           id>0 && SegnalazioneDAO.doRetrieveById(ID)!=null
      *           - postcondizione:
      *           SegnalazioneDAO.doRetrieveById(ID)==null
      * @throws MyServletException in caso di errore in fase
