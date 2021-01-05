@@ -7,7 +7,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <html>
-<body>
-<h1><%= exception.getMessage() %></h1>
-</body>
+    <head>
+        <title>CityZen - Errore</title>
+        <link rel="stylesheet" href="css/styleError.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    </head>
+    <body bgcolor="#008b8b">
+        <div id="ErrorContainer" class="container">
+            <div id="logoContainer" class="col-md-4 col-lg-4 col-sm-8 col-xl-4 col-8">
+                <img id="logoImg" class="img-fluid" src="resources/images/logo_md.png">
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <hr class="solid d-lg-none d-md-none">
+                <div class="separator"></div>
+            </div>
+            <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
+                <h1 class="appTitle"><%= exception.getMessage() %></h1>
+                <a onclick="history.go(-1)">Clicca qui per tornare alla pagina precedente</a>
+            </div>
+        </div>
+    </body>
 </html>
