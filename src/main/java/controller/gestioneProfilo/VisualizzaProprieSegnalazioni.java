@@ -40,8 +40,9 @@ public class VisualizzaProprieSegnalazioni extends HttpServlet {
      * Metodo effettuato per poter visualizzare le proprie segnalazioni.
      * @param req oggetto che contiene la richiesta da parte di un client
      * @param resp oggetto che contiene la risposta che la servlet
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException se la richiesta non può essere gestita
+     * @throws IOException se viene rilevato un errore di input o output
+     *      quando la servlet gestisce la richiesta
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
