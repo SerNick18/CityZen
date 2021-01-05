@@ -53,9 +53,13 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                <button class="myBtnPink w-100">Carica Altro</button>
+                <input type="hidden" name="stato" value="chiusa">
+                <input type="hidden" name="tipo" value="chiuse-cittadino">
             </div>
         </div>
     </div>
 </div>
+<script src="./javascript/visualizza-altre-segnalazioni.js"></script>
 </body>
 </html>

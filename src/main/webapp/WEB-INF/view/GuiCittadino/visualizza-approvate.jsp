@@ -16,13 +16,13 @@
 <div class="container-fluid">
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
-        <div class="col-10 align-self-start">
-            <div class="row max-auto">
+        <div class="col-10 mx-auto">
+            <div class="row mx-auto">
                 <div class="col"><a href="ListApprovate">Approvate</a></div>
                 <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
                 <input type="hidden" name="numeroButton" value="0">
             </div>
-            <div class="table-responsive row align-items-center mt-3 panel panel-default">
+            <div class="table-responsive row align-items-center mx-auto panel panel-default">
                 <table class="table rounded">
                     <thead class="thead-dark">
                     <tr>
@@ -50,18 +50,22 @@
                             </c:choose>
                             <td> ${i.numSolleciti} </td>
                             <td>
-                                <form class="form-group" action="inoltroSol" method="post">
+                                <!--<form class="form-group" action="inoltroSol" method="post">
                                     <button class="btn-Sol" type="submit" name="id" value="${i.id}">+</button>
-                                </form>
+                                </form>-->
+                                <a style="text-decoration: none;" href="inoltroSol?id=${i.id}" class="btn-Sol" type="submit" >+</a>
                             </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
+                <button class="myBtnPink w-100">Carica Altro</button>
+                <input type="hidden" name="stato" value="approvata">
+                <input type="hidden" name="tipo" value="approvate-cittadino">
             </div>
         </div>
     </div>
 </div>
-
+<script src="./javascript/visualizza-altre-segnalazioni.js"></script>
 </body>
 </html>

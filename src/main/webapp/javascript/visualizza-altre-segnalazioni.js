@@ -1,13 +1,16 @@
 $("document").ready(function () {
-    $(".btn-success").hide();
+    $(".myBtnPink").hide();
     var nSegnalazioni=document.getElementsByTagName("tbody")[0].childElementCount;
     if(nSegnalazioni==20){
-        $(".btn-success").show();
+        $(".myBtnPink").show();
     }
     var offset=20;
-    $(".btn-success").click(function () {
+    var tipo=$('input[name=tipo]').val();
+    console.log(tipo);
+    $(".myBtnPink").click(function () {
+        console.log("cliccato");
         //recupera lo stato delle segnalazioni da caricare
-        var stato=$('input[type=hidden]').val();
+        var stato=$('input[name=stato]').val();
         //chiamata ajax
         $.ajax({
             type: "POST",
@@ -28,10 +31,13 @@ $("document").ready(function () {
                     var tdSolleciti=document.createElement("td");
                     var tdPriorita=document.createElement("td");
                     var tdRiaperta=document.createElement("td");
+                    var tdFeedback=document.createElement("td");
+                    var tdSollecitoButton=document.createElement("td");
 
                     //oggetto
                     var a=document.createElement("a");
                     a.setAttribute("href", "dettagli?id="+data[i].id);
+                    a.setAttribute("class", "greyText");
                     a.innerText=data[i].oggetto;
                     tdOggetto.appendChild(a);
                     tr.appendChild(tdOggetto);
@@ -40,26 +46,64 @@ $("document").ready(function () {
                     tdNome.innerText=data[i].c.nome;
                     tr.appendChild(tdNome);
 
-                    //numero solleciti
-                    tdSolleciti.innerText=data[i].numSolleciti;
-                    tr.appendChild(tdSolleciti);
 
-                    //priorita
-                    tdPriorita.innerText=data[i].priorita;
-                    tr.appendChild(tdPriorita);
+                    if(tipo!=null && tipo.includes("approvate-cittadino")){
+                        console.log("aaa");
+                        //priorita
+                        tdPriorita.innerText=data[i].priorita;
+                        tr.appendChild(tdPriorita);
 
-                    //riaperta
-                    if(data[i].segnalazione.riaperta==0){
-                        tdRiaperta.innerText="Nessuno";
+                        //riaperta
+                        if(data[i].segnalazione.riaperta==0){
+                            tdRiaperta.innerText="Nessuno";
+                        }else{
+                            tdRiaperta.innerText=data[i].segnalazione.riaperta
+                        }
+                        tr.appendChild(tdRiaperta);
+
+                        //numero solleciti
+                        tdSolleciti.innerText=data[i].numSolleciti;
+                        tr.appendChild(tdSolleciti);
+
+                        var a=document.createElement("a");
+                        a.setAttribute("href", "inoltroSol?id="+data[i].id);
+                        a.setAttribute("style", "text-decoration: none;");
+                        a.setAttribute("class", "btn-Sol");
+                        a.innerText="+";
+                        tdSollecitoButton.appendChild(a);
+                        tr.appendChild(tdSollecitoButton);
+
                     }else{
-                        tdRiaperta.innerText=data[i].segnalazione.riaperta
+                        console.log("bbb");
+                        //numero solleciti
+                        tdSolleciti.innerText=data[i].numSolleciti;
+                        tr.appendChild(tdSolleciti);
+
+                        //priorita
+                        tdPriorita.innerText=data[i].priorita;
+                        tr.appendChild(tdPriorita);
+
+                        //riaperta
+                        if(data[i].segnalazione.riaperta==0){
+                            tdRiaperta.innerText="Nessuno";
+                        }else{
+                            tdRiaperta.innerText=data[i].segnalazione.riaperta
+                        }
+                        tr.appendChild(tdRiaperta);
                     }
-                    tr.appendChild(tdRiaperta);
+
+                    if(tipo!=null && tipo.includes("chiuse-cittadino")){
+                        var a=document.createElement("a");
+                        a.setAttribute("href", "inserimentoFeedback?id="+data[i].id+"&provenienza=listaChiuse");
+                        a.innerText="Inserisci feedback";
+                        tdFeedback.appendChild(a);
+                        tr.appendChild(tdFeedback);
+                    }
 
                     tbody[0].appendChild(tr);
                 }
                 if(data.length<20){
-                    $(".btn-success").hide();
+                    $(".myBtnPink").hide();
                 }
             },
             error: function () {
