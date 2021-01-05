@@ -21,7 +21,7 @@
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
             <div class="row align-items-start">
-                <h1>Dettagli Segnalazione</h1>
+                <h1 class="boldFont">Dettagli Segnalazione</h1>
             </div>
             <div class="row align-items-start mt-3" style="margin-left: auto;">
                 <!--col of photo-->

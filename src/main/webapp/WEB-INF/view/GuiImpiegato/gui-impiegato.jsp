@@ -18,11 +18,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <!-- Le prossime 3 righe sono state aggiunte perchè con bootstrap precedente il css non veniva mostrato correttamente -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+    <!-- Google Poppins font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/></head>
 <body>
 <%
     Impiegato impiegato = (Impiegato) session.getAttribute("Impiegato");
@@ -31,30 +29,29 @@
     FacadeDAO facadeDAO = new FacadeDAO();
     ArrayList<SegnalazioneInterface> segnalazioni = (ArrayList<SegnalazioneInterface>) facadeDAO.getSegnalazioniInoltrate(0);
 %>
-<h1>Ciao <%=impiegato.getNome()%></h1>
-
 
 <div class="container-fluid">
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 align-self-start">
             <div class="row align-items-start">
-                <h1>Segnalazioni</h1>
+                <h1 class="boldFont">Segnalazioni</h1>
             </div>
             <div class="row align-items-start">
-                <div class="col"><a href="visualizza-segnalazioni-inoltrate">Inoltrate</a></div>
-                <div class="col"><a href="ListApprovate">Approvate</a></div>
-                <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
+                <div class="col"><a href="visualizza-segnalazioni-inoltrate" class="greyText">Inoltrate</a></div>
+                <div class="col"><a href="ListApprovate" class="greyText">Approvate</a></div>
+                <div class="col"><a href="visualizzaChiuse" class="greyText">Chiuse</a></div>
             </div>
             <div class="row align-items-center mt-3">
                 <c:forEach items="<%=segnalazioni%>" var="s">
-                    <div class="col-4 mt-3">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-3 textAlignCenter">
                         <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">${s.oggetto}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Priorità: ${s.priorita}</h6>
-                                <p class="card-text">Numero solleciti: ${s.numSolleciti}</p>
-                                <a href="dettagli?id=${s.id}" class="card-link">Dettagli</a>
+                            <div class="card-body boxShadow cardSegnalazione">
+                                <h5 class="card-title boldFont">${s.oggetto}</h5>
+                                <hr class="mb-3">
+                                <h6 class="card-subtitle mb-3 text-muted">Priorità: ${s.priorita}</h6>
+                                <p class="card-text mb3">Numero solleciti: ${s.numSolleciti}</p>
+                                <a href="dettagli?id=${s.id}" class="greyText">Dettagli</a>
                             </div>
                         </div>
                     </div>
