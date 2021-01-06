@@ -25,7 +25,7 @@
                 <jsp:include page="header.jsp"></jsp:include>
                 <div class="col-10 align-self-start">
                     <div class="row align-items-start">
-                        <h1 class="boldFont">Segnalazioni Approvate</h1>
+                        <h1 class="boldFont">Segnalazioni Inoltrate</h1>
                     </div>
                     <div class="row mx-auto">
                         <div class="col"><a href="visualizza-segnalazioni-inoltrate" class="greyText">Inoltrate</a></div>
@@ -42,7 +42,7 @@
                                         <th scope="col">Segnalato da</th>
                                         <th scope="col">Numero Solleciti</th>
                                         <th scope="col">Priorità</th>
-                                        <th scope="col" style="border-top-right-radius: 20px;">Riaperto da</th>
+                                        <th scope="col" style="border-top-right-radius: 20px;">Segnalazione riaperta</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -54,10 +54,10 @@
                                             <td>${i.priorita}</td>
                                             <c:choose>
                                                 <c:when test="${i.riaperta!=0}">
-                                                    <td>${i.riaperta}</td>
+                                                    <td><a href="dettagli?id=${i.riaperta}" class="greyText">Visualizza</a></td>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <td>Nessuno</td>
+                                                    <td>Non riaperta</td>
                                                 </c:otherwise>
                                             </c:choose>
                                         </tr>

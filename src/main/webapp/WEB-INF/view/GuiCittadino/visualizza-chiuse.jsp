@@ -29,7 +29,7 @@
                         <th scope="col">Segnalato da</th>
                         <th scope="col">Numero Solleciti</th>
                         <th scope="col">Priorità</th>
-                        <th scope="col">Riaperto da</th>
+                        <th scope="col">Segnalazione riaperta</th>
                         <th scope="col">Feedback</th>
                     </tr>
                     </thead>
@@ -42,10 +42,10 @@
                             <td>${i.priorita}</td>
                             <c:choose>
                                 <c:when test="${i.riaperta!=0}">
-                                    <td>${i.riaperta}</td>
+                                    <td><a href="dettagli?id=${i.riaperta}" class="greyText">Visualizza</a></td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td>Nessuno</td>
+                                    <td>Non riaperta</td>
                                 </c:otherwise>
                             </c:choose>
                             <td><a href="inserimentoFeedback?id=${i.id}&provenienza=listaChiuse">Inserisci feedback</a> </td>

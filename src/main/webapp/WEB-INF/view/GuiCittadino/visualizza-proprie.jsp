@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/styleL.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -35,7 +35,7 @@
                                 <th scope="col">Stato</th>
                                 <th scope="col">Numero Solleciti</th>
                                 <th scope="col">Priorità</th>
-                                <th scope="col">Riaperto da</th>
+                                <th scope="col">Segnalazione riaperta</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -47,20 +47,24 @@
                                     <td>${i.priorita}</td>
                                     <c:choose>
                                         <c:when test="${i.riaperta!=0}">
-                                            <td>${i.riaperta}</td>
+                                            <td><a href="dettagli?id=${i.riaperta}" class="greyText">Visualizza</a></td>
                                         </c:when>
                                         <c:otherwise>
-                                            <td>Nessuno</td>
+                                            <td>Non riaperta</td>
                                         </c:otherwise>
                                     </c:choose>
                                 </tr>
                             </c:forEach>
                             </tbody>
                         </table>
+                        <button class="myBtnPink w-100">Carica Altro</button>
+                        <input type="hidden" name="tipo" value="proprie-segnalazioni">
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
+<script src="./javascript/visualizza-altre-segnalazioni.js"></script>
 </body>
 </html>

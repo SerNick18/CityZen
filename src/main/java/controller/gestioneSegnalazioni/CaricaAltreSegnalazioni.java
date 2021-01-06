@@ -1,7 +1,8 @@
-package controller.operazioni_impiegato;
+package controller.gestioneSegnalazioni;
 
 import com.google.gson.Gson;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
+import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
 
 import javax.servlet.ServletException;
@@ -45,17 +46,24 @@ public class CaricaAltreSegnalazioni extends HttpServlet {
 
         String stato = req.getParameter("stato");
         int offset = Integer.parseInt(req.getParameter("offset"));
+        String tipo = req.getParameter("tipo");
+        Cittadino c = (Cittadino) req.getSession().getAttribute("Cittadino");
         FacadeDAO service = new FacadeDAO();
         Gson gson = new Gson();
+        List<SegnalazioneInterface> segnalazioni = null;
 
-        List<SegnalazioneInterface> inoltrate = service
-                .getSegnalazioniByStato(stato, offset);
-
-        for (SegnalazioneInterface s : inoltrate) {
-            s.getRiaperta();
+        if (tipo != null && tipo.equals("proprie-segnalazioni")) {
+            segnalazioni = service
+                    .getSegnalazioneByCittadino(c.getCF(), offset);
+        } else {
+            segnalazioni = service
+                    .getSegnalazioniByStato(stato, offset);
+            for (SegnalazioneInterface s : segnalazioni) {
+                s.getRiaperta();
+            }
         }
 
-        String result = gson.toJson(inoltrate);
+        String result = gson.toJson(segnalazioni);
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
         out.println(result);
