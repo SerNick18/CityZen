@@ -12,14 +12,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Segnalazioni Approvate</h1>
 <div class="container-fluid">
     <div class="row h-100">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="col-10 mx-auto">
             <div class="row mx-auto">
-                <div class="col"><a href="ListApprovate">Approvate</a></div>
-                <div class="col"><a href="visualizzaChiuse">Chiuse</a></div>
+                <h1 class="boldFont">SEGNALAZIONI APPROVATE</h1>
+            </div>
+            <div class="row mx-auto">
+                <div class="col"><a class="greyText" href="ListApprovate">Approvate</a></div>
+                <div class="col"><a class="greyText" href="visualizzaChiuse">Chiuse</a></div>
                 <input type="hidden" name="numeroButton" value="0">
             </div>
             <div class="table-responsive row align-items-center mx-auto panel panel-default">

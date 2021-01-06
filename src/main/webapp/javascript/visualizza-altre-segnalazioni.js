@@ -1,11 +1,11 @@
 $("document").ready(function () {
-    $(".myBtnPink").hide();
+    $("button.myBtnPink").hide();
     var nSegnalazioni=document.getElementsByTagName("tbody")[0].childElementCount;
     if(nSegnalazioni==20){
-        $(".myBtnPink").show();
+        $("button.myBtnPink").show();
     }
     var offset=20;
-    $(".myBtnPink").click(function () {
+    $("button.myBtnPink").click(function () {
         console.log("cliccato");
         var tipo=$('input[name=tipo]').val();
         //recupera lo stato delle segnalazioni da caricare
@@ -141,7 +141,7 @@ $("document").ready(function () {
                     tbody[0].appendChild(tr);
                 }
                 if(data.length<20){
-                    $(".myBtnPink").hide();
+                    $("button.myBtnPink").hide();
                 }
             },
             error: function () {
