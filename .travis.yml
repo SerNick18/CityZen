@@ -6,3 +6,8 @@ jdk:
   - openjdk14
 script: mvn clean verify
 services: - mysql
+spring:
+datasource: 
+url: jdbc:mysql://localhost:3306/cityzendb?serverTimezone=UTC
+username: root
+password: admin
