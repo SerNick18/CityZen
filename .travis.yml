@@ -4,4 +4,4 @@ jdk:
   - openjdk12
   - openjdk13
   - openjdk14
-script: mvn test -B
+script: mvn clean verify
