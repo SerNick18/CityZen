@@ -1,0 +1,7 @@
+language: java
+sudo: false # faster builds
+jdk:
+  - openjdk12
+  - openjdk13
+  - openjdk14
+script: "mvn --show-version --errors --batch-mode clean verify"
