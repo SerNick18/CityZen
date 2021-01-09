@@ -4,4 +4,4 @@ jdk:
   - openjdk12
   - openjdk13
   - openjdk14
-script: "mvn --show-version --errors --batch-mode clean verify"
+script: mvn clean verify
