@@ -180,7 +180,7 @@ function validaPassword() {
             passwordOk = false;
             document.getElementById('registramimessaggio').innerHTML = 'La password deve contenere almeno 8 caratteri, ' +
                 'almeno una lettera maiuscola, una lettera minuscola,\n' +
-                '             * un numero ed un carattere speciale.';
+                '             * un numero.';
         }
     } else {
         inputpw.style.border = borderNo;
@@ -188,7 +188,7 @@ function validaPassword() {
         passwordOk = false;
         document.getElementById('registramimessaggio').innerHTML = 'La password deve contenere almeno 8 caratteri, ' +
             'almeno una lettera maiuscola, una lettera minuscola,\n' +
-            '             * un numero ed un carattere speciale.';
+            '             * un numero.';
     }
     cambiaStatoRegistrami();
 
