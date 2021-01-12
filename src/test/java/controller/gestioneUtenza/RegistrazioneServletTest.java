@@ -391,7 +391,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals("La password deve contenere almeno 8 caratteri, "
                 + "almeno una lettera maiuscola, "
                 + "una lettera minuscola,\n"
-                + " * un numero ed un carattere speciale.", exception.getMessage());
+                + " * un numero.", exception.getMessage());
     }
 
     @Test
@@ -409,7 +409,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals("La password deve contenere almeno 8 caratteri, "
                 + "almeno una lettera maiuscola, "
                 + "una lettera minuscola,\n"
-                + " * un numero ed un carattere speciale.", exception.getMessage());
+                + " * un numero.", exception.getMessage());
     }
 
     @Test
@@ -427,7 +427,7 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals("La password deve contenere almeno 8 caratteri, "
                 + "almeno una lettera maiuscola, "
                 + "una lettera minuscola,\n"
-                + " * un numero ed un carattere speciale.", exception.getMessage());
+                + " * un numero.", exception.getMessage());
     }
 
     @Test
