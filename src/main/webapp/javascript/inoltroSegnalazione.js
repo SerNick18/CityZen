@@ -23,7 +23,7 @@ function submitForm(){
 function validateOggetto(){
     var oggetto = document.getElementById("oggetto");
     var messageOggetto = document.getElementById("messageOggetto");
-    if (oggetto.value.match(/([A-Za-z0-9']\s*){4,25}/)){
+    if (oggetto.value.match(/^([A-Za-z0-9']\s*){4,25}$/)){
         oggetto.style.border = borderOk;
         oggettoOK = true;
         messageOggetto.innerHTML = "";
@@ -52,7 +52,7 @@ function validateDescrizione(){
 function validateVia(){
     var via = document.getElementById("via");
     var messageVia = document.getElementById("messageVia");
-    if (via.value.match(/([A-Za-z0-9]\s*){2,200}/)){
+    if (via.value.match(/^([A-Za-z0-9]\s*){2,200}$/)){
         via.style.border = borderOk;
         viaOK = true;
         messageVia.innerHTML = ""
@@ -67,7 +67,7 @@ function validateVia(){
 function validateCivico(){
     var civico = document.getElementById("civico");
     var messageCivico = document.getElementById("messageCivico");
-    if (civico.value.match(/[0-9]{1,5}/)){
+    if (civico.value.match(/^[0-9]{1,5}$/)){
         civico.style.border = borderOk;
         messageCivico.innerHTML = ""
         civicoOK = true;

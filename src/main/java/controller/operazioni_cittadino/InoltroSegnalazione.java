@@ -84,7 +84,7 @@ public class InoltroSegnalazione extends HttpServlet {
                 throw new MyServletException(
                         "Compilare tutti i campi richiesti!");
             }
-            if (!Pattern.matches("([A-Za-z0-9']\\s*){4,25}", oggetto)) {
+            if (!Pattern.matches("^([A-Za-z0-9']\\s*){4,25}$", oggetto)) {
                 throw new MyServletException(
                         "L'oggetto deve essere lungo minimo 4 e massimo 25 "
                                 + "caratteri. Non può contenere "
@@ -95,7 +95,7 @@ public class InoltroSegnalazione extends HttpServlet {
                         "La descrizione deve essere lunga minimo 10 caratteri "
                                 + "e massimo 500");
             }
-            if (!Pattern.matches("([A-Za-z0-9]\\s*){2,200}", via)) {
+            if (!Pattern.matches("^([A-Za-z0-9]\\s*){2,200}$", via)) {
                 throw new MyServletException(
                         "La via deve essere lunga minimo 2 e massimo 200 "
                                 + "caratteri. Non può contenere caratteri "
