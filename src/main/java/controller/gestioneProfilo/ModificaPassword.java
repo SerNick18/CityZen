@@ -132,7 +132,7 @@ public class ModificaPassword extends HttpServlet {
                     }
                     if (!newPass.equals(newPass2)) {
                         throw new MyServletException("Le password nuove "
-                                + "non corrispondono");
+                                 + "non corrispondono");
                     }
                     service.doUpdatePasswordByEmailImpiegato(
                             impiegato.getEmail(), newPass);
