@@ -73,7 +73,7 @@ public class ModificaPassword extends HttpServlet {
                     } catch (NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
-                    String passwordAttuale = service.getCittadinoByCf(cittadino.getCF()).getPwd();
+                    String passwordAttuale = cittadino.getPwd();
                     if (!passwordAttuale.equals(passwordHash)) {
                         throw new MyServletException(
                                 "La vecchia password non corrisponde "
@@ -136,6 +136,8 @@ public class ModificaPassword extends HttpServlet {
                     }
                     service.doUpdatePasswordByEmailImpiegato(
                             impiegato.getEmail(), newPass);
+                    req.getSession().removeAttribute("Impiegato");
+                    req.getSession().setAttribute("Imipegato", service.getImpiegatoByEmail(impiegato.getEmail()));
                     RequestDispatcher dispatcher =
                             req.getRequestDispatcher("WEB-INF/view/"
                                     + "GuiImpiegato/gui-impiegato.jsp");

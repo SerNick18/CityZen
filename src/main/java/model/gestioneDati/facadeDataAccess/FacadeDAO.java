@@ -323,7 +323,6 @@ public class FacadeDAO {
     public void doInsertFeedback(Feedback feedback) {
         feedbackDAO.doInsertFeedback(feedback);
     }
-
     /**
      * Il metodo verifica se un cittadino ha già inserito
      * un feedback per una determinata segnalazione.
@@ -336,6 +335,16 @@ public class FacadeDAO {
                                                    int idSegnalazione) {
        return feedbackDAO.isCittadinoFeedbackSegnalazione(cfCittadino,
                idSegnalazione);
+    }
+    /**
+     * Il metodo restituisce un impiegato
+     * in base alla sua email
+     * @param email dell'impiegato da ristituire
+     * @return l'impiegato con la mail data
+     * in input
+     */
+    public Impiegato getImpiegatoByEmail(String email){
+        return impiegatoDAO.doRetrieveByEmail(email);
     }
 
 }
