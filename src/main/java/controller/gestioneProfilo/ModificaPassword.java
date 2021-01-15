@@ -128,7 +128,7 @@ public class ModificaPassword extends HttpServlet {
                                 + " nuove non rispettano il formato ("
                                 + "Almeno 8 caratteri, 1 lettera maiuscola,"
                                 + " 1 minuscola, 1 numero"
-                                + " ed 1 carattere speciale");
+                        );
                     }
                     if (!newPass.equals(newPass2)) {
                         throw new MyServletException("Le password nuove "
