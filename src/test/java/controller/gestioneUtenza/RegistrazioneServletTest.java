@@ -118,54 +118,6 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals("Email errata!", exception.getMessage());
     }
 
-    @Test
-    void testEmailNoPattern() {
-        request.addParameter("nome", "Francesco");
-        request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "abc@abc@abc.it");
-        request.addParameter("cf", "");
-        request.addParameter("pwd1", "");
-        request.addParameter("pwd2", "");
-        request.addParameter("via", "");
-        request.addParameter("civico", "");
-        request.addParameter("citta", "");
-        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
-        assertEquals("Email errata!", exception.getMessage());
-    }
-
-    @Test
-    void testEmailImpiegato() {
-        request.addParameter("nome", "Francesco");
-        request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "abc@scafati.it");
-        request.addParameter("cf", "");
-        request.addParameter("pwd1", "");
-        request.addParameter("pwd2", "");
-        request.addParameter("via", "");
-        request.addParameter("civico", "");
-        request.addParameter("citta", "");
-        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
-        assertEquals("Email errata!", exception.getMessage());
-    }
-    @Test
-    void testEmailGiaPresente() throws MyServletException {
-        Cittadino cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
-                "via roma",3,"Fisciano","cattaneo@gmail.com",0,0);
-        service.registraCittadino(cittadino);
-        request.addParameter("nome", "Francesco");
-        request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "cattaneo@gmail.com");
-        request.addParameter("cf", "");
-        request.addParameter("pwd1", "");
-        request.addParameter("pwd2", "");
-        request.addParameter("via", "");
-        request.addParameter("civico", "");
-        request.addParameter("citta", "");
-        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
-        assertEquals("Email errata!", exception.getMessage());
-        service.eliminaCittadino(cittadino.getCF());
-    }
-
     @Test //test email errato - non rispetta pattern
     void testEmailFormatError() {
         request.addParameter("nome", "Francesco");
@@ -182,10 +134,26 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
     }
 
     @Test
-    void testEmailError() {
+    void testEmailGiaPresente() {
         request.addParameter("nome", "Francesco");
         request.addParameter("cognome", "Sabia");
         request.addParameter("email", "asdf00@gmail.com");
+        request.addParameter("cf", "");
+        request.addParameter("pwd1", "");
+        request.addParameter("pwd2", "");
+        request.addParameter("via", "");
+        request.addParameter("civico", "");
+        request.addParameter("citta", "");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
+        assertEquals("Email errata!", exception.getMessage());
+    }
+
+
+    @Test //test email che contiene "@scafati.it"
+    void testEmailImpiegato() {
+        request.addParameter("nome", "Francesco");
+        request.addParameter("cognome", "Sabia");
+        request.addParameter("email", "abc@scafati.it");
         request.addParameter("cf", "");
         request.addParameter("pwd1", "");
         request.addParameter("pwd2", "");
@@ -211,20 +179,6 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         assertEquals("Codice fiscale errato!", exception.getMessage());
     }
 
-    @Test //test codice fiscale errore pattern
-    void testCfFormatError() {
-        request.addParameter("nome", "Francesco");
-        request.addParameter("cognome", "Sabia");
-        request.addParameter("email", "abcd98@gmail.com");
-        request.addParameter("cf", "ASDFC98TH");
-        request.addParameter("pwd1", "");
-        request.addParameter("pwd2", "");
-        request.addParameter("via", "");
-        request.addParameter("civico", "");
-        request.addParameter("citta", "");
-        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
-        assertEquals("Codice fiscale errato!", exception.getMessage());
-    }
 
     @Test //test codice fiscale errore pattern
     void testCfFormatError2() {
@@ -453,6 +407,21 @@ class RegistrazioneServletTest extends RegistrazioneServlet {
         request.addParameter("cf", "SBAFNC98T26H703S");
         request.addParameter("pwd1", "Password1!");
         request.addParameter("pwd2", "passw");
+        request.addParameter("via", "via europa");
+        request.addParameter("civico", "12");
+        request.addParameter("citta", "Salerno");
+        MyServletException exception = assertThrows(MyServletException.class, () -> {registrazioneServlet.doPost(request, response);});
+        assertEquals("Le due password non corrispondono", exception.getMessage());
+    }
+
+    @Test
+    void testPassword2NoMatch3(){
+        request.addParameter("nome", "Francesco");
+        request.addParameter("cognome", "Sabia");
+        request.addParameter("email", "abcd98@gmail.com");
+        request.addParameter("cf", "SBAFNC98T26H703S");
+        request.addParameter("pwd1", "Password1!");
+        request.addParameter("pwd2", "Passwward1!");
         request.addParameter("via", "via europa");
         request.addParameter("civico", "12");
         request.addParameter("citta", "Salerno");
