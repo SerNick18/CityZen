@@ -8,5 +8,5 @@ script: mvn clean verify
 services:
   - mysql
 before_install:
-  - mysql -u root --password="admin" <test/travis.sql
+  - mysql -u root --password="admin" < test/travis.sql
 
