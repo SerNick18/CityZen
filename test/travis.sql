@@ -1,5 +1,5 @@
 
-CREATE USER 'root'@'localhost' IDENTIFIED BY 'admin';
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';
 GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON *.* TO 'root'@'localhost'
 
 CREATE DATABASE  IF NOT EXISTS `cityzendb` /*!40100 DEFAULT CHARACTER SET latin1 */;
