@@ -27,9 +27,9 @@ public class ConnectionPool {
             p.setUrl("jdbc:mysql://localhost:3306/cityzendb?serverTimezone="
                     + TimeZone.getDefault().getID());
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
-            p.setUsername("dev");
-            p.setPassword("admin");
-            //p.setPassword("");
+            p.setUsername("root");
+            //p.setPassword("admin");
+            p.setPassword("");
             p.setMaxActive(100);
             p.setInitialSize(10);
             p.setMinIdle(10);

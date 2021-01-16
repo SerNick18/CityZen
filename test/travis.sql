@@ -1,7 +1,3 @@
-
-CREATE USER 'dev'@'localhost' IDENTIFIED BY 'admin';
-GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON *.* TO 'dev'@'localhost';
-
 CREATE DATABASE  IF NOT EXISTS `cityzendb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `cityzendb`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
