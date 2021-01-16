@@ -15,7 +15,7 @@ function cambiaStatoRegistrami() {
         document.getElementById('registrami').disabled = false;
         document.getElementById('registramimessaggio').innerHTML = '';
     } else {
-        document.getElementById('registrami').disabled = true;
+       // document.getElementById('registrami').disabled = true;
 //document.getElementById('registramimessaggio').innerHTML = 'Verifica che tutti i campi siano in verde.';
     }
 }
