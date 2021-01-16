@@ -18,7 +18,7 @@ public class UserNotFound {
 
     @Before
     public void setUp() throws Exception {
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\Francesco Sabia\\Downloads\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver","C:\\driver\\geckodriver.exe");
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
