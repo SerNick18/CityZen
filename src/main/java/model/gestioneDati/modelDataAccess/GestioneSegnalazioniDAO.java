@@ -70,7 +70,7 @@ public class GestioneSegnalazioniDAO {
             ArrayList<Impiegato> impiegati = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM gestionesegnalazioni "
-                            + "JOIN Impiegato i "
+                            + "JOIN impiegato i "
                             + "ON gestionesegnalazioni.Impiegato=i.Matricola "
                             + "WHERE segnalazione=? ");
             statement.setInt(1, idSegnalazione);
