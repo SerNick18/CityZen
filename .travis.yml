@@ -1,5 +1,5 @@
 language: java
-sudo: true # faster builds
+sudo: false # faster builds
 jdk:
   - openjdk12
   - openjdk13
@@ -7,4 +7,6 @@ jdk:
 script: mvn clean verify
 services:
   - mysql
-dist: xenial
+before_install:
+  - mysql -u root --password="admin" <test/travis.sql
+
