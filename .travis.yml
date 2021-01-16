@@ -8,6 +8,6 @@ script: mvn clean verify
 services:
   - mysql
 before_install:
-  - mysql -u dev --password="" < test/travis.sql
+  - mysql -u dev < test/travis.sql
 
 
