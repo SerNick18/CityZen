@@ -8,9 +8,9 @@ script: mvn clean verify
 services:
   - mysql
 before_install:
-  - service mysql stop
-  - mysqld --init-file= test/mysql-init.txt
-  - service mysql start
+  - sudo service mysql stop
+  - sudo mysqld --init-file= test/mysql-init.txt
+  - sudo service mysql start
   - mysql -u root --password="admin" < test/travis.sql
 
 
