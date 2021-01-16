@@ -2,13 +2,13 @@ var borderOk = '2px solid #080';
 var borderNo = '2px solid #f00';
 var emailOk = false;
 var passwordOk = false;
-function cambiaStatoRegistrami() {
-    if (emailOk && passwordOk){
-        document.getElementById('loginId').disabled = false;
-        document.getElementById('loginmessaggio').innerHTML = '';
-    } else {
-        document.getElementById('loginId').disabled = true;
-        document.getElementById('loginmessaggio').innerHTML = 'Verifica che tutti i campi siano in verde.';
+var loginForm = document.getElementById("loginAccesso");
+function submitLogin(){
+    if (emailOk&&passwordOk){
+        loginForm.submit();
+    }else{
+        validaEmail();
+        validaPassword();
     }
 }
 function validaEmail() {
@@ -21,7 +21,6 @@ function validaEmail() {
         emailOk = false;
         document.getElementById('loginmessaggio').innerHTML = 'Email non  valida.';
     }
-    cambiaStatoRegistrami();
 }
 function validaPassword() {
     var inputpw = document.forms['loginAccesso']['pwd']
@@ -37,5 +36,4 @@ function validaPassword() {
             'almeno una lettera maiuscola, una lettera minuscola,\n' +
             '             * un numero.';
     }
-    cambiaStatoRegistrami();
 }

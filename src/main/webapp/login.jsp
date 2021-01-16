@@ -40,7 +40,7 @@
                         <a href="recupera-password.html" class="appLink">Password dimenticata?</a>
                 </div>
                 <div class="row md-3">
-                    <button type="submit" class="appButtonBlack" id="loginId" disabled>Login</button>
+                    <button type="submit" class="appButtonBlack" id="loginId" onclick="submitLogin()">Login</button>
                     <span id="loginmessaggio">${notifica}</span><br>
                 </div>
                 <div class="row mb-3">

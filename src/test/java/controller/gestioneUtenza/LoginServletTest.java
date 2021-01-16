@@ -44,7 +44,7 @@ class LoginServletTest extends LoginServlet {
         request.addParameter("pwd", "Password00");
         MyServletException exception = assertThrows(MyServletException.class, () -> {
             servlet.doPost(request, response);});
-        assertEquals("Controlla correttezza campi", exception.getMessage());
+        assertEquals("Controlla la correttezza campi", exception.getMessage());
     }
 
     @Test
@@ -62,7 +62,7 @@ class LoginServletTest extends LoginServlet {
         request.addParameter("pwd", "");
         MyServletException exception = assertThrows(MyServletException.class, () -> {
             servlet.doPost(request, response);});
-        assertEquals("Controlla correttezza campi", exception.getMessage());
+        assertEquals("Controlla la correttezza campi", exception.getMessage());
     }
 
     @Test
@@ -80,7 +80,7 @@ class LoginServletTest extends LoginServlet {
         request.addParameter("pwd", "Password00");
         MyServletException exception = assertThrows(MyServletException.class, () -> {
             servlet.doPost(request, response);});
-        assertEquals("Controlla correttezza campi", exception.getMessage());
+        assertEquals("Controlla la correttezza campi", exception.getMessage());
     }
 
     @Test
@@ -89,7 +89,7 @@ class LoginServletTest extends LoginServlet {
         request.addParameter("pwd", "passw");
         MyServletException exception = assertThrows(MyServletException.class, () -> {
             servlet.doPost(request, response);});
-        assertEquals("Controlla correttezza campi", exception.getMessage());
+        assertEquals("Controlla la correttezza campi", exception.getMessage());
     }
 
     @Test
@@ -98,7 +98,7 @@ class LoginServletTest extends LoginServlet {
         request.addParameter("pwd", "password");
         MyServletException exception = assertThrows(MyServletException.class, () -> {
             servlet.doPost(request, response);});
-        assertEquals("Controlla correttezza campi", exception.getMessage());
+        assertEquals("Controlla la correttezza campi", exception.getMessage());
     }
 
     @Test

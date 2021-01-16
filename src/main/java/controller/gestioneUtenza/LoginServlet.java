@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                 || pwd.compareTo("") == 0
                 || !Pattern.matches("^(?=.*\\d)(?=.*[a-z])"
                + "(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", pwd)) {
-            throw new MyServletException("Controlla correttezza campi");
+            throw new MyServletException("Controlla la correttezza campi");
         } else if (email.contains("@scafati.it")) { //login impiegato
             Impiegato impiegato = service.loginImpiegato(email, pwd);
             if (impiegato != null) {

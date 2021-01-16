@@ -10,9 +10,13 @@
     <head>
         <title>CityZen - Errore</title>
         <link rel="stylesheet" href="css/styleError.css">
+        <link rel="stylesheet" href="css/styleL.css">
+        <link rel="stylesheet" href="css/style.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    </head>
+        <!-- Google Poppins font -->
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/></head>
     <body bgcolor="#008b8b">
         <div id="loginContainer" class="container">
             <div id="loginRow" class="row justify-content-center">
@@ -24,8 +28,12 @@
                     <div class="separator"></div>
                 </div>
                 <div class="col-md-3 col-lg-4 col-sm-8 col-xl-4 col-8">
-                    <h1 class="appTitle"><%= exception.getMessage() %></h1>
-                    <a onclick="history.go(-1)">Clicca qui per tornare alla pagina precedente</a>
+                    <div class="row justify-content-center">
+                        <h1 class="appTitle"><%= exception.getMessage() %></h1>
+                        <button class="myBtnGreen mt-5">
+                            <a onclick="history.go(-1)">Clicca qui per tornare alla pagina precedente</a>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
