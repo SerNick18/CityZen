@@ -1,5 +1,5 @@
 language: java
-sudo: true # faster builds
+sudo: false # faster builds
 jdk:
   - openjdk12
   - openjdk13
@@ -8,9 +8,6 @@ script: mvn clean verify
 services:
   - mysql
 before_install:
-  - sudo service mysql stop
-  - mysqld --init-file= test/mysql-init.txt
-  - sudo service mysql start
-  - mysql -u root --password="admin" < test/travis.sql
+  - mysql -u dev --password="" < test/travis.sql
 
 
