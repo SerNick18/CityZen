@@ -11,6 +11,6 @@ before_install:
   - service mysql stop
   - mysqld --init-file= test/mysql-init.txt
   - service mysql start
-  - mysql -u root --password=YES < test/travis.sql
+  - mysql -u root --password="admin" < test/travis.sql
 
 
