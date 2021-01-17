@@ -9,7 +9,25 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class LoginPass {
+import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
+import org.junit.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
+import org.junit.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class LoginPassHome {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -24,15 +42,17 @@ public class LoginPass {
     }
 
     @Test
-    public void testLoginPass() throws Exception {
-        driver.get("http://localhost:8080/CityZen_war_exploded/index.jsp");
-        driver.findElement(By.linkText("Accedi")).click();
+    public void testUntitledTestCase() throws Exception {
+        driver.get("http://localhost:8080/CityZen_war_exploded/login.jsp");
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
-        driver.findElement(By.id("email")).sendKeys("sabiafrancesco98@gmail.com");
+        driver.findElement(By.id("email")).sendKeys("leocapuano0@gmail.com");
+        driver.findElement(By.id("pwd")).click();
         driver.findElement(By.id("pwd")).clear();
-        driver.findElement(By.id("pwd")).sendKeys("Password1");
+        driver.findElement(By.id("pwd")).sendKeys("Password1!");
+        driver.findElement(By.xpath("//body")).click();
         driver.findElement(By.id("loginId")).click();
+        driver.findElement(By.linkText("Home")).click();
     }
 
     @After
@@ -77,4 +97,3 @@ public class LoginPass {
         }
     }
 }
-
