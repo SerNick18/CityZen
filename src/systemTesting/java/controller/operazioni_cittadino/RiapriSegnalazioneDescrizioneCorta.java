@@ -1,7 +1,12 @@
 package controller.operazioni_cittadino;
 
+import java.util.Date;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
+import model.gestioneDati.facadeDataAccess.FacadeDAO;
+import model.gestioneDati.modelObjects.Cittadino;
+import model.gestioneDati.modelObjects.Segnalazione;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -14,9 +19,28 @@ public class RiapriSegnalazioneDescrizioneCorta {
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
+    static FacadeDAO service=new FacadeDAO();
+    static Cittadino cittadino;
+    static Segnalazione segnalazione;
 
     @Before
     public void setUp() throws Exception {
+        cittadino = new Cittadino("FRSGSP99L28B964R", "Giuseppe", "Fresco", "Prova123",
+                "via roma", 3, "Scafati", "abcdef@prova.com", 0, 0);
+        service.registraCittadino(cittadino);
+        segnalazione = new Segnalazione();
+        segnalazione.setVia("roma");
+        segnalazione.setCivico(3);
+        segnalazione.setPriorita(0);
+        segnalazione.setNumSolleciti(0);
+        segnalazione.setStato("chiusa");
+        segnalazione.setDataSegnalazione(new Date());
+        segnalazione.setDescrizione("grossa fuoriuscita d'acqua");
+        segnalazione.setOggetto("testSegnalazione");
+        segnalazione.setFoto("immagine.png");
+        segnalazione.setRiaperta(0);
+        segnalazione.setCittadino(cittadino);
+        service.inserisciSegnalazione(segnalazione);
         System.setProperty("webdriver.gecko.driver","C:\\driver\\geckodriver.exe");
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/";
@@ -29,12 +53,12 @@ public class RiapriSegnalazioneDescrizioneCorta {
         driver.findElement(By.linkText("Accedi")).click();
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
-        driver.findElement(By.id("email")).sendKeys("abcdef@prova.com");
+        driver.findElement(By.id("email")).sendKeys(cittadino.getEmail());
         driver.findElement(By.id("pwd")).clear();
-        driver.findElement(By.id("pwd")).sendKeys("Prova123");
+        driver.findElement(By.id("pwd")).sendKeys(cittadino.getPwd());
         driver.findElement(By.id("loginId")).click();
         driver.findElement(By.linkText("Chiuse")).click();
-        driver.findElement(By.linkText("prova40")).click();
+        driver.findElement(By.linkText("testSegnalazione")).click();
         driver.findElement(By.name("riapri")).click();
         driver.findElement(By.id("descrizione")).click();
         driver.findElement(By.id("descrizione")).clear();
@@ -45,6 +69,8 @@ public class RiapriSegnalazioneDescrizioneCorta {
     @After
     public void tearDown() throws Exception {
         driver.quit();
+        service.eliminaSegnalazione(segnalazione.getId());
+        service.eliminaCittadino(cittadino.getCF());
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
