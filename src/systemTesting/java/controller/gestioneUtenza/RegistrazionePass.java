@@ -3,6 +3,8 @@ package controller.gestioneUtenza;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
+import model.gestioneDati.facadeDataAccess.FacadeDAO;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -15,6 +17,7 @@ public class RegistrazionePass {
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
+    FacadeDAO service = new FacadeDAO();
 
     @Before
     public void setUp() throws Exception {
@@ -30,9 +33,9 @@ public class RegistrazionePass {
         driver.findElement(By.linkText("Registrati")).click();
         driver.findElement(By.id("nome")).click();
         driver.findElement(By.id("nome")).clear();
-        driver.findElement(By.id("nome")).sendKeys("Francesco");
+        driver.findElement(By.id("nome")).sendKeys("Antonio");
         driver.findElement(By.id("cognome")).clear();
-        driver.findElement(By.id("cognome")).sendKeys("Sabia");
+        driver.findElement(By.id("cognome")).sendKeys("Giordano");
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("asgf99@gmail.com");
         driver.findElement(By.id("cf")).clear();
@@ -52,6 +55,7 @@ public class RegistrazionePass {
 
     @After
     public void tearDown() throws Exception {
+        service.eliminaCittadino("SBAFNC98T26H703R");
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
