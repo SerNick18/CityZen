@@ -48,7 +48,7 @@ public class SegnalazioneDAO {
                 segnalazioni.add(s);
             }
             return segnalazioni;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -200,7 +200,7 @@ public class SegnalazioneDAO {
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
             segnalazione.setId(rs.getInt(1));
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
