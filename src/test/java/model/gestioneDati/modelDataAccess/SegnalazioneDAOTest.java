@@ -15,11 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SegnalazioneDAOTest extends SegnalazioneDAO {
     SegnalazioneDAO segnalazioneDAO;
+    CittadinoDAO cittadinoDAO;
     Segnalazione segnalazione;
     Cittadino cittadino;
     @BeforeEach
     void setUp() {
         segnalazioneDAO = new SegnalazioneDAO();
+        cittadinoDAO = new CittadinoDAO();
         segnalazione = new Segnalazione();
         segnalazione.setId(3333);
         segnalazione.setOggetto("aaaaaaaaaaaaaaaa");
@@ -34,12 +36,14 @@ class SegnalazioneDAOTest extends SegnalazioneDAO {
         segnalazione.setRiaperta(0);
         cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Cattaneo", "Cityzen10!",
                 "via roma", 3, "Fisciano", "cattaneo@gmail.com", 0, 0);
+        cittadinoDAO.doRegister(cittadino);
         segnalazione.setCittadino(cittadino);
         segnalazioneDAO.doInsert(segnalazione);
     }
     @AfterEach
     void tearDown() throws MyServletException {
         segnalazioneDAO.doDelete(segnalazione.getId());
+        cittadinoDAO.doDelete(cittadino.getCF());
     }
     @Test
     void testDoRetrieveInoltrateProxy() {
