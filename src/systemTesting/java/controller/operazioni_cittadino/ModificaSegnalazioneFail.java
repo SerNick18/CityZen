@@ -14,17 +14,18 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class RiapriSegnalazioneDescrizioneCorta {
+public class ModificaSegnalazioneFail {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    static FacadeDAO service=new FacadeDAO();
-    static Cittadino cittadino;
-    static Segnalazione segnalazione;
+    private Cittadino cittadino;
+    private FacadeDAO service;
+    private Segnalazione segnalazione;
 
     @Before
     public void setUp() throws Exception {
+        service = new FacadeDAO();
         cittadino = new Cittadino("FRSGSP99L28B964R", "Giuseppe", "Fresco", "Prova123",
                 "via roma", 3, "Scafati", "abcdef@prova.com", 0, 0);
         service.registraCittadino(cittadino);
@@ -33,7 +34,7 @@ public class RiapriSegnalazioneDescrizioneCorta {
         segnalazione.setCivico(3);
         segnalazione.setPriorita(0);
         segnalazione.setNumSolleciti(0);
-        segnalazione.setStato("chiusa");
+        segnalazione.setStato("inoltrata");
         segnalazione.setDataSegnalazione(new Date());
         segnalazione.setDescrizione("grossa fuoriuscita d'acqua");
         segnalazione.setOggetto("testSegnalazione");
@@ -45,33 +46,32 @@ public class RiapriSegnalazioneDescrizioneCorta {
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
     }
 
     @Test
-    public void testRiapriSegnalazioneDescrizioneCorta() throws Exception {
+    public void testModificaSegnalazioneFail() throws Exception {
         driver.get("http://localhost:8080/CityZen_war_exploded/index.jsp");
         driver.findElement(By.linkText("Accedi")).click();
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys(cittadino.getEmail());
+        driver.findElement(By.id("pwd")).click();
         driver.findElement(By.id("pwd")).clear();
         driver.findElement(By.id("pwd")).sendKeys(cittadino.getPwd());
-        driver.findElement(By.id("loginId")).click();
-        driver.findElement(By.linkText("Chiuse")).click();
+        driver.findElement(By.id("loginAccesso")).submit();
+        driver.findElement(By.linkText("Le mie segnalazioni")).click();
         driver.findElement(By.linkText("testSegnalazione")).click();
-        driver.findElement(By.name("riapri")).click();
-        driver.findElement(By.id("descrizione")).click();
-        driver.findElement(By.id("descrizione")).clear();
-        driver.findElement(By.id("descrizione")).sendKeys("a");
+        driver.findElement(By.name("approva")).click();
+        driver.findElement(By.id("civico")).click();
+        driver.findElement(By.id("civico")).clear();
+        driver.findElement(By.id("civico")).sendKeys("1000000");
         driver.findElement(By.id("buttonInoltro")).click();
     }
 
     @After
     public void tearDown() throws Exception {
-        driver.quit();
-        service.eliminaSegnalazione(segnalazione.getId());
         service.eliminaCittadino(cittadino.getCF());
+        driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
@@ -111,4 +111,3 @@ public class RiapriSegnalazioneDescrizioneCorta {
         }
     }
 }
-
