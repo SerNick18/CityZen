@@ -22,9 +22,8 @@ class FeedbackDAOTest extends FeedbackDAO {
     static FacadeDAO service;
     static Cittadino cittadino;
     static Segnalazione segnalazione;
-    static Segnalazione segnalazione1;
-    static DataSource dataSource;
-    final static int id=547;
+    static Feedback feedback2;
+
 
     @BeforeEach
     void setUp() {
@@ -37,30 +36,39 @@ class FeedbackDAOTest extends FeedbackDAO {
         cittadino = new Cittadino("CPNLLD11S19A489D", "Giuseppe", "Freschetto", "32ca9fc1a0f5b6330e3f4c8c1bbecde9bedb9573",
                 "via roma",3,"Fisciano","freschetto@gmail.com",0,0);
 
-        segnalazione1 = service.getSegnalazioneById(1);
         service.registraCittadino(cittadino);
-        service.doInsertFeedback(new Feedback(cittadino,segnalazione1,"bravi,ottimo lavoro",5,new Date()));
+
+        segnalazione = new Segnalazione();
+        segnalazione.setVia("roma");
+        segnalazione.setCivico(3);
+        segnalazione.setPriorita(0);
+        segnalazione.setNumSolleciti(0);
+        segnalazione.setStato("chiusa");
+        segnalazione.setDataSegnalazione(new Date());
+        segnalazione.setDescrizione("grossa fuoriuscita d'acqua");
+        segnalazione.setOggetto("Perdita d'acqua");
+        segnalazione.setFoto("immagine.png");
+        segnalazione.setRiaperta(0);
+        segnalazione.setCittadino(cittadino);
+        service.inserisciSegnalazione(segnalazione);
+        service.doInsertFeedback(new Feedback(cittadino,segnalazione,"bravi,ottimo lavoro",5,new Date()));
+        feedback2 = new Feedback(cittadino,null,"bravi,ottimo lavoro",5,new Date());
     }
 
     @Test
     void testdoRetrieveFeedBackBySegnalazionePass(){
-        assertDoesNotThrow(() -> {feedbackdao.doRetrieveFeedBackBySegnalazione(1);});
+        assertDoesNotThrow(() -> {feedbackdao.doRetrieveFeedBackBySegnalazione(segnalazione.getId());});
     }
 
- /*   @Test
-    void testdoRetrieveFeedBackBySegnalazioneFail(){
-        assertThrows(Exception.class, () -> { feedbackdao.doRetrieveFeedBackBySegnalazione(1); });
-    } */
 
     @Test
     void testIsCittadinoFeedbackSegnalazione(){
-        assertDoesNotThrow(() -> {feedbackdao.isCittadinoFeedbackSegnalazione(cittadino.getCF(),1);});
+        assertDoesNotThrow(() -> {feedbackdao.isCittadinoFeedbackSegnalazione(cittadino.getCF(),segnalazione.getId());});
     }
 
     @Test
     void testDoInsertFeedback(){
-        Feedback feedback = new Feedback(cittadino,null,"bravi,ottimo lavoro",5,new Date());
-        assertThrows(Exception.class, () -> { feedbackdao.doInsertFeedback(feedback); });
+        assertThrows(Exception.class, () -> { feedbackdao.doInsertFeedback(feedback2); });
     }
 
     @AfterAll
