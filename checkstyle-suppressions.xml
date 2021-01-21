@@ -10,7 +10,7 @@
     <suppress checks="FinalParameters" files=".*[\\/]src[\\/]"/>
     <suppress checks="DesignForExtension" files=".*[\\/]src[\\/]"/>
     <suppress checks="AvoidStarImport" files=".*[\\/]src[\\/]"/>
-    <suppress checks="MagicNumber" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="MagicNumberStyle" files=".*[\\/]src[\\/]test[\\/]"/>
 
     <suppress checks="HiddenField" files=".*[\\/]src[\\/]"/>
 </suppressions>

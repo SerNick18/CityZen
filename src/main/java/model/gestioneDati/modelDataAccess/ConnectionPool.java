@@ -28,7 +28,6 @@ public class ConnectionPool {
                     + TimeZone.getDefault().getID());
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
             p.setUsername("root");
-            //p.setPassword("admin");
             p.setPassword("");
             p.setMaxActive(100);
             p.setInitialSize(10);

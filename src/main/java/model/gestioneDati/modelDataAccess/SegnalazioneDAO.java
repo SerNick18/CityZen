@@ -3,7 +3,6 @@ package model.gestioneDati.modelDataAccess;
 import controller.gestioneUtenza.MyRuntimeException;
 import controller.gestioneUtenza.MyServletException;
 import model.gestioneDati.facadeDataAccess.FacadeDAO;
-import model.gestioneDati.modelObjects.Cittadino;
 import model.gestioneDati.modelObjects.Segnalazione;
 import model.gestioneDati.modelObjects.SegnalazioneInterface;
 import model.gestioneDati.modelObjects.SegnalazioneProxy;

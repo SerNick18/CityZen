@@ -343,7 +343,7 @@ public class FacadeDAO {
      * @return l'impiegato con la mail data
      * in input
      */
-    public Impiegato getImpiegatoByEmail(String email){
+    public Impiegato getImpiegatoByEmail(String email) {
         return impiegatoDAO.doRetrieveByEmail(email);
     }
 
