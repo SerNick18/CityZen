@@ -60,21 +60,21 @@ public class MandaEmail extends HttpServlet {
         PrintWriter out = resp.getWriter();
         FacadeDAO service = new FacadeDAO();
         if (email.compareTo("") == 0
-               || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)){
+               || !Pattern.matches("[A-Za-z.]+[0-9]*@[A-Za-z.]+", email)) {
             throw new MyServletException("Inserisci un email valida");
         }
-        String utente="";
-        Impiegato impiegato=null;
-        Cittadino cittadino=null;
-        if(email.contains("@scafati.it")){
-            utente="impiegato";
-            impiegato=service.verificaEmailImpiegato(email);
-        }else {
+        String utente = "";
+        Impiegato impiegato = null;
+        Cittadino cittadino = null;
+        if (email.contains("@scafati.it")) {
+            utente = "impiegato";
+            impiegato = service.verificaEmailImpiegato(email);
+        } else {
             utente = "cittadino";
             cittadino = service.verificaEmailCittadino(email);
         }
 
-        if (cittadino != null || impiegato!=null) {
+        if (cittadino != null || impiegato != null) {
             //manda email
             String host = "smtp.gmail.com";
             String oggetto = "Reimposta la password";
