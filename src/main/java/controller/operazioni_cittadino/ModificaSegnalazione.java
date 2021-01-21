@@ -119,6 +119,7 @@ public class ModificaSegnalazione extends HttpServlet {
                     segnalazione.setVia(via);
                     segnalazione.setCivico(civico);
                     segnalazione.setDescrizione(descrizione);
+
                     if ((uploadImage(req).equals(""))) {
                         segnalazione.setFoto(segnalazione.getFoto());
                     } else {
