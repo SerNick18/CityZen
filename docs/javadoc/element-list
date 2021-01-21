@@ -1,0 +1,8 @@
+controller.gestioneProfilo
+controller.gestioneSegnalazioni
+controller.gestioneUtenza
+controller.operazioni_cittadino
+controller.operazioni_impiegato
+model.gestioneDati.facadeDataAccess
+model.gestioneDati.modelDataAccess
+model.gestioneDati.modelObjects
